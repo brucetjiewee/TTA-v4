@@ -1,2 +1,2 @@
-"# TTA-v4" 
-"# TTA-v4" 
+# ttav4
+TimeTable Assistant Version 4
