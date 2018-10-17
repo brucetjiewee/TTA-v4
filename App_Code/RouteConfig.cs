@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Routing;
 using Microsoft.AspNet.FriendlyUrls;
 
-namespace ttav4
+namespace TTA
 {
     public static class RouteConfig
     {

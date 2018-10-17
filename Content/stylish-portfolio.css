@@ -1,0 +1,329 @@
+﻿/*!
+ * Start Bootstrap - Stylish Portfolio Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Global Styles */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+	background-color: #42A5F5;
+    /*font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;*/
+    font-family:Lato;
+    font-size:large;
+    text-align:justify;
+}
+
+.LatoFont {
+    font-family:Lato;
+}
+
+.text-vertical-center {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.text-vertical-center h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 4.5em;
+    font-weight: 700;
+}
+
+@media(max-width:768px){
+    .text-vertical-center h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 2.5em;
+        font-weight: 700;
+    }
+}
+/* Custom Button Styles */
+
+.btn-dark {
+    border-radius: 0;
+    color: #fff;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active {
+    color: #fff;
+    background-color: rgba(0,0,0,0.7);
+    border-bottom-color:red;
+}
+
+.btn-light {
+    border-radius: 0;
+    color: #333;
+    background-color: rgb(255,255,255);
+}
+
+.btn-light:hover,
+.btn-light:focus,
+.btn-light:active {
+    color: #333;
+    background-color: rgba(255,255,255,0.8);
+    border-bottom-color:red;
+}
+
+/* Custom Horizontal Rule */
+
+hr.small {
+    max-width: 100px;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid white;
+    padding: 0;
+}
+
+.thumbnail > hr {
+    border-top: 1px solid red;
+}
+
+hr.smallDark {
+    max-width: 100px;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid black;
+    padding: 0;
+}
+
+#menu-toggle {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+#sidebar-wrapper.active {
+    right: 250px;
+    width: 250px;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+.toggle {
+    margin: 5px 5px 0 0;
+}
+
+/* Header */
+
+.header {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: url(../img/back1.jpg) no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+/* About */
+
+.about {
+    padding: 50px 0;
+}
+
+/* Services */
+
+.services {
+    padding: 50px 0;
+}
+
+.service-item {
+    margin-bottom: 30px;
+}
+
+/* Callout */
+
+.callout {
+    display: table;
+    width: 100%;
+    height: 400px;
+    color: #fff;
+    background: url(../img/callout.jpg) no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+/* Portfolio */
+
+.portfolio {
+    padding: 50px 0;
+}
+
+.portfolio-item {
+    margin-bottom: 30px;
+}
+
+.img-portfolio {
+    margin: 0 auto;
+}
+
+.img-portfolio:hover {
+    opacity: 0.8;
+}
+
+/* Call to Action */
+
+.call-to-action {
+    padding: 50px 0;
+}
+
+.call-to-action .btn {
+    margin: 10px;
+}
+
+/* Map */
+
+.map {
+    height: 500px;
+}
+
+@media(max-width:768px) {
+    .map {
+        height: 75%;
+    }
+    
+    .shieght
+    {/*header height. Need to now give it padding because it doesnt start at the same place now */
+        /*margin-top:100px;*/
+    }
+}
+
+/* Footer */
+
+footer {
+    padding: 50px 0;
+	background-color:white;
+    
+}
+
+/* body */
+.red{
+ background-color: #337ab7;
+}
+
+blue{
+	background-color: #2196F3;
+}
+
+white{
+	background-color:#ffffff; !important;
+}
+
+.lightgradiant{
+    background-color:#42A5F5;
+}
+
+.txtLg{
+    font-size:x-large;
+}
+
+.panel-body{
+    background-color:#BBDEFB;
+}
+
+.blueFont {
+    color:darkblue;
+}
+
+redFont{
+    color:aqua;
+}
+
+.hiddenitem{
+    display:none;
+}
+
+.panel-body > form > .form-group > label{
+    color:black;
+    font-size:large;
+}
+
+.bar{
+    height:8px;
+    background-color:white;
+}
+
+.boxBorder{
+    border: 1px solid transparent;
+    border-top-color:red;
+    border-right-color:red;
+    margin-bottom:10px;
+    border-radius: 25px;
+}
+
+.BorderThick{
+    border: 5px solid red;
+    
+    margin-bottom:10px;
+    border-radius: 25px;
+}
+
+.BorderThickWhite{
+    border: 5px solid white;
+    
+    margin-bottom:10px;
+    border-radius: 25px;
+}
+
+.topSpace{
+    margin-top:12px;
+}
+
+.largeForm{
+    max-width:1000px
+}
+
+.TechtionRed
+{
+    color: Red;
+    /*text-shadow:1px 1px 1px #333;*/
+}
+
+.TechtionBlue
+{
+    color:#1EB9F1;
+    /*text-shadow:1px 1px 1px #333;*/
+}
+
+h4 > strong {
+    font-size: 1.45em;
+}
+
+.glyphicon{
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+}
+
+.subtitle{
+	font-size: 24px;
+	margin-top: 20px;
+    margin-bottom: 10px;
+	font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+	display: block;
+	-webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+	text-align: center;
+	box-sizing: border-box;
+}

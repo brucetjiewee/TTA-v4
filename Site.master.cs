@@ -66,19 +66,11 @@ public partial class SiteMaster : MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!this.IsPostBack)
-        {
-            //lblTime.InnerHtml = DateTime.Now.ToString("hh:mm");
-        }
+
     }
 
     protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
     {
         Context.GetOwinContext().Authentication.SignOut();
-    }
-
-    protected void RefreshTime(object sender, EventArgs e)
-    {
-        //lblTime.InnerHtml = DateTime.Now.ToString("hh:mm");
     }
 }

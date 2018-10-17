@@ -11,21 +11,4 @@ public partial class _Default : Page
     {
 
     }
-
-    protected void TextBox1_TextChanged(object sender, EventArgs e)
-    {
-
-    }
-
-
-
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    protected void btnGetStarted_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("Wizard.aspx");
-    }
 }

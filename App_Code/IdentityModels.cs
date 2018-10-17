@@ -3,9 +3,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using System.Web;
 using System;
-using ttav4;
+using TTA;
 
-namespace ttav4
+namespace TTA
 {
     // You can add User data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
@@ -30,7 +30,7 @@ namespace ttav4
     }
 }
 
-namespace ttav4
+namespace TTA
 {
     public static class IdentityHelper
     {

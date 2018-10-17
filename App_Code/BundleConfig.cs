@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Optimization;
 using System.Web.UI;
 
-namespace ttav4
+namespace TTA
 {
     public class BundleConfig
     {
@@ -14,12 +14,12 @@ namespace ttav4
         {
             bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
                             "~/Scripts/WebForms/WebForms.js",
-                            //"~/Scripts/WebForms/WebUIValidation.js",
-                            //"~/Scripts/WebForms/MenuStandards.js",
-                            //"~/Scripts/WebForms/Focus.js",
+                            "~/Scripts/WebForms/WebUIValidation.js",
+                            "~/Scripts/WebForms/MenuStandards.js",
+                            "~/Scripts/WebForms/Focus.js",
                             "~/Scripts/WebForms/GridView.js",
-                            //"~/Scripts/WebForms/DetailsView.js",
-                            //"~/Scripts/WebForms/TreeView.js",
+                            "~/Scripts/WebForms/DetailsView.js",
+                            "~/Scripts/WebForms/TreeView.js",
                             "~/Scripts/WebForms/WebParts.js"));
 
             // Order is very important for these files to work, they have explicit dependencies
@@ -33,19 +33,7 @@ namespace ttav4
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                             "~/Scripts/modernizr-*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/everything").Include(
-                            "~/Scripts/WebForms/MsAjax/MicrosoftAjax.js",
-                    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxApplicationServices.js",
-                    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js",
-                    "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js",
-                    "~/Scripts/WebForms/WebForms.js",
-                    "~/Scripts/WebForms/GridView.js",
-                    "~/Scripts/WebForms/WebParts.js",
-                    "~/Scripts/respond.min.js",
-                    "~/Scripts/bootstrap.min.js",
-                    "~/Scripts/jquery-3.1.1.min.js"));
-
+            
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "respond",
                 new ScriptResourceDefinition

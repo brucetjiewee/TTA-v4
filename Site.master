@@ -1,86 +1,26 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head runat="server">
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><%: Page.Title %> | TUKS TimeTable Assistant Version 4.0.0 | University of Pretoria | LiuPark</title>
-    <meta name="description" content="Chylls TimeTable Assistant at the University of Pretoria helps students put together their university TimeTables with TimeTable generation, clash detection and prevention, and the integration of personal events.">
-    <meta name="keywords" content="south africa, University of Pretoria, project, CHYLLS TimeTable Assistant, TUKS, TimeTable generate, hatfield campus, mamelodi, theology, philosophy" />
-    <meta name="author" content="Chylls Software Development">
-    <meta name="subject" content="System">
-    <meta name="language" content="English">
-    <meta http-equiv="cache-control" content="public">
-    <meta name="designer" content="Chylls Software Development">
-    <meta name="distribution" content="Global">
-    <meta name="robots" content="index,follow">
-    <meta name="city" content="Pretoria">
-    <meta name="country" content="South Africa">
-    <meta name="copyright" content="Copyright © 2017 Timetable Assistant v4.0.1. All Rights Reserved.">
-    <%--<asp:PlaceHolder runat="server">
-        <%: Scripts.Render("~/bundles/modernizr") %>
-    </asp:PlaceHolder>--%><webopt:bundlereference runat="server" path="~/Content/css" />
-    <link href="Design Graphics/tta-favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <link id="TTALogoIcon" href="Design Graphics/TTATempLogoWhiteBg2.png" rel="icon" type="image/x-icon" />
-    <%--<link rel="stylesheet" href="Content/agency.min.css" />--%>
-    <link rel="stylesheet" href="Content/font-awesome.min.css" />
-    <link rel="stylesheet" href="Content/style.min.css" />
-    <link rel="stylesheet" type="text/css" href="Content/LoadingSpinner.css" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
-    <script src="Scripts/jquery-3.1.1.min.js"></script>
-    <meta property="og:title" content="Chylls TimeTable Assistant involved by Chylls Software Development" />
-    <meta property="og:image" content="Deign%20Graphics/K%20Transparent.png" />
-    <meta property="og:site_name" content="Chylls Software Development" />
-    <meta property="og:url" content="http://www.chylls.co.za" />
-    <meta property="og:description" content="Chylls TimeTable Assistant at the University of Pretoria helps students put together their university timetables with timetable generation, clash detection and prevention, and the integration of personal events." />
-    <meta name="twitter:card" content="http://www.chylls.co.za">
-    <meta name="twitter:site" content="http://www.chylls.co.za">
-    <meta name="twitter:creator" content="Yi-Yu (Bruce) Liu, Luke Voigt, Ruco Pretorius">
-    <meta name="twitter:title" content="Chylls TimeTable Assistant involved by Chylls Software Development">
-    <meta name="twitter:description" content="Chylls TimeTable Assistant at the University of Pretoria helps students put together their university timetables with timetable generation, clash detection and prevention, and the integration of personal events.">
-    <meta name="twitter:image:src" content="Deign%20Graphics/K%20Transparent.png">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script>(function (i, s, o, g, r, a, m) { i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m) })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga'); ga('create', 'UA-91315283-1', 'auto'); ga('send', 'pageview');</script>  
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
-<script>
-    window.addEventListener("load", function () {
-        window.cookieconsent.initialise({
-            "palette": {
-                "popup": {
-                    "background": "#237afc"
-                },
-                "button": {
-                    "background": "#fff",
-                    "text": "#237afc"
-                }
-            },
-            "content": {
-                "message": "This website is owned and operated independently from the University of Pretoria. It is a tool intended to aid in the creation of your timetable and as such it is your own responsibility to ensure the accuracy of the timetable provided. For more information please feel free to contact us.",
-                "href": "http://www.chylls.co.za/About"
-            }
-        })
-    });
-</script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> | Chylls TimeTable Assistant | University of Pretoria</title>
 
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-8106843283574221",
-        enable_page_level_ads: true
-    });
-</script>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="Content/navbar.min.css" rel="stylesheet" />
+    <link href="Content/stylish-portfolio.min.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
 </head>
-<body style="min-width: 360px">
+<body>
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
@@ -91,12 +31,18 @@
                 <asp:ScriptReference Name="bootstrap" />
                 <asp:ScriptReference Name="respond" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
                 <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
                 <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
+
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -105,80 +51,62 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">
-                        <span style="font-family: 'Segoe UI'; text-transform: uppercase; font-weight: bold">
-                            <img src="Design Graphics/TTATempLogoWhiteBg2.png" alt="TTAv4Logo" style="width: 28px; height: 28px; border: 0; margin-top: -3px" />
-                            TimeTable Assistant</span>
+                     <a href="./" class="navbar-brand">
+                        <span style="font-weight: bold"> 
+                            <img src="Logo.png" alt="TTAv4Logo" style="width: 45px; height: 50px; border: 0" />
+                        Chylls TimeTable Assistant</span>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav" style="margin-top: 2px">
-                        <li class="text-left"><a runat="server" style="border-left: 1px solid tomato" href="~/Wizard"><span class="glyphicon glyphicon-th"></span>Wizard</a></li>
-                        <li class="text-left"><a runat="server" style="border-left: 1px solid tomato" href="~/About"><span class="glyphicon glyphicon-info-sign"></span>About</a></li>
-                        <li class="text-left"><a runat="server" style="border-left: 1px solid tomato" href="~/Contact"><span class="glyphicon glyphicon-envelope"></span>Contact</a></li>
+                    <ul class="nav navbar-nav">
+                        <li><a runat="server" href="~/Wizard">Wizard</a></li>
+                        <li><a runat="server" href="~/About">About</a></li>
+                        <li><a runat="server" href="~/Contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <asp:ContentPlaceHolder ID="Header" runat="server">
-        </asp:ContentPlaceHolder>
-        <%-- <div class="container body-content topSpace">--%>
-        <asp:ContentPlaceHolder ID="MainContent" runat="server">
-        </asp:ContentPlaceHolder>
-        <%-- </div>--%>
-        <%--<div class="platform" style="background-color: rgba(40, 40, 40, 1)">
-            <div class="platform-area-logo">
-                <img class="fit-image" style="height:85px" src="Design Graphics/techlaunchpad.png" />
-            </div>
-            <div class="platform-area-text">
-                <p class="platform-txt txt-large">Release your inner tycoon.</p>
-                <p class="platform-txt txt-body">An initiative to help student entrepreneurs develop business ideas</p>
-            </div>
-            <div class="platform-area-btn1 platform-btn btn-link">
-                <a class="platform-a" href="http://www.techlaunchpad.co.za/" target="blank">VISIT</a>
-            </div>
-            <div class="platform-area-btn2 platform-btn btn-twitter">
-                <a class="platform-a" href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fwww.chylls.co.za%2F&amp;ref_src=twsrc%5Etfw&amp;region=follow_link&amp;screen_name=UPTechLaunchPad&amp;tw_p=followbutton" target="blank">FOLLOW</a>
-            </div>
-        </div>--%>
-        <footer style="bottom: 0px;" class="bkb center-block">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-1 text-center">
-                        <h1 class="text-center">TUKS TimeTable Assistant</h1>
-                        <p class="fBold">                            
-                            Hatfield, Pretoria
-                        </p>
-                        <ul class="list-unstyled">
-                            <li>
-                                <script lang="javascript">var thing1 = "chyllsteam"; var thing2 = "gmail.com"; document.write('<a href="mai' + 'lto:' + thing1 + '@' + thing2 + '" class="btn btn-default fct"/><span class="glyphicon glyphicon-send"></span><br/>Email Us</a>');</script>
-                            </li>
-                        </ul>
-                        <br>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="https://web.facebook.com/TimeTableAssistant" target="_blank" title="TimeTable Assistant Facebook Page"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank" title="TimeTable Assistant Twitter Page"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank" title="TimeTable Assistant Google+ Page"><i class="fa fa-google-plus fa-fw fa-3x"></i></a>
-                            </li>
-                        </ul>
-                        <hr class="small">
-                        <asp:Label ID="lblDate" runat="server">&copy; <%: DateTime.Now.Year %> <span class="fct" class="fBold"> | </span> TimeTable Assistant v4.0.1</asp:Label>
-                        <p class="text-muted">
-                            System Developed by<br />
-                            <a href="http://www.chylls.co.za/About" target="_blank" title="ABOUT">CHYLLS SOFTWARE DEVELOPMENT</a> | <a href="sitemap.xml" target="_blank" title="TimeTable Assistant SiteMap">SITE-MAP</a> | <a href="http://www.chylls.co.za/About" target="_blank" title="TimeTable Assistant Disclaimer">DISCLAIMER</a>
-                        </p>
-                        <asp:Label ID="lblTime" runat="server">   <%: DateTime.Now.ToString("dddd, dd MMMM yyyy") %>  <span class="fct" class="fBold"> | </span>  <%: DateTime.Now.ToShortTimeString() %></asp:Label>
-                        <%--<asp:Timer runat="server" Interval="30000" OnTick="RefreshTime"></asp:Timer>--%>
-                        <!-- Timer to auto-refresh date/time -->
+        <div class="">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 col-lg-offset-1 text-center">
+                            <h1 class="text-center">TUKS TimeTable Assistant</h1>
+                            <p class="fBold">
+                                Hatfield, Pretoria
+                            </p>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <script lang="javascript">var thing1 = "chyllsteam"; var thing2 = "gmail.com"; document.write('<a href="mai' + 'lto:' + thing1 + '@' + thing2 + '" class="btn btn-default fct"/><span class="glyphicon glyphicon-send"></span><br/>Email Us</a>');</script>
+                                </li>
+                            </ul>
+                            <br>
+                            <ul class="list-inline">
+                                <li>
+                                    <a href="https://web.facebook.com/TimeTableAssistant" target="_blank" title="TimeTable Assistant Facebook Page"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank" title="TimeTable Assistant Twitter Page"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank" title="TimeTable Assistant Google+ Page"><i class="fa fa-google-plus fa-fw fa-3x"></i></a>
+                                </li>
+                            </ul>
+                            <hr class="small">
+                            <span id="lblDate">&copy; <%: DateTime.Now.Year %> <span class="fct" class="fBold">| </span>TimeTable Assistant v4.0.1</span>
+                            <p class="text-muted">
+                                System Developed by<br />
+                                <a href="http://www.chylls.co.za/About" target="_blank" title="ABOUT">CHYLLS SOFTWARE DEVELOPMENT</a> | <a href="sitemap.xml" target="_blank" title="TimeTable Assistant SiteMap">SITE-MAP</a> | <a href="http://www.chylls.co.za/About" target="_blank" title="TimeTable Assistant Disclaimer">DISCLAIMER</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
     </form>
+    <script src="Scripts/Navbar.min.js"></script>
 </body>
 </html>
