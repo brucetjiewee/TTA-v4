@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;//used for regex
     {
         /// <summary>
         /// this procedure will check through the array to see if the item 
-        /// is actually in existance within the array or not
+        /// is actually in existence within the array or not
         /// </summary>
         /// <param name="Sline"></param>
         /// <param name="List"></param>
@@ -29,7 +29,7 @@ using System.Text.RegularExpressions;//used for regex
         }
 
         //static string[] Times = { "07:30", "08:30", "09:30", "10:30", "11:30", "12:30", "13:30", "14:30", "15:30", "16:30", "17:30", "18:30", "19:30" };
-        static string[] types = { "lectures", "descussions", "practials", "tutorials", "seminars" };
+        static string[] types = { "lectures", "discussions", "practicals", "tutorials", "seminars" };
         static string[] DaysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
         static string[] Languages = { "Afrikaans", "English", "Both" };
 
@@ -39,7 +39,7 @@ using System.Text.RegularExpressions;//used for regex
 
             public LectureSin[] Sets;
             //---------------------------------//
-            public void AddItem()//somehow the methods that are made within the structs have no interferrence with the ones out side
+            public void AddItem()//somehow the methods that are made within the structs have no interference with the ones out side
             {
                 try
                 {

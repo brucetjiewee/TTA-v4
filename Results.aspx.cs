@@ -7,11 +7,6 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using itextsharp.pdfa;
-using iTextSharp;
-using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
-using iTextSharp.text.pdf;
 
 public partial class Results : System.Web.UI.Page
 {

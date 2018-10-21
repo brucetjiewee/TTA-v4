@@ -6,7 +6,6 @@ using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Globalss;
 
 public partial class Wizard : System.Web.UI.Page
 {
@@ -270,7 +269,7 @@ public partial class Wizard : System.Web.UI.Page
 
             if (lbxSource.Items.Count < 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('We couldnt find a module with that code. Please try again.')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('We couldn't find a module with that code. Please try again.')", true);
             }
         }
         catch (Exception)
@@ -493,7 +492,7 @@ public partial class Wizard : System.Web.UI.Page
             else
             {
                 //alert
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('We couldnt find a match for you. Please confirm that all provided information is accurate.')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('We couldn't find a match for you. Please confirm that all provided information is accurate.')", true);
             }
         }
         catch (Exception x)
@@ -636,11 +635,11 @@ public partial class Wizard : System.Web.UI.Page
             #region Roll back previous state
             //using the memnto design pattern to bring back the previous state that was on the table
             //this is done for user friendly GUI
-            gb.SHBox.Undo(Undo);
-            gb.TimeTable = null;
-            gb.UserModules = null;
-            gb.TimeTable = gb.DeepCopyTable(gb.SHBox.GetStateTable());
-            gb.UserModules = gb.DeepCopyModules(gb.SHBox.GetStateMod());
+            //gb.SHBox.Undo(Undo);
+            //gb.TimeTable = null;
+            //gb.UserModules = null;
+            //gb.TimeTable = gb.DeepCopyTable(gb.SHBox.GetStateTable());
+            //gb.UserModules = gb.DeepCopyModules(gb.SHBox.GetStateMod());
             //gb.UpdateTable();/////////////////////////////////////////////////////////////////
             //frmMain.UpdateTable(ref frmMain.dgvMain);
 

@@ -418,7 +418,7 @@ public class Globals
     /// A simple linear search function will be used because it is not expected for the user to have more than 20 modules
     /// </summary>
     /// <param name="Mcode"></param>module code
-    /// <returns></returns>true for existing, false for non-existance
+    /// <returns></returns>true for existing, false for non-existence
     public bool ExistInArray(string Mcode)
     {
         bool flag = false;//true until proven guilty
@@ -473,9 +473,9 @@ public class Globals
 
     #region undo and redo
     public int StateListIndex = -1;
-    public IList<Memento> undos = new List<Memento>();
-    public StateHolder SHBox = new StateHolder();
-    public Memento Undo;
+    //public IList<Memento> undos = new List<Memento>();
+    //public StateHolder SHBox = new StateHolder();
+    //public Memento Undo;
     public struct StateCapsual
     {
         public Table PartTable { get; set; }
@@ -556,16 +556,16 @@ public class Globals
     /// <summary>
     /// recursive function deleting all the items above current state index
     /// </summary>
-    public void RemoveAllAbove()
-    {
+    //public void RemoveAllAbove()
+    //{
 
-        if (StateListIndex < undos.Count - 1)//checking to find order of state
-        {
-            //delete all the later states
-            undos.RemoveAt(StateListIndex + 1);
-            RemoveAllAbove();
-        }
-    }
+    //    if (StateListIndex < undos.Count - 1)//checking to find order of state
+    //    {
+    //        //delete all the later states
+    //        undos.RemoveAt(StateListIndex + 1);
+    //        RemoveAllAbove();
+    //    }
+    //}
 
     /// <summary>
     /// this region contains the deep copy methods that allow the computer to make a full copy of the classes.
@@ -622,18 +622,18 @@ public class Globals
     }
     #endregion
 
-    public void NewState()
-    {
+    //public void NewState()
+    //{
 
-        RemoveAllAbove();//the if statement is declared in there
-        StateListIndex++;
-        StateCapsual NewCapsual = new StateCapsual();
-        NewCapsual.PartTable = DeepCopyTable(TimeTable);
-        NewCapsual.PartMod = DeepCopyModules(UserModules);
-        Undo = SHBox.SetState(NewCapsual);
-        undos.Add(Undo);
+    //    RemoveAllAbove();//the if statement is declared in there
+    //    StateListIndex++;
+    //    StateCapsual NewCapsual = new StateCapsual();
+    //    NewCapsual.PartTable = DeepCopyTable(TimeTable);
+    //    NewCapsual.PartMod = DeepCopyModules(UserModules);
+    //    Undo = SHBox.SetState(NewCapsual);
+    //    undos.Add(Undo);
 
-    }
+    //}
 
     #endregion
 
