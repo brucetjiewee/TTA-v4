@@ -12,12 +12,7 @@ body {
     padding-right: 15px;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
@@ -33,4 +28,15 @@ textarea {
     max-height:100vh;
     min-height:100vh;
     height:100vh;
+}
+
+.btnSharp{
+    border-radius:0;
+}
+
+.bodyBackground {
+    background-image: url('../img/back1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%
 }
