@@ -90,16 +90,17 @@
         <ContentTemplate>
             <div class="container">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-primary ative">
+                    <div class="panel panel-primary">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
                                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     <h3>Select your Campus <span class="glyphicon glyphicon-chevron-down pull-right"></span></h3>
 
                                 </a>
+                                <h4></h4>
                             </h4>
                         </div>
-                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="collapseOne" class="panel-collapse collapse <%= Session["ActiveOne"]%>" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <div class="container">
                                     <h2><span></span>Campus</h2>
@@ -119,9 +120,7 @@
                                             <asp:CheckBox class="list-group-item form-control" ID="cbxEngineering" runat="server" Text="Engineering Faculty" />
                                         </p>
                                     </div>
-                                    <span data-toggle="collapse" data-target="#collapseOne">
-                                        <a class="btn btn-primary btn-lg pull-right" role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseExample">Next <span class="glyphicon glyphicon-chevron-down"></span></a>
-                                    </span>
+                                    <asp:LinkButton ID="btnCampusNext" runat="server" CssClass="btn btn-primary btn-lg pull-right" OnClientClick="loadscreen()" OnClick="btnCampusNext_Click">Next <span class="glyphicon glyphicon-chevron-down"></span></asp:LinkButton>
                                 </div>
                             </div>
                         </div>
@@ -133,9 +132,10 @@
                                     <h3>Select your Modules<span class="glyphicon glyphicon-chevron-down pull-right"></span></h3>
 
                                 </a>
+                                <h4></h4>
                             </h4>
                         </div>
-                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div id="collapseTwo" class="panel-collapse collapse <%= Session["ActiveTwo"]%>" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
                                 <div class="container">
                                     <h2 class="fcb">
@@ -152,7 +152,7 @@
                                        Add <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
                                             </asp:LinkButton>
                                             <div class="input-group">
-                                                <asp:TextBox ID="txtInput" type="text" runat="server" AutoPostBack="true" OnTextChanged="btnSearch_Click" class="form-control" placeholder="E.g. EKN..."></asp:TextBox>
+                                                <asp:TextBox ID="txtInput" type="text" runat="server" OnTextChanged="btnSearch_Click" class="form-control" placeholder="E.g. EKN..."></asp:TextBox>
                                                 <span class="input-group-btn">
                                                     <asp:Button ID="btnSearch" type="button" runat="server" CssClass="btn btn-default" Text="Search" OnClick="btnSearch_Click" OnClientClick="loadscreen()" />
                                                 </span>
@@ -187,9 +187,10 @@
                                     <h3>Select your TimePeriod<span class="glyphicon glyphicon-chevron-down pull-right"></span></h3>
 
                                 </a>
+                                <h4></h4>
                             </h4>
                         </div>
-                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div id="collapseThree" class="panel-collapse collapse <%= Session["ActiveThree"]%>" role="tabpanel" aria-labelledby="headingThree">
                             <div class="panel-body">
                                 <div class="container">
                                     <h2 style="color: darkslateblue"><span></span>Period</h2>
