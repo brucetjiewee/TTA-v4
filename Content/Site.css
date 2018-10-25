@@ -40,3 +40,24 @@ body {
     background-attachment: fixed;
     background-size: 100%
 }
+
+.tableCell{
+    color:Black;
+    background-color:White;
+    border-width:1px;
+    border-style:Solid;
+    max-width:140px;
+    min-width:140px;
+}
+
+.tableHeader{
+    background-color:Black;
+    border-width:1px;
+    border-style:None;
+}
+
+.tableTimeHeader{
+    border-width:2px;
+    border-style:Solid;
+    width:30px;
+}

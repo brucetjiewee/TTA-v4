@@ -11,15 +11,15 @@ public partial class Wizard : System.Web.UI.Page
 {
     #region [PAGE VARIABLES & OBJECTS]
     int iCheckCount = 0; // Counter variable for checking number of campuses.
-    //string sPath1 = EMPTY_STRING; // Blank string for primary campus path capture.
-    //string sPath2 = EMPTY_STRING; // Blank string for secondary campus path capture.
+    //string sPath1 = Constants.EMPTY_STRING; // Blank string for primary campus path capture.
+    //string sPath2 = Constants.EMPTY_STRING; // Blank string for secondary campus path capture.
     string path = TUKSDOMAIN + "hatfield_TimeTable.csv";
     const string TUKSDOMAIN = "http://upnet.up.ac.za/tt/myTimeTable/";
 
     List<string> allMods = new List<string>();
     List<string> filterMods = new List<string>();
     const string COLLAPSE_ACTIVE_KEYWORD = "in";
-    const string EMPTY_STRING = "";
+
     const string CSV_EXTENTION = ".csv";
 
     const string HATFIELD = "hatfield_TimeTable";
@@ -33,6 +33,10 @@ public partial class Wizard : System.Web.UI.Page
     const string PANEL2_SESSION = "ActiveTwo";
     const string PANEL3_SESSION = "ActiveThree";
     const string MODULES_SESSION = "Modules";
+    const string PATH_SESSION = "Paths";
+    const string ALERTMESSAGE_HEADER = "alertMessage";
+    private const string CLASH_SESSION = "Clash";
+    private const string INPUTS_SESSION = "Inputs";
 
     #endregion
 
@@ -43,7 +47,7 @@ public partial class Wizard : System.Web.UI.Page
         {
             keyword = keyword.Insert(3, " ");
         }
-        keyword = keyword.Trim();
+        keyword = keyword.Trim().ToLower();
         List<string> modules = null;
 
         if (((List<string>)Session[campusName]) != null)
@@ -62,33 +66,38 @@ public partial class Wizard : System.Web.UI.Page
 
             using (StreamReader csvReader = new StreamReader(resp.GetResponseStream(), true))
             {
-                string sline = EMPTY_STRING;
-                string ModuleName = EMPTY_STRING;
+                string sline = Constants.EMPTY_STRING;
+                string ModuleName = Constants.EMPTY_STRING;
                 while (!string.IsNullOrWhiteSpace(sline = csvReader.ReadLine()))
                 {
-                    try
-                    {
-                        ModuleName = sline.Split(',')[1].Split('/')[1];
-                    }
-                    catch
+                    if (sline.ToLower().Contains(keyword))
                     {
                         try
                         {
-                            ModuleName = sline.Split(',')[1].Split(' ')[1] + " " + sline.Split(',')[1].Split(' ')[2];
+                            ModuleName = sline.Split(',')[1].Split('/')[1];
                         }
                         catch
                         {
+                            try
+                            {
+                                ModuleName = sline.Split(',')[1].Split(' ')[1] + " " + sline.Split(',')[1].Split(' ')[2];
+                            }
+                            catch
+                            {
 
+                            }
+                        }
+
+
+                        if (ModuleName.ToLower().Contains(keyword)
+                            && ModuleName.ToLower() != "module"
+                            && !modules.Any(o => o == ModuleName))
+                        {
+                            modules.Add(ModuleName);
                         }
                     }
-
-                    if (ModuleName.ToLower().Contains(keyword.ToLower()) && ModuleName.ToLower() != "module")
-                    {
-
-                        modules.Add(ModuleName);
-                    }
                 }
-                sline = EMPTY_STRING;
+                sline = Constants.EMPTY_STRING;
                 modules.Distinct().ToList().Sort();
                 Session[campusName] = modules;
             }
@@ -100,6 +109,7 @@ public partial class Wizard : System.Web.UI.Page
 
     List<string> getFullStrings(string url, string keyword)
     {
+        keyword = keyword.ToLower();
         string campusName = url.Substring(TUKSDOMAIN.Length) + "full";
         List<string> fullStrings = new List<string>();
 
@@ -111,33 +121,37 @@ public partial class Wizard : System.Web.UI.Page
 
             using (StreamReader csvReader = new StreamReader(resp.GetResponseStream(), true))
             {
-                string sline = EMPTY_STRING;
-                string ModuleName = EMPTY_STRING;
+                string sline = Constants.EMPTY_STRING;
+                string ModuleName = Constants.EMPTY_STRING;
                 while (!string.IsNullOrWhiteSpace(sline = csvReader.ReadLine()))//read till end of csv
                 {
-                    try
-                    {
-                        ModuleName = sline.Split(',')[1].Split('/')[1];
-                    }
-                    catch
+                    if (sline.ToLower().Contains(keyword))
                     {
                         try
                         {
-                            ModuleName = sline.Split(',')[1].Split(' ')[1] + " " + sline.Split(',')[1].Split(' ')[2];
+                            ModuleName = sline.Split(',')[1].Split('/')[1];
                         }
                         catch
                         {
+                            try
+                            {
+                                ModuleName = sline.Split(',')[1].Split(' ')[1] + " " + sline.Split(',')[1].Split(' ')[2];
+                            }
+                            catch
+                            {
 
+                            }
+                        }
+
+
+                        if (ModuleName.ToLower().Contains(keyword.ToLower()))
+                        {
+
+                            fullStrings.Add(sline);
                         }
                     }
 
-                    if (ModuleName.ToLower().Contains(keyword.ToLower()))
-                    {
-
-                        fullStrings.Add(sline);
-                    }
-
-                    sline = EMPTY_STRING;
+                    sline = Constants.EMPTY_STRING;
 
                 }
                 Session[campusName] = fullStrings;
@@ -197,7 +211,7 @@ public partial class Wizard : System.Web.UI.Page
             testUrls.Add(TUKSDOMAIN + MAMELODI + CSV_EXTENTION);
             testUrls.Add(TUKSDOMAIN + THEOLOGY + CSV_EXTENTION);
 
-            string test = EMPTY_STRING;
+            string test = Constants.EMPTY_STRING;
             foreach (string url in testUrls)
             {
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
@@ -208,79 +222,46 @@ public partial class Wizard : System.Web.UI.Page
         }
         catch (Exception)
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('We are experiencing difficulty contacting UP servers. Please bear with us while we attempt to resolve this. Certain funtionality may be limited. If the problem persists please contact us via the contact page.')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('We are experiencing difficulty contacting UP servers. Please bear with us while we attempt to resolve this. Certain funtionality may be limited. If the problem persists please contact us via the contact page.')", true);
         }
 
     }
-
-    protected void TextBox1_TextChanged(object sender, EventArgs e)
-    {
-
-        /*
-
-         foreach (var mod in allMods)
-         {
-             if (mod.ToLower().Contains(txtInput.Text.ToLower()))
-             {
-          //lbxSource.DataSource = filterMods;
-        // lbxSource.DataBind();        
-         */
-    }
-
-    protected void btnOfDeath_Click(object sender, EventArgs e)
-    {
-        /*    List<string> temp = new List<string>();
-            List<string> selected = new List<string>();
-
-            temp = (List<string>)Session["FilterModules"];
-
-            selected.Add(temp[lbxSource.SelectedIndex]);
-            Session["SelectedModules"] = selected;
-
-            temp.RemoveAt(lbxSource.SelectedIndex);
-
-            lbxDestination.DataSource = (List<string>)Session["SelectedModules"];
-            lbxDestination.DataBind();
-            lbxSource.DataSource = Session["FilterModules"];
-            lbxSource.DataBind();*/
-    }
+    
     List<string> paths = new List<string>();
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         SetActivePanel(2);
         try
         {
-
-
             if (cbxEngineering.Checked == true)
             {
-                paths.Add("eng_TimeTable");
+                paths.Add(ENG);
             }
             if (cbxGroenkloof.Checked == true)
             {
-                paths.Add("groenkloof_TimeTable");
+                paths.Add(GROENKLOOF);
             }
             if (cbxHatfield.Checked == true)
             {
-                paths.Add("hatfield_TimeTable");
+                paths.Add(HATFIELD);
             }
             if (cbxMamelodi.Checked == true)
             {
-                paths.Add("mamelodi_TimeTable");
+                paths.Add(MAMELODI);
             }
             if (cbxTheology.Checked == true)
             {
-                paths.Add("theology_TimeTable");
+                paths.Add(THEOLOGY);
             }
             if (paths.Count < 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Please be sure to select at least one campus!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please be sure to select at least one campus!')", true);
                 SetActivePanel(1);
                 return;
             }
 
             Session[MODULES_SESSION] = GetModules(paths, txtInput.Text);
-            Session["Paths"] = paths;
+            Session[PATH_SESSION] = paths;
             lbxSource.DataSource = (List<string>)Session[MODULES_SESSION];
             lbxSource.DataBind();
             lbxSource.SelectedIndex = 0;
@@ -290,7 +271,7 @@ public partial class Wizard : System.Web.UI.Page
 
             if (lbxSource.Items.Count < 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('We couldn't find a module with that code. Please try again.')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('We couldn't find a module with that code. Please try again.')", true);
             }
         }
         catch (Exception)
@@ -309,52 +290,11 @@ public partial class Wizard : System.Web.UI.Page
 
         if (iCheckCount == 0) // Catches unchecked checkboxes
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Please select a campus first.')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please select a campus first.')", true);
         }
         else if (iCheckCount > 2) // Catches checks exceeding 2 checkboxes
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Cannot select more than 2 campuses. Ensure that a maximum of 2 campuses are selected.')", true);
-        }
-        else // Proceed if a maximum of 2 checkboxes are checked
-        {
-            // Evaluation of state of campus checkboxes & assignment of paths:
-            //#region [URLs]
-            //if (cbxTheology.Checked)
-            //{
-            //    if (sPath1 == "")
-            //        sPath1 = "http://upnet.up.ac.za/tt/myTimeTable/theology_TimeTable.csv";
-            //    else
-            //        sPath2 = "http://upnet.up.ac.za/tt/myTimeTable/theology_TimeTable.csv";
-            //}
-            //if (cbxHatfield.Checked)
-            //{
-            //    if (sPath1 == "")
-            //        sPath1 = "http://upnet.up.ac.za/tt/myTimeTable/hatfield_TimeTable.csv";
-            //    else
-            //        sPath2 = "http://upnet.up.ac.za/tt/myTimeTable/hatfield_TimeTable.csv";
-            //}
-            //if (cbxGroenkloof.Checked)
-            //{
-            //    if (sPath1 == "")
-            //        sPath1 = "http://upnet.up.ac.za/tt/myTimeTable/groenkloof_TimeTable.csv";
-            //    else
-            //        sPath2 = "http://upnet.up.ac.za/tt/myTimeTable/groenkloof_TimeTable.csv";
-            //}
-            //if (cbxEngineering.Checked)
-            //{
-            //    if (sPath1 == "")
-            //        sPath1 = "http://upnet.up.ac.za/tt/myTimeTable/eng_TimeTable.csv";
-            //    else
-            //        sPath2 = "http://upnet.up.ac.za/tt/myTimeTable/eng_TimeTable.csv";
-            //}
-            //if (cbxMamelodi.Checked)
-            //{
-            //    if (sPath1 == "")
-            //        sPath1 = "http://upnet.up.ac.za/tt/myTimeTable/mamelodi_TimeTable.csv";
-            //    else
-            //        sPath2 = "http://upnet.up.ac.za/tt/myTimeTable/mamelodi_TimeTable.csv";
-            //} 
-            //#endregion
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Cannot select more than 2 campuses. Ensure that a maximum of 2 campuses are selected.')", true);
         }
     }
 
@@ -367,7 +307,7 @@ public partial class Wizard : System.Web.UI.Page
 
             if (lbxSource.Items.Count > 1 && lbxSource.SelectedIndex < 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Please select at least one module!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please select at least one module!')", true);
                 return;
             }
             if (lbxSource.Items.Count == 1 && lbxSource.SelectedIndex != 0)
@@ -378,7 +318,7 @@ public partial class Wizard : System.Web.UI.Page
                 lbxDestination.Text = lbxSource.SelectedValue;
                 //sourceItems.Clear();
                 //lbxSource.Items.Clear();
-                txtInput.Text = EMPTY_STRING;
+                txtInput.Text = Constants.EMPTY_STRING;
                 txtInput.Focus();
             }
             else
@@ -394,7 +334,7 @@ public partial class Wizard : System.Web.UI.Page
                         lbxDestination.Text = lbxSource.SelectedValue;
                         //sourceItems.Clear();
                         //lbxSource.Items.Clear();
-                        txtInput.Text = EMPTY_STRING;
+                        txtInput.Text = Constants.EMPTY_STRING;
                         txtInput.Focus();
                     }
                 }
@@ -404,7 +344,7 @@ public partial class Wizard : System.Web.UI.Page
                     lbxDestination.Items.Add(sourceItems[lbxSource.SelectedIndex]);
                     //sourceItems.Clear();
                     //lbxSource.Items.Clear();
-                    txtInput.Text = EMPTY_STRING;
+                    txtInput.Text = Constants.EMPTY_STRING;
                     txtInput.Focus();
                 }
 
@@ -423,22 +363,21 @@ public partial class Wizard : System.Web.UI.Page
     {
         try
         {
-            Session["Clash"] = null;
+            Session[CLASH_SESSION] = null;
             if (!cbxEngineering.Checked && !cbxGroenkloof.Checked && !cbxHatfield.Checked && !cbxMamelodi.Checked && !cbxTheology.Checked)
             {
                 //throw error message. Have fun with it later.
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Please select at least one campus or faculty!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please select at least one campus or faculty!')", true);
                 SetActivePanel(1);
                 return;
             }
-
-
-
+            
             List<string> UserModules = new List<string>();
             foreach (var module in lbxDestination.Items)
             {
                 UserModules.Add(module.ToString());
             }
+
             List<string> UserCampuses = new List<string>();
             if (cbxEngineering.Checked == true)
             {
@@ -462,22 +401,22 @@ public partial class Wizard : System.Web.UI.Page
             }
 
             UserInputs inputs = new UserInputs(UserModules, UserCampuses, ddlPeriod.SelectedValue.ToString(), ddlLanguage.SelectedValue.ToString());
-            Session["Inputs"] = inputs;
+            Session[INPUTS_SESSION] = inputs;
 
             Globals gb = new Globals();
             List<Module> mods = new List<Module>();
-            paths = (List<String>)Session["Paths"];
+            paths = (List<String>)Session[PATH_SESSION];
             if (paths.Count < 1)
             {
                 //throw error message. Have fun with it later.
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Session Timeout. Please reselect at least one campus or faculty!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Session Timeout. Please reselect at least one campus or faculty!')", true);
                 SetActivePanel(1);
                 return;
             }
             Module addMod;
             Module temp;
             Lecture inLect;
-            GetStrings(paths, "");//first store everything into session once
+            GetStrings(paths, Constants.EMPTY_STRING);//first store everything into session once
             foreach (string modName in inputs.Modules)
             {
                 addMod = new Module();
@@ -496,7 +435,7 @@ public partial class Wizard : System.Web.UI.Page
             foreach (Module mod in mods)
             {
 
-                gb.AddNewModule(EMPTY_STRING, mod); // add module method (adapted) adding each module's lectures
+                gb.AddNewModule(Constants.EMPTY_STRING, mod); // add module method (adapted) adding each module's lectures
 
             }
             //gb.TimeTable.Clear();
@@ -510,7 +449,7 @@ public partial class Wizard : System.Web.UI.Page
             // gb.Generator(gb.ModulesToBeUsed); // generate from added modules? 
 
 
-            Session["Globals"] = gb; //store GB as is
+            Session[Constants.GLOBALS_SESSION] = gb; //store GB as is
 
             if (gb.PossibleOutComes.Count > 0)
             {
@@ -521,12 +460,12 @@ public partial class Wizard : System.Web.UI.Page
             else
             {
                 //alert
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('We couldn't find a match for you. Please confirm that all provided information is accurate.')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('We couldn't find a match for you. Please confirm that all provided information is accurate.')", true);
             }
         }
         catch (Exception x)
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + x.Message + "')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('" + x.Message + "')", true);
         }
 
 
@@ -558,11 +497,11 @@ public partial class Wizard : System.Web.UI.Page
         if (gb.ModulesToBeUsed.Length == 0)
         {
             // KryptonMessageBox.Show("I don't think the criterias you selected fits your modules\nWill it be ok if you double check your language and period of presentation?", "Criteria Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Could not find a result for the criteria selected. Please double check your input.')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Could not find a result for the criteria selected. Please double check your input.')", true);
         }
         else
         {
-            string sTempModList = EMPTY_STRING;
+            string sTempModList = Constants.EMPTY_STRING;
             for (int sListLoop = 0; sListLoop < gb.ModulesToBeUsed.Length; sListLoop++)
             {
                 sTempModList += gb.ModulesToBeUsed[sListLoop].Name + " (" + gb.ModulesToBeUsed[sListLoop].Group[0].Sets[0].type.Substring(0, 1) + ")\n";
@@ -619,7 +558,7 @@ public partial class Wizard : System.Web.UI.Page
                 if (gb.PossibleOutComes.Count > 0)
                 {
                     string clashString = "I could not find a perfect solution for you so I generated a TimeTable without: " + tempSideMod.sideModule.Name + " (" + gb.ModulesToBeUsed[gb.ModulesToBeUsed.Length - 1].Group[0].Sets[0].type.Substring(0, 1) + "). Please remember to add this module in manually";
-                    Session["Clash"] = clashString;
+                    Session[CLASH_SESSION] = clashString;
 
                 }
             }
@@ -710,7 +649,7 @@ public partial class Wizard : System.Web.UI.Page
         {
             if (lbxDestination.Items.Count > 1 && lbxDestination.SelectedIndex < 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Please select at least one module to remove!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please select at least one module to remove!')", true);
                 return;
             }
 
@@ -726,7 +665,7 @@ public partial class Wizard : System.Web.UI.Page
                     lbxDestination.Items[index].Selected = false;
                     lbxDestination.Items.RemoveAt(index);
 
-                    txtInput.Text = EMPTY_STRING;
+                    txtInput.Text = Constants.EMPTY_STRING;
                     txtInput.Focus();
                 }
             }
@@ -737,7 +676,7 @@ public partial class Wizard : System.Web.UI.Page
 
                     lbxDestination.Items.RemoveAt(0);
 
-                    txtInput.Text = EMPTY_STRING;
+                    txtInput.Text = Constants.EMPTY_STRING;
                     txtInput.Focus();
 
 
@@ -752,30 +691,33 @@ public partial class Wizard : System.Web.UI.Page
         }
     }
 
-
+    /// <summary>
+    /// allows the page to be active on a certain panel on the accordian. 
+    /// </summary>
+    /// <param name="activePanelNumber">There is three panels to choose from. Enter a number between 1 and 3</param>
     private void SetActivePanel(int activePanelNumber)
     {
         switch (activePanelNumber)
         {
             case 1:
                 Session[PANEL1_SESSION] = COLLAPSE_ACTIVE_KEYWORD;
-                Session[PANEL2_SESSION] = EMPTY_STRING;
-                Session[PANEL3_SESSION] = EMPTY_STRING;
+                Session[PANEL2_SESSION] = Constants.EMPTY_STRING;
+                Session[PANEL3_SESSION] = Constants.EMPTY_STRING;
                 break;
             case 2:
-                Session[PANEL1_SESSION] = EMPTY_STRING;
+                Session[PANEL1_SESSION] = Constants.EMPTY_STRING;
                 Session[PANEL2_SESSION] = COLLAPSE_ACTIVE_KEYWORD;
-                Session[PANEL3_SESSION] = EMPTY_STRING;
+                Session[PANEL3_SESSION] = Constants.EMPTY_STRING;
                 break;
             case 3:
-                Session[PANEL1_SESSION] = EMPTY_STRING;
-                Session[PANEL2_SESSION] = EMPTY_STRING;
+                Session[PANEL1_SESSION] = Constants.EMPTY_STRING;
+                Session[PANEL2_SESSION] = Constants.EMPTY_STRING;
                 Session[PANEL3_SESSION] = COLLAPSE_ACTIVE_KEYWORD;
                 break;
             default:
                 Session[PANEL1_SESSION] = COLLAPSE_ACTIVE_KEYWORD;
-                Session[PANEL2_SESSION] = EMPTY_STRING;
-                Session[PANEL3_SESSION] = EMPTY_STRING;
+                Session[PANEL2_SESSION] = Constants.EMPTY_STRING;
+                Session[PANEL3_SESSION] = Constants.EMPTY_STRING;
                 break;
 
         }
@@ -789,38 +731,38 @@ public partial class Wizard : System.Web.UI.Page
         {
             if (cbxEngineering.Checked == true)
             {
-                paths.Add("eng_TimeTable");
+                paths.Add(ENG);
             }
             if (cbxGroenkloof.Checked == true)
             {
-                paths.Add("groenkloof_TimeTable");
+                paths.Add(GROENKLOOF);
             }
             if (cbxHatfield.Checked == true)
             {
-                paths.Add("hatfield_TimeTable");
+                paths.Add(HATFIELD);
             }
             if (cbxMamelodi.Checked == true)
             {
-                paths.Add("mamelodi_TimeTable");
+                paths.Add(MAMELODI);
             }
             if (cbxTheology.Checked == true)
             {
-                paths.Add("theology_TimeTable");
+                paths.Add(THEOLOGY);
             }
             if (paths.Count < 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Please be sure to select at least one campus!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please be sure to select at least one campus!')", true);
                 SetActivePanel(1);
                 return;
             }
 
             Session[MODULES_SESSION] = GetModules(paths, "");
-            Session["Paths"] = paths;
+            Session[PATH_SESSION] = paths;
             lbxSource.DataSource = (List<string>)Session[MODULES_SESSION];
 
             if (lbxSource.Items.Count < 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('We couldn't find a module with that code. Please try again.')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('We couldn't find a module with that code. Please try again.')", true);
             }
         }
         catch (Exception ex)

@@ -18,4 +18,5 @@ public class Constants
     }
 
     public static string GLOBALS_SESSION = "Globals";
+    public const string EMPTY_STRING = "";
 }

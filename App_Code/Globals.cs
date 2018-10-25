@@ -300,7 +300,7 @@ public class Globals
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].StartTime = StartTime;//set start time
                 DateTime EndTime = Convert.ToDateTime(reader4CalArr[4].ToString());
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].EndTime = EndTime;//set end time
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].venue = reader4CalArr[5].ToString();//set venue
+                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].venue = reader4CalArr[5].ToString().Insert(reader4CalArr[5].ToString().IndexOf('/')," ");//set venue
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Others = reader4CalArr[6].ToString();//set others
                 UserModules[iIndex].Group[GroupIndex].GroupFlag = false;
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].ItemFlag = false;
@@ -452,10 +452,6 @@ public class Globals
         }
         return index;
     }
-
-    #endregion
-
-    #region names and paths of the current file
 
     #endregion
 
@@ -674,13 +670,19 @@ public class Globals
             }
             #endregion
 
-
+            string ModCode;
+            int UserModCounter;
+            int ToUseGroupIndex;
+            int groupindex;
+            int setindex;
+            int i;
+            int iset;
             for (int imodloop = 0; imodloop < PossibleOutComes[IndexCounter].PossibleOutcomes.Count; imodloop++)
             {
                 //referencing the module
-                string ModCode = ModulesToBeUsed[imodloop].Name;
-                int UserModCounter = -1;
-                for (int i = 0; i < UserModules.Length; i++)
+                ModCode = ModulesToBeUsed[imodloop].Name;
+                UserModCounter = -1;
+                for (i = 0; i < UserModules.Length; i++)
                 {
                     if (UserModules[i].Name == ModCode)
                     {
@@ -689,12 +691,12 @@ public class Globals
                     }
                 }
 
-                int ToUseGroupIndex = PossibleOutComes[IndexCounter].PossibleOutcomes[imodloop];
-                int groupindex = RefUseModIndex[imodloop].GroupList[ToUseGroupIndex].GroupIndex;
-                for (int iset = 0; iset < RefUseModIndex[imodloop].GroupList[ToUseGroupIndex].SetIndex.Length; iset++)
+                ToUseGroupIndex = PossibleOutComes[IndexCounter].PossibleOutcomes[imodloop];
+                groupindex = RefUseModIndex[imodloop].GroupList[ToUseGroupIndex].GroupIndex;
+                for (iset = 0; iset < RefUseModIndex[imodloop].GroupList[ToUseGroupIndex].SetIndex.Length; iset++)
                 {
 
-                    int setindex = RefUseModIndex[imodloop].GroupList[ToUseGroupIndex].SetIndex[iset];
+                    setindex = RefUseModIndex[imodloop].GroupList[ToUseGroupIndex].SetIndex[iset];
                     TimeTable.AddItem(UserModules[UserModCounter], groupindex, setindex, ref this.TimeTable);//**1
                 }
                 UserModules[UserModCounter].UpdateGroupCheck();
@@ -720,7 +722,7 @@ public class Globals
     #endregion
 
     /// <summary>
-    /// used to varify period of presentation criteria from user with items in the list
+    /// used to verify period of presentation criteria from user with items in the list
     /// </summary>
     /// <param name="stype">item in list of modules</param>
     /// <param name="typeCriteria">userdefined specification</param>
@@ -1420,7 +1422,7 @@ public class Globals
                     if (possibleFlag != true)
                     {
                         //test to see if all groups up till this module has reached the end
-                        //this is possible because all group indicies have been stored in the possible array of integers
+                        //this is possible because all group indices's have been stored in the possible array of integers
                         EndFlag = true;
                         for (int i = 0; i < OneOutcome.Length; i++)//true until proven guilt principle used here
                         {
@@ -1546,7 +1548,7 @@ public class Globals
             #endregion
         }
 
-        //EndFlag = ImplementedGroupFlag;//if the last group has been implemented/if the firxt group could not be implememnted
+        //EndFlag = ImplementedGroupFlag;//if the last group has been implemented/if the first group could not be implemented
         #region Add to class when successful
         if (ModuleCounter >= ListModules.Length)
         {

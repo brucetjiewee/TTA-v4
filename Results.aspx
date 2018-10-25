@@ -180,157 +180,157 @@
                                             </div>
                                             <br />
                                             <asp:Panel ID="pnlTimeTable" runat="server">
-                                                <div id="divTimeTable" style="margin-top: 15px; margin-bottom: auto">
-                                                    <asp:Table ID="tblOutput" class="table table-responsive" runat="server" BackColor="#B4CDE9" BorderStyle="Solid" BorderWidth="1px">
-                                                        <asp:TableHeaderRow runat="server" Height="40px" Width="800px" BorderColor="Black" BorderWidth="2px" Font-Bold="true">
-                                                            <asp:TableHeaderCell runat="server" BackColor="#000000" BorderStyle="None" BorderWidth="1px" Width="50px" HorizontalAlign="Center"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BackColor="#000000" BorderStyle="Solid" BorderWidth="1px" Width="100px" Text="M" ForeColor="#ffffff"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BackColor="#000000" BorderStyle="Solid" BorderWidth="1px" Width="100px" Text="T" ForeColor="#ffffff"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BackColor="#000000" BorderStyle="Solid" BorderWidth="1px" Width="100px" Text="W" ForeColor="#ffffff"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BackColor="#000000" BorderStyle="Solid" BorderWidth="1px" Width="100px" Text="T" ForeColor="#ffffff"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BackColor="#000000" BorderStyle="Solid" BorderWidth="1px" Width="100px" Text="F" ForeColor="#ffffff"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BackColor="#000000" BorderStyle="Solid" BorderWidth="1px" Width="100px" Text="S" ForeColor="#ffffff"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BackColor="#000000" BorderStyle="Solid" BorderWidth="1px" Width="100px" Text="S" ForeColor="#ffffff"></asp:TableCell>
+                                                <div id="divTimeTable" style="margin-top: 15px; margin-bottom: auto" class="table-responsive">
+                                                    <asp:Table ID="tblOutput" CssClass="table table-bordered" runat="server" BackColor="#B4CDE9">
+                                                        <asp:TableHeaderRow runat="server" Height="40px" BorderColor="Black" BorderWidth="2px" Font-Bold="true">
+                                                            <asp:TableHeaderCell runat="server" BackColor="#000000" BorderStyle="None" BorderWidth="1px" HorizontalAlign="Center"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableHeader" Text="Mon"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableHeader" Text="Tue"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableHeader" Text="Wed"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableHeader" Text="Thu"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableHeader" Text="Fri"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableHeader" Text="Sat"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableHeader" Text="Sun"></asp:TableCell>
                                                         </asp:TableHeaderRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="07:30-08:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px">
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="07:30-08:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="08:30-09:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px">
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="08:30-09:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="09:30-10:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px">
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="09:30-10:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="10:30-11:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px">
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="10:30-11:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="11:30-12:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px">
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="11:30-12:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="12:30-13:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px" >
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="12:30-13:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="13:30-14:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px" >
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="13:30-14:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="14:30-15:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px" >
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="14:30-15:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="15:30-16:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px" >
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="15:30-16:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="16:30-17:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px" >
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="16:30-17:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="17:30-18:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px" >
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="17:30-18:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="18:30-19:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px" >
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="18:30-19:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="19:30-20:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px" >
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="19:30-20:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
-                                                        <asp:TableRow runat="server" Height="60px" Width="800px">
-                                                            <asp:TableHeaderCell runat="server" BorderStyle="Solid" BorderWidth="2px" Width="30px" Text="20:30-21:20"></asp:TableHeaderCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
-                                                            <asp:TableCell runat="server" BorderStyle="Solid" BorderWidth="1px" Width="100px"></asp:TableCell>
+                                                        <asp:TableRow runat="server" Height="60px" >
+                                                            <asp:TableHeaderCell runat="server" CssClass="tableTimeHeader" Text="20:30-21:20"></asp:TableHeaderCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
+                                                            <asp:TableCell runat="server" CssClass="tableCell"></asp:TableCell>
                                                         </asp:TableRow>
                                                     </asp:Table>
                                                 </div>
