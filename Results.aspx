@@ -48,27 +48,67 @@
         //    a.click()
         //}--%>
     </script>
-    <style id="cssLoadingScreen" type="text/css">.loading,.modal{position:fixed;left:0;top:0}.modal{background-color:rgba(72,61,139,.7);z-index:99;opacity:.1;filter:alpha(opacity=10);-moz-opacity:.1;min-height:100%;width:100%}.loading{width:100px;height:100px;border:5px solid;border-radius:100%;right:0;bottom:0;margin:auto;z-index:9999;animation:Spin 2s linear infinite;border-color:#483d8b tomato}@keyframes Spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}</style>
-    <script id="jsLoadingScreen" type="text/javascript">//function ShowProgress() {
-//            setTimeout(function () {
-//                var modal = $('<div />');
-//                modal.addClass("modal");
-//                $('body').append(modal);
-//                var loading = $(".loading");
-//                loading.show();
-//                try {
-//                    var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
-//                    var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
-//                }
-//                catch (err) { }
-//            }, 200);
-//        }
+    <style id="cssLoadingScreen" type="text/css">
+        .loading, .modal {
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
 
-//        function loadscreen() {
-//            ShowProgress();
+        .modal {
+            background-color: rgba(72,61,139,.7);
+            z-index: 99;
+            opacity: .1;
+            filter: alpha(opacity=10);
+            -moz-opacity: .1;
+            min-height: 100%;
+            width: 100%;
+        }
+
+        .loading {
+            width: 100px;
+            height: 100px;
+            border: 5px solid;
+            border-radius: 100%;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            z-index: 9999;
+            animation: Spin 2s linear infinite;
+            border-color: #483d8b tomato;
+        }
+
+        @keyframes Spin {
+            from {
+                transform: rotate(0);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script id="jsLoadingScreen" type="text/javascript">//function ShowProgress() {
+        //            setTimeout(function () {
+        //                var modal = $('<div />');
+        //                modal.addClass("modal");
+        //                $('body').append(modal);
+        //                var loading = $(".loading");
+        //                loading.show();
+        //                try {
+        //                    var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+        //                    var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+        //                }
+        //                catch (err) { }
+        //            }, 200);
+        //        }
+
+        //        function loadscreen() {
+        //            ShowProgress();
         function ShowProgress() { setTimeout(function () { var o = $("<div />"); o.addClass("modal"), $("body").append(o); var t = $(".loading"); t.show(); try { Math.max($(window).height() / 2 - t[0].offsetHeight / 2, 0), Math.max($(window).width() / 2 - t[0].offsetWidth / 2, 0) } catch (a) { } }, 200) } function loadscreen() { ShowProgress() }</script>
-   <div class="container body-content topSpace"></div>
-     <asp:UpdatePanel ID="ResultsUpdatePanel" runat="server">
+    <div style="margin-top: 95px"></div>
+    <div class="container body-content topSpace"></div>
+    <asp:UpdatePanel ID="ResultsUpdatePanel" runat="server">
         <ContentTemplate>
             <div class="container container-fluid">
                 <br />
@@ -95,7 +135,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading bkb">
                             <h1 class="panel-title wHead">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#colpnlYourTimeTable"><span aria-hidden="true" style="font-size: 80%" class="glyphicon glyphicon-th fct"></span>Your TimeTable</a>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#colpnlYourTimeTable"><span aria-hidden="true" class="glyphicon glyphicon-th fct"></span>Your TimeTable</a>
                             </h1>
                         </div>
                         <div id="colpnlYourTimeTable" class="panel-collapse collapse in">
@@ -132,7 +172,7 @@
                                                     <asp:LinkButton ID="btnPreviousOutcome" Style="width: 100%; color: white; border-color: deepskyblue" runat="server" CssClass="btn btn-success btn-block bkb" OnClick="btnPreviousOutcome_Click"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left" style="color: deepskyblue"></span></asp:LinkButton>
                                                 </div>
                                                 <div class="col-lg-2 col-sm-4 col-md-2 col-xs-4">
-                                                    <asp:Label ID="lblOutcomes" Style="color: darkslateblue; font-weight: bold; font-family: 'Segoe UI'; font-size: 12px" runat="server" Text="<#> of <#>" OnLoad="lblOutcomes_Load"></asp:Label>
+                                                    <asp:Label ID="lblOutcomes" runat="server" Text="<#> of <#>" OnLoad="lblOutcomes_Load"></asp:Label>
                                                 </div>
                                                 <div class="col-lg-5 col-sm-4 col-md-5 col-xs-4">
                                                     <asp:LinkButton ID="btnNextOutcome" Style="width: 100%; color: white; border-color: deepskyblue" runat="server" CssClass="btn btn-success btn-block bkb" OnClick="btnNextOutcome_Click"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right" style="color: deepskyblue"></span></asp:LinkButton>
@@ -324,7 +364,7 @@
         <ProgressTemplate>
             <div class="loading" id="loadmodal" style="display: normal"></div>
             <div class="modal-backdrop" id="modal" style="background-color: rgba(72, 61, 139, 0.70);">
-                <img src="Design Graphics/TTATempLogoWhiteBg.png" alt="LOADING" class="img img-responsive"<%--style="height: 100px; width: 100px; position: fixed; left: 0; right: 0; top: 0; bottom: 0; margin: auto"--%> />
+                <img src="Design Graphics/TTATempLogoWhiteBg.png" alt="LOADING" class="img img-responsive" <%--style="height: 100px; width: 100px; position: fixed; left: 0; right: 0; top: 0; bottom: 0; margin: auto"--%> />
             </div>
             </div>
         </ProgressTemplate>

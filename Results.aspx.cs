@@ -18,7 +18,7 @@ public partial class Results : System.Web.UI.Page
     {
         try
         { 
-            int testingvariable = ((Globals)Session["Globals"]).PossibleOutComes.Count;//if this session is empty then close straight away
+            int testingvariable = ((Globals)Session[Constants.GLOBALS_SESSION]).PossibleOutComes.Count;//if this session is empty then close straight away
             if(testingvariable == 0)//if there is no results that can be found, also leave
                 Response.Redirect("~/Default.aspx");
         }
@@ -32,7 +32,7 @@ public partial class Results : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            Globals gb = (Globals)Session["Globals"]; //pull GB
+            Globals gb = (Globals)Session[Constants.GLOBALS_SESSION]; //pull GB
 
             int count = -1;
             foreach (Modules mod in gb.UserModules)
@@ -162,7 +162,7 @@ public partial class Results : System.Web.UI.Page
     protected void btnPreviousOutcome_Click(object sender, EventArgs e)
     {
         int index = (int)Session["OutcomeIndex"];
-        Globals gb = (Globals)Session["Globals"];
+        Globals gb = (Globals)Session[Constants.GLOBALS_SESSION];
         index--;
         if (index >= 0)
         {
@@ -187,7 +187,7 @@ public partial class Results : System.Web.UI.Page
     protected void btnNextOutcome_Click(object sender, EventArgs e)
     {
         int index = (int)Session["OutcomeIndex"];
-        Globals gb = (Globals)Session["Globals"];
+        Globals gb = (Globals)Session[Constants.GLOBALS_SESSION];
         index++;
         if (index < gb.PossibleOutComes.Count)
         {

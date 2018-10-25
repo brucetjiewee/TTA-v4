@@ -474,15 +474,20 @@ public partial class Wizard : System.Web.UI.Page
                 SetActivePanel(1);
                 return;
             }
+            Module addMod;
+            Module temp;
+            Lecture inLect;
+            GetStrings(paths, "");//first store everything into session once
             foreach (string modName in inputs.Modules)
             {
-                Module addMod = new Module();
+                addMod = new Module();
                 foreach (string fullstring in GetStrings(paths, modName))
                 {
-                    Lecture inLect = new Lecture(fullstring);
+                    inLect = new Lecture(fullstring);
                     addMod.Lectures.Add(inLect);
                 }
-                Module temp = new Module();
+
+                temp = new Module();
                 temp = addMod;
                 mods.Add(temp);
                 addMod = null;
