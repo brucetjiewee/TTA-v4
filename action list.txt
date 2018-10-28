@@ -1,0 +1,17 @@
+Primary Action List
+
+1. Make the current version more usable. Just a little
+2. Git hub seminar (Branch)
+3. Ticketing system implementation (Ruan)
+4. Link stats back to team analytics account
+4.1 Create team gmail account
+5. Fix up the generator that is limited to a number of results (Bruce)
+
+Secondary Action List
+
+1. Create API from the current project
+2. Payment channel for using API
+3. Dynamic changes to modules, etc. for API usage (Remove hard coded values)
+4. Remove Deep copying
+5. Optimize
+
