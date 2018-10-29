@@ -95,9 +95,7 @@
                             <h4 class="panel-title">
                                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     <h3>Select your Campus <span class="glyphicon glyphicon-chevron-down pull-right"></span></h3>
-
                                 </a>
-                                <h4></h4>
                             </h4>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse <%= Session["ActiveOne"]%>" role="tabpanel" aria-labelledby="headingOne">

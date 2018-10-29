@@ -42,22 +42,33 @@ body {
 }
 
 .tableCell{
-    color:Black;
-    background-color:White;
-    border-width:1px;
-    border-style:Solid;
     max-width:140px;
     min-width:140px;
+    border-color:#616161;
+    font-size:15px;
+}
+
+.table{
+    border-radius:8px !important;
+    border-collapse: collapse ; 
+    overflow: hidden !important;
 }
 
 .tableHeader{
-    background-color:Black;
-    border-width:1px;
-    border-style:None;
+    color:white;
+    background-color:#212121;
 }
 
 .tableTimeHeader{
-    border-width:2px;
-    border-style:Solid;
     width:30px;
+    background-color:#BBDEFB;
+    font-size:15px;
+}
+
+th {
+    height:60px;
+}
+
+.whiteFont {
+    color:white;
 }

@@ -279,18 +279,7 @@ public class Globals
                 int SetsIndex = UserModules[iIndex].Group[GroupIndex].Sets.Length - 1;
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Year = Col1[0];//set year
                 string sLang = Col1[3];
-                switch (sLang)
-                {
-                    case "B":
-                        sLang = "Both";
-                        break;
-                    case "A":
-                        sLang = "Afrikaans";
-                        break;
-                    case "E":
-                        sLang = "English";
-                        break;
-                }
+                sLang = GetFullLanguageString(sLang);
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Language = sLang;//set language
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].type = Col1[4];//set type
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].PeriodOfPres = reader4CalArr[1].ToString();//set period of presentation
@@ -300,7 +289,7 @@ public class Globals
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].StartTime = StartTime;//set start time
                 DateTime EndTime = Convert.ToDateTime(reader4CalArr[4].ToString());
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].EndTime = EndTime;//set end time
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].venue = reader4CalArr[5].ToString().Insert(reader4CalArr[5].ToString().IndexOf('/')," ");//set venue
+                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].venue = reader4CalArr[5].ToString().Insert(reader4CalArr[5].ToString().IndexOf('/'), " ");//set venue
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Others = reader4CalArr[6].ToString();//set others
                 UserModules[iIndex].Group[GroupIndex].GroupFlag = false;
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].ItemFlag = false;
@@ -313,6 +302,23 @@ public class Globals
         con.Close();
     }
 
+    private static string GetFullLanguageString(string sLang)
+    {
+        switch (sLang)
+        {
+            case "B":
+                sLang = "Both";
+                break;
+            case "A":
+                sLang = "Afrikaans";
+                break;
+            case "E":
+                sLang = "English";
+                break;
+        }
+
+        return sLang;
+    }
 
     public void AddNewModule(string MCode, Module inMod)
     {
@@ -378,18 +384,9 @@ public class Globals
                 int SetsIndex = UserModules[iIndex].Group[GroupIndex].Sets.Length - 1;
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Year = inLecture.Year.ToString();//set year
                 string sLang = inLecture.Lang;
-                switch (sLang)
-                {
-                    case "B":
-                        sLang = "Both";
-                        break;
-                    case "A":
-                        sLang = "Afrikaans";
-                        break;
-                    case "E":
-                        sLang = "English";
-                        break;
-                }
+
+                sLang = GetFullLanguageString(sLang);
+
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Language = sLang.Trim();//set language
                 UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].type = inLecture.Type.Trim();//set type
 
