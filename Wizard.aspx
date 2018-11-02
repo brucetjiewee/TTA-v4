@@ -83,7 +83,6 @@
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     <h3>Select your Modules<span class="glyphicon glyphicon-chevron-down pull-right"></span></h3>
-
                                 </a>
                                 <h4></h4>
                             </h4>

@@ -1,7 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using System.Web.UI;
-
-public class WhiteSpaceCleanPage: MasterPage
+public class WhitePage: MasterPage
 {
     private static readonly Regex RegexBetweenTags = new Regex(@">(?! )\s+", RegexOptions.Compiled);
     private static readonly Regex RegexLineBreaks = new Regex(@"([\n\s])+?(?<= {2,})<", RegexOptions.Compiled);
