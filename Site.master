@@ -99,7 +99,7 @@
                                 </li>
                             </ul>
                             <hr class="small">
-                            <span id="lblDate">&copy; <%: DateTime.Now.Year %> <span class="fct" class="fBold">| </span>TimeTable Assistant v4.0.1</span>
+                            <span id="lblDate">&copy; <%: DateTime.Now.Year + " " + DateTime.Now.Month %> <span class="fct" class="fBold">| </span>TimeTable Assistant v4.1.1</span>
                             <p class="text-muted">
                                 System Developed by<br />
                                 <a href="http://www.chylls.co.za/About" target="_blank" title="ABOUT">CHYLLS SOFTWARE DEVELOPMENT</a> | <a href="sitemap.xml" target="_blank" title="TimeTable Assistant SiteMap">SITE-MAP</a> | <a href="http://www.chylls.co.za/About" target="_blank" title="TimeTable Assistant Disclaimer">DISCLAIMER</a>
