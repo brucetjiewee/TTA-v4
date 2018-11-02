@@ -1,93 +1,12 @@
 ﻿<%@ Page Title="Wizard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="Results.aspx.cs" Inherits="Results" %>
 
+<asp:Content ID="Header" ContentPlaceHolderID="HeaderContent" runat="server">
+    <script src="Scripts/html2canvas.js"></script>
+</asp:Content>
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <%--// Themes: "--%>
     <link rel="stylesheet" href="Content/agency.css" <%--type="text/css"--%> />
-    <%--// Link to downloaded Agency.css file as per Bruce's link "--%>
-    <%--// Scripts & Styles: "--%>
-    <script id="jsHTML2Canvas" src="Scripts/html2canvas.js"></script>
-    <script id="jsSetupCanvas" type="text/javascript">
-        //$("#divPreviewImage").hide();
-        function PreviewImg() {
-            var $element = $("#divTimeTable"); // global variable
-            //$element.prependTo("#accordion2");
-            var getCanvas; // global variable
-            html2canvas($element, {
-                onrendered: function (canvas) {
-                    <%--//$element.prependTo("#accordion2");
-                    //document.body.appendChild(canvas);--%>
-                    $(canvas).prependTo("#divPreviewImage");
-
-                    getCanvas = canvas;
-                    alert('Image generated');
-                }, width: 1920, height: 1080
-            });
-            <%--//var imgageData = getCanvas.toDataURL("image/png");
-            // Now browser starts downloading it instead of just showing it
-            //var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-            //$("#<%:btnSaveImg.ClientID%>").attr("download", "TimeTable.png").attr("href", newData);--%>
-        }
-
-        <%--//function ConvertToImage() {
-        //    alert("Image save started");
-        //var imgageData = getCanvas.toDataURL("image/png");
-        // Now browser starts downloading it instead of just showing it
-        //var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-        //$("#<%:btnSaveImg.ClientID%>").attr("download", "TimeTable.png").attr("href", newData);
-        //    alert("Image saved");
-        //}
-
-        //function save2() {
-        //    window.open(canvas.toDataURL('image/png'));
-        //    var gh = canvas.toDataURL('png');
-
-        //    var a = document.createElement('a');
-        //    a.href = gh;
-        //    a.download = 'image.png';
-
-        //    a.click()
-        //}--%>
-    </script>
-    <style id="cssLoadingScreen" type="text/css">
-        .loading, .modal {
-            position: fixed;
-            left: 0;
-            top: 0;
-        }
-
-        .modal {
-            background-color: rgba(72,61,139,.7);
-            z-index: 99;
-            opacity: .1;
-            filter: alpha(opacity=10);
-            -moz-opacity: .1;
-            min-height: 100%;
-            width: 100%;
-        }
-
-        .loading {
-            width: 100px;
-            height: 100px;
-            border: 5px solid;
-            border-radius: 100%;
-            right: 0;
-            bottom: 0;
-            margin: auto;
-            z-index: 9999;
-            animation: Spin 2s linear infinite;
-            border-color: #483d8b tomato;
-        }
-
-        @keyframes Spin {
-            from {
-                transform: rotate(0);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
     <script id="jsLoadingScreen" type="text/javascript">//function ShowProgress() {
         //            setTimeout(function () {
         //                var modal = $('<div />');
@@ -174,7 +93,7 @@
                                         </div>
                                         <div class="col-lg-5 col-sm-4 col-md-5 col-xs-4">
                                             <asp:LinkButton ID="btnNextOutcome" runat="server" CssClass="btn btn-primary bkb" OnClick="btnNextOutcome_Click"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right" style="color: deepskyblue"></span></asp:LinkButton>
-                                            <asp:LinkButton ID="btnPreviewImg" runat="server" CssClass="btn btn-primary pull-right" OnClick="btnPreviewImg_Click">Preview Image <span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></asp:LinkButton>
+                                            <asp:LinkButton ID="btnPreviewImg" runat="server" CssClass="btn btn-primary pull-right" OnClientClick="PrintDiv(divTimeTable)">Download <span aria-hidden="true" class="glyphicon glyphicon-download"></span></asp:LinkButton>
                                         </div>
                                     </div>
                                     <br />
@@ -368,4 +287,27 @@
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
+
+
+    <script>
+        function PrintDiv(div) {
+            html2canvas((div), {
+                onrendered: function (canvas) {
+                    var myImage = canvas.toDataURL();
+                    downloadURI(myImage, "My TimeTable.png");
+                }
+            });
+        }
+
+        function downloadURI(uri, name) {
+            var link = document.createElement("a");
+
+            link.download = name;
+            link.href = uri;
+            document.body.appendChild(link);
+            link.click();
+            //after creating link you should delete dynamic link
+            //clearDynamicLink(link); 
+        }
+    </script>
 </asp:Content>
