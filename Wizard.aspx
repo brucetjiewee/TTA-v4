@@ -1,51 +1,6 @@
 ﻿<%@ Page Title="Wizard" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="Wizard.aspx.cs" Inherits="Wizard" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <link rel="stylesheet" href="Content/agency.css" <%--type="text/css"--%> />
-    <style type="text/css">
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: rgba(72, 61, 139, 0.70);
-            z-index: 99;
-            opacity: 0.1;
-            filter: alpha(opacity=10);
-            -moz-opacity: 0.1;
-            min-height: 100%;
-            width: 100%;
-        }
-
-        .loading {
-            width: 100px;
-            height: 100px;
-            border: 5px solid;
-            border-top-color: darkslateblue;
-            border-bottom-color: darkslateblue;
-            border-right-color: tomato;
-            border-left-color: tomato;
-            border-radius: 100%;
-            position: fixed;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            margin: auto;
-            z-index: 9999;
-            <%-- Spinning/Rotation: --%> animation: Spin 2s linear infinite;
-        }
-
-        @keyframes Spin {
-            <%-- Spinning/Rotation: --%> from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-    <script type="text/javascript">function ShowProgress() { setTimeout(function () { var modal = $('<div />'); modal.addClass("modal"); $('body').append(modal); var loading = $(".loading"); loading.show(); try { var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0); var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0); } catch (err) { } }, 200); } function loadscreen() { ShowProgress(); }</script>
     <%-- Start of Page: "--%>
     <div style="margin-top: 95px"></div>
     <%--<div class="container container-fluid">
@@ -230,15 +185,14 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-
     <asp:UpdateProgress ID="WizardProgressPanel" runat="server" AssociatedUpdatePanelID="WizardUpdatePanel">
         <ProgressTemplate>
             <div class="loading" id="loadmodal" style="display: normal"></div>
             <div class="modal-backdrop" id="modal" style="background-color: rgba(72, 61, 139, 0.70);">
-                <img src="Logo.png" alt="LOADING" style="height: 100px; width: 100px; position: fixed; left: 0; right: 0; top: 0; bottom: 0; margin: auto" />
-            </div>
+                <img src="LoadScreen.png" alt="LOADING" style="height: 100px; width: 100px; position: fixed; left: 0; right: 0; top: 0; bottom: 0; margin: auto" />
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
+
     <script>$('#txtInput').keypress(function (event) { if (event.keyCode == 13) { $('#btnSearch').click(); } })</script>
 </asp:Content>

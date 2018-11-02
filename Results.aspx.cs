@@ -11,24 +11,21 @@ using System.Web.UI.WebControls;
 public partial class Results : System.Web.UI.Page
 {
 
-    private static string[] RainbowColour = { "Red", "Orange", "Yellow", "Lime", "SkyBlue", "Violet", "red", "Pink", "Brown", "Teal", "Turquiose", "MediumSeaGreen", "Cyan", "Navy", "Olive" };
+    private static string[] RainbowColour = { "#C62828", "#F57C00", "#FFEA00", "#76FF03", "#00B0FF", "#651FFF", "#D500F9", "#F50057", "#4E342E", "#00E5FF" };
     private int outcomeIndex = 0;
 
     protected void Page_Load(object sender, EventArgs e)
     {
         try
-        { 
+        {
             int testingvariable = ((Globals)Session[Constants.GLOBALS_SESSION]).PossibleOutComes.Count;//if this session is empty then close straight away
-            if(testingvariable == 0)//if there is no results that can be found, also leave
+            if (testingvariable == 0)//if there is no results that can be found, also leave
                 Response.Redirect("~/Default.aspx");
         }
         catch
         {
             Response.Redirect("~/Default.aspx");
         }
-
-        Random rnd = new Random();
-        string[] randomColours = RainbowColour.OrderBy(x => rnd.Next()).ToArray();
 
         if (!IsPostBack)
         {
@@ -38,25 +35,11 @@ public partial class Results : System.Web.UI.Page
             foreach (Modules mod in gb.UserModules)
             {
                 count++;
-                mod.BkColour = Color.FromName(randomColours[count]);
-                if (mod.BkColour == Color.Navy || mod.BkColour == Color.Red || mod.BkColour == Color.Brown || mod.BkColour == Color.Olive || mod.BkColour == Color.Purple)
-                {
-                    mod.FgColour = Color.White;
-                }
-                else
-                {
-                mod.FgColour = Color.Black;
-                }
-
-
+                mod.BkColour = Color.FromName(RainbowColour[count]);
             }
 
             int numberOfOutcomes = gb.PossibleOutComes.Count();
             lblOutcomes.Text = "Solution [ 1 of " + numberOfOutcomes + " ]";
-
-            #region test
-            //generate(ref gb);
-            #endregion
 
             gb.DisplayOutcome(0);
             UpdateTable(ref gb.TimeTable);
@@ -71,59 +54,12 @@ public partial class Results : System.Web.UI.Page
                 //string input = "alert('I could not find a perfect solution for you so I generated a TimeTable without: INF 315 (P) Please remember to add this module in manually')";//Session["Clash"].ToString();
 
 
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", test, true);
+                NotificationCenter.ShowNotification(this, test);
             }
 
         }
 
 
-    }
-
-
-
-
-    protected void btnTime_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    protected void btnEmail_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    protected void btnSaveImg_Click(object sender, EventArgs e)
-    {
-        #region [ATTEMPTED PDF EXPORT]
-        //Response.ContentType = "application/pdf";
-        //Response.AddHeader("content-disposition", "attachment;filename=Panel.pdf");
-        //Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        //StringWriter sw = new StringWriter();
-        //HtmlTextWriter hw = new HtmlTextWriter(sw);
-        //pnlTimeTable.RenderControl(hw);
-        //StringReader sr = new StringReader(sw.ToString());
-        //Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
-        //HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-        //PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-        //pdfDoc.Open();
-        //htmlparser.Parse(sr);
-        //pdfDoc.Close();
-        //Response.Write(pdfDoc);
-        //Response.End(); 
-        #endregion
-
-        #region [ATTEMPTED PNG EXPORT]
-        //string base64 = Request.Form[hfImageStream.UniqueID].Split(',')[1];
-        //byte[] bytes = Convert.FromBase64String(base64);
-        //Response.Clear();
-        //Response.ContentType = "image/png";
-        ////string HeaderToAdd = "attachment; filename=TimeTable - " + System.DateTime.Now.ToShortDateString() + " - " + System.DateTime.Now.ToShortTimeString() + ".png";
-        //Response.AddHeader("Content-Disposition", "attachment; filename=TimeTable.png");
-        //Response.Buffer = true;
-        //Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        //Response.BinaryWrite(bytes);
-        //Response.End(); 
-        #endregion
     }
 
     /// <summary>
@@ -151,7 +87,7 @@ public partial class Results : System.Web.UI.Page
                 // tblOutput.
                 tblOutput.Rows[k + 1].Cells[j].BackColor = TimeTable.sTable[j, k].BkColour;
                 tblOutput.Rows[k + 1].Cells[j].ForeColor = TimeTable.sTable[j, k].FgColour;
-                
+
 
 
             }
@@ -169,7 +105,7 @@ public partial class Results : System.Web.UI.Page
             gb.DisplayOutcome(index);//tested displaying an outcome, doesnt work
             UpdateTable(ref gb.TimeTable);
             int numberOfOutcomes = gb.PossibleOutComes.Count();
-            lblOutcomes.Text = "[ " + (index + 1) + " of " + numberOfOutcomes + " ]";
+            lblOutcomes.Text = "Solution [ " + (index + 1) + " of " + numberOfOutcomes + " ]";
         }
         else
         {
@@ -177,7 +113,7 @@ public partial class Results : System.Web.UI.Page
             gb.DisplayOutcome(index);//tested displaying an outcome, doesnt work
             UpdateTable(ref gb.TimeTable);
             int numberOfOutcomes = gb.PossibleOutComes.Count();
-            lblOutcomes.Text = "[ " + (index + 1) + " of " + numberOfOutcomes + " ]";
+            lblOutcomes.Text = "Solution [ " + (index + 1) + " of " + numberOfOutcomes + " ]";
             //alert
             //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No previous outcomes to display!')", true);
         }
@@ -194,7 +130,7 @@ public partial class Results : System.Web.UI.Page
             gb.DisplayOutcome(index);//tested displaying an outcome, doesnt work
             UpdateTable(ref gb.TimeTable);
             int numberOfOutcomes = gb.PossibleOutComes.Count();
-            lblOutcomes.Text = "[ " + (index + 1) + " of " + numberOfOutcomes + " ]";
+            lblOutcomes.Text = "Solution [ " + (index + 1) + " of " + numberOfOutcomes + " ]";
         }
         else
         {
@@ -202,7 +138,7 @@ public partial class Results : System.Web.UI.Page
             gb.DisplayOutcome(index);//tested displaying an outcome, doesnt work
             UpdateTable(ref gb.TimeTable);
             int numberOfOutcomes = gb.PossibleOutComes.Count();
-            lblOutcomes.Text = "[ " + (index + 1) + " of " + numberOfOutcomes + " ]";
+            lblOutcomes.Text = "Solution [ " + (index + 1) + " of " + numberOfOutcomes + " ]";
             //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No more outcomes to display!')", true);
             //alert
         }
@@ -214,29 +150,4 @@ public partial class Results : System.Web.UI.Page
 
     }
 
-    protected void btnSaveImg_Click1(object sender, EventArgs e)
-    {
-
-    }
-
-
-
-    protected void btnPreviewImg_Click(object sender, EventArgs e)
-    {
-        string jsScriptName = "PreviewImg()";
-        ScriptManager.RegisterClientScriptBlock(this, typeof(string), "uniqueKey", jsScriptName, true);
-       // Response.Redirect("Results.aspx#divPreviewImage");
-    }
-}
-
-public static class MessageBox
-{
-    public static void Show(this Page Page, String Message)
-    {
-        Page.ClientScript.RegisterStartupScript(
-           Page.GetType(),
-           "MessageBox",
-           "<script language='javascript'>alert('" + Message + "');</script>"
-        );
-    }
 }

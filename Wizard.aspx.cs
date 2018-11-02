@@ -34,86 +34,86 @@ public partial class Wizard : System.Web.UI.Page
     const string PANEL3_SESSION = "ActiveThree";
     const string MODULES_SESSION = "Modules";
     const string PATH_SESSION = "Paths";
-    const string ALERTMESSAGE_HEADER = "alertMessage";
     private const string CLASH_SESSION = "Clash";
     private const string INPUTS_SESSION = "Inputs";
 
     #endregion
 
-    List<string> getAllModules(string url, string keyword)
+    /// <summary>
+    /// changes the keyword input from the user to the specified one in the csv. Simply adds a space by the third character if there isn't already one
+    /// </summary>
+    /// <param name="keyword"></param>
+    /// <returns></returns>
+    private static string fixKeywordInput(string keyword)
     {
-        string campusName = url.Substring(TUKSDOMAIN.Length);
         if (keyword.Length > 3 && keyword[3] != ' ')
         {
             keyword = keyword.Insert(3, " ");
         }
-        keyword = keyword.Trim().ToLower();
-        List<string> modules = null;
+        keyword = keyword.Trim().ToLower();//change input to lower case for comparison purposes
+        return keyword;
+    }
+
+    private static string temp;
+    private static string getModuleName(string sline, string ModuleName)
+    {
+        temp = "";
+        try
+        {
+            temp = sline.Split(',')[1].Split('/')[1];
+        }
+        catch
+        {
+            try
+            {
+                temp = sline.Split(',')[1].Split(' ')[1] + " " + sline.Split(',')[1].Split(' ')[2];
+            }
+            catch
+            {
+
+            }
+        }
+
+        return temp;
+    }
+
+    enum pullType
+    {
+        ModuleName,
+        FullString
+    }
+
+    /// <summary>
+    /// downloads the data from the csv files and saves them into session.
+    /// First attempts to read from session data. If nothing found, pull from csv
+    /// </summary>
+    /// <param name="url">the csv url</param>
+    /// <param name="keyword">the module code entered by the user</param>
+    /// <param name="PullType">enum indicating full string or just the module name</param>
+    /// <returns></returns>
+    private List<string> pullFromCsv(string url, string keyword, pullType PullType)
+    {
+        string campusName;
+        if (PullType == pullType.FullString)
+        {
+            keyword = keyword.ToLower();
+            campusName = url.Substring(TUKSDOMAIN.Length) + "full";
+        }
+        else
+        {
+            campusName = url.Substring(TUKSDOMAIN.Length);
+            keyword = fixKeywordInput(keyword);
+        }
+        
+        List<string> returnList = new List<string>();
 
         if (((List<string>)Session[campusName]) != null)
         {
             //first pull from existing session
-            modules = ((List<string>)Session[campusName]).Where(o => o.ToLower().Contains(keyword.ToLower())).ToList();
+            returnList = ((List<string>)Session[campusName]).Where(o => o.ToLower().Contains(keyword)).ToList();
         }
 
-        //if nothing came from the session then collect from remote
-        if (modules == null)
-        {
-            modules = new List<string>();
-            #region pull from csv
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-
-            using (StreamReader csvReader = new StreamReader(resp.GetResponseStream(), true))
-            {
-                string sline = Constants.EMPTY_STRING;
-                string ModuleName = Constants.EMPTY_STRING;
-                while (!string.IsNullOrWhiteSpace(sline = csvReader.ReadLine()))
-                {
-                    if (sline.ToLower().Contains(keyword))
-                    {
-                        try
-                        {
-                            ModuleName = sline.Split(',')[1].Split('/')[1];
-                        }
-                        catch
-                        {
-                            try
-                            {
-                                ModuleName = sline.Split(',')[1].Split(' ')[1] + " " + sline.Split(',')[1].Split(' ')[2];
-                            }
-                            catch
-                            {
-
-                            }
-                        }
-
-
-                        if (ModuleName.ToLower().Contains(keyword)
-                            && ModuleName.ToLower() != "module"
-                            && !modules.Any(o => o == ModuleName))
-                        {
-                            modules.Add(ModuleName);
-                        }
-                    }
-                }
-                sline = Constants.EMPTY_STRING;
-                modules.Distinct().ToList().Sort();
-                Session[campusName] = modules;
-            }
-            #endregion
-        }
-
-        return modules;
-    }
-
-    List<string> getFullStrings(string url, string keyword)
-    {
-        keyword = keyword.ToLower();
-        string campusName = url.Substring(TUKSDOMAIN.Length) + "full";
-        List<string> fullStrings = new List<string>();
-
-        if (Session[campusName] == null)
+        if (returnList == null || returnList.Count() == 0)
         {
             #region pull from csv
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
@@ -125,44 +125,36 @@ public partial class Wizard : System.Web.UI.Page
                 string ModuleName = Constants.EMPTY_STRING;
                 while (!string.IsNullOrWhiteSpace(sline = csvReader.ReadLine()))//read till end of csv
                 {
-                    if (sline.ToLower().Contains(keyword))
+                    if (sline.ToLower().Contains(keyword))//if the csv line contains the user entered module code
                     {
-                        try
+                        if (PullType == pullType.FullString)
                         {
-                            ModuleName = sline.Split(',')[1].Split('/')[1];
+                            returnList.Add(sline);//save full line
                         }
-                        catch
+                        else
                         {
-                            try
+                            ModuleName = getModuleName(sline, ModuleName);
+
+                            if (ModuleName.ToLower() != "module"
+                                && !returnList.Any(o => o == ModuleName))
                             {
-                                ModuleName = sline.Split(',')[1].Split(' ')[1] + " " + sline.Split(',')[1].Split(' ')[2];
+                                returnList.Add(ModuleName);
                             }
-                            catch
-                            {
-
-                            }
-                        }
-
-
-                        if (ModuleName.ToLower().Contains(keyword.ToLower()))
-                        {
-
-                            fullStrings.Add(sline);
                         }
                     }
 
                     sline = Constants.EMPTY_STRING;
 
                 }
-                Session[campusName] = fullStrings;
+                Session[campusName] = returnList;
             }
             #endregion
         }
         else
         {
-            fullStrings = ((List<string>)Session[campusName]).Where(o => o.ToLower().Contains(keyword.ToLower())).ToList();
+            returnList = ((List<string>)Session[campusName]).Where(o => o.ToLower().Contains(keyword)).ToList();
         }
-        return fullStrings;
+        return returnList;
     }
 
     public List<string> GetStrings(List<string> campuses, string search)
@@ -170,7 +162,7 @@ public partial class Wizard : System.Web.UI.Page
         List<string> tempreturn = new List<string>();
         foreach (string campus in campuses)
         {
-            tempreturn.AddRange(getFullStrings(TUKSDOMAIN + campus + CSV_EXTENTION, search));
+            tempreturn.AddRange(pullFromCsv(TUKSDOMAIN + campus + CSV_EXTENTION, search, pullType.FullString));
         }
 
         return tempreturn.Distinct().OrderBy(o => o).ToList();
@@ -181,7 +173,7 @@ public partial class Wizard : System.Web.UI.Page
         List<string> tempreturn = new List<string>();
         foreach (string campus in campuses)
         {
-            tempreturn.AddRange(getAllModules(TUKSDOMAIN + campus + CSV_EXTENTION, search));
+            tempreturn.AddRange(pullFromCsv(TUKSDOMAIN + campus + CSV_EXTENTION, search, pullType.ModuleName));
         }
 
         return tempreturn.Distinct().OrderBy(o => o).ToList();
@@ -222,7 +214,7 @@ public partial class Wizard : System.Web.UI.Page
         }
         catch (Exception)
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('We are experiencing difficulty contacting UP servers. Please bear with us while we attempt to resolve this. Certain funtionality may be limited. If the problem persists please contact us via the contact page.')", true);
+            NotificationCenter.ShowNotification(this, "We are experiencing difficulty contacting UP servers. Please bear with us while we attempt to resolve this. Certain funtionality may be limited. If the problem persists please contact us via the contact page.");
         }
 
     }
@@ -255,7 +247,7 @@ public partial class Wizard : System.Web.UI.Page
             }
             if (paths.Count < 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please be sure to select at least one campus!')", true);
+                NotificationCenter.ShowNotification(this, "Please be sure to select at least one campus!");
                 SetActivePanel(1);
                 return;
             }
@@ -271,7 +263,7 @@ public partial class Wizard : System.Web.UI.Page
 
             if (lbxSource.Items.Count < 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('We couldn't find a module with that code. Please try again.')", true);
+                NotificationCenter.ShowNotification(this, "We couldn't find a module with that code. Please try again.");
             }
         }
         catch (Exception)
@@ -290,11 +282,11 @@ public partial class Wizard : System.Web.UI.Page
 
         if (iCheckCount == 0) // Catches unchecked checkboxes
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please select a campus first.')", true);
+            NotificationCenter.ShowNotification(this, "Please select a campus first.");
         }
         else if (iCheckCount > 2) // Catches checks exceeding 2 checkboxes
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Cannot select more than 2 campuses. Ensure that a maximum of 2 campuses are selected.')", true);
+            NotificationCenter.ShowNotification(this, "Cannot select more than 2 campuses. Ensure that a maximum of 2 campuses are selected.");
         }
     }
 
@@ -307,7 +299,7 @@ public partial class Wizard : System.Web.UI.Page
 
             if (lbxSource.Items.Count > 1 && lbxSource.SelectedIndex < 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please select at least one module!')", true);
+                NotificationCenter.ShowNotification(this, "Please select at least one module!");
                 return;
             }
             if (lbxSource.Items.Count == 1 && lbxSource.SelectedIndex != 0)
@@ -367,7 +359,7 @@ public partial class Wizard : System.Web.UI.Page
             if (!cbxEngineering.Checked && !cbxGroenkloof.Checked && !cbxHatfield.Checked && !cbxMamelodi.Checked && !cbxTheology.Checked)
             {
                 //throw error message. Have fun with it later.
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please select at least one campus or faculty!')", true);
+                NotificationCenter.ShowNotification(this, "Please select at least one campus or faculty!");
                 SetActivePanel(1);
                 return;
             }
@@ -409,7 +401,7 @@ public partial class Wizard : System.Web.UI.Page
             if (paths.Count < 1)
             {
                 //throw error message. Have fun with it later.
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Session Timeout. Please reselect at least one campus or faculty!')", true);
+                NotificationCenter.ShowNotification(this, "Session Timeout. Please reselect at least one campus or faculty!");
                 SetActivePanel(1);
                 return;
             }
@@ -460,12 +452,12 @@ public partial class Wizard : System.Web.UI.Page
             else
             {
                 //alert
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('We couldn't find a match for you. Please confirm that all provided information is accurate.')", true);
+                NotificationCenter.ShowNotification(this, "We couldn't find a match for you. Please confirm that all provided information is accurate.");
             }
         }
         catch (Exception x)
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('" + x.Message + "')", true);
+            NotificationCenter.ShowNotification(this, "" + x.Message + "')");
         }
 
 
@@ -497,7 +489,7 @@ public partial class Wizard : System.Web.UI.Page
         if (gb.ModulesToBeUsed.Length == 0)
         {
             // KryptonMessageBox.Show("I don't think the criterias you selected fits your modules\nWill it be ok if you double check your language and period of presentation?", "Criteria Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Could not find a result for the criteria selected. Please double check your input.')", true);
+            NotificationCenter.ShowNotification(this, "Could not find a result for the criteria selected. Please double check your input.");
         }
         else
         {
@@ -649,7 +641,7 @@ public partial class Wizard : System.Web.UI.Page
         {
             if (lbxDestination.Items.Count > 1 && lbxDestination.SelectedIndex < 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please select at least one module to remove!')", true);
+                NotificationCenter.ShowNotification(this, "Please select at least one module to remove!");
                 return;
             }
 
@@ -751,7 +743,7 @@ public partial class Wizard : System.Web.UI.Page
             }
             if (paths.Count < 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('Please be sure to select at least one campus!')", true);
+                NotificationCenter.ShowNotification(this, "Please be sure to select at least one campus!");
                 SetActivePanel(1);
                 return;
             }
@@ -762,7 +754,7 @@ public partial class Wizard : System.Web.UI.Page
 
             if (lbxSource.Items.Count < 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), ALERTMESSAGE_HEADER, "alert('We couldn't find a module with that code. Please try again.')", true);
+                NotificationCenter.ShowNotification(this, "We couldn't find a module with that code. Please try again.");
             }
         }
         catch (Exception ex)

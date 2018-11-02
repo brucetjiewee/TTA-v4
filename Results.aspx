@@ -5,26 +5,6 @@
 </asp:Content>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <%--// Themes: "--%>
-    <link rel="stylesheet" href="Content/agency.css" <%--type="text/css"--%> />
-    <script id="jsLoadingScreen" type="text/javascript">//function ShowProgress() {
-        //            setTimeout(function () {
-        //                var modal = $('<div />');
-        //                modal.addClass("modal");
-        //                $('body').append(modal);
-        //                var loading = $(".loading");
-        //                loading.show();
-        //                try {
-        //                    var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
-        //                    var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
-        //                }
-        //                catch (err) { }
-        //            }, 200);
-        //        }
-
-        //        function loadscreen() {
-        //            ShowProgress();
-        function ShowProgress() { setTimeout(function () { var o = $("<div />"); o.addClass("modal"), $("body").append(o); var t = $(".loading"); t.show(); try { Math.max($(window).height() / 2 - t[0].offsetHeight / 2, 0), Math.max($(window).width() / 2 - t[0].offsetWidth / 2, 0) } catch (a) { } }, 200) } function loadscreen() { ShowProgress() }</script>
     <div style="margin-top: 95px"></div>
     <div class="container body-content topSpace"></div>
     <asp:UpdatePanel ID="ResultsUpdatePanel" runat="server">
@@ -54,8 +34,6 @@
             </div>
             <div class="container container-fluid">
                 <div id="rowDisclaimer3" class="row" style="text-align: center; margin-bottom: 10px; margin-bottom: 10px">
-
-                    <%--<br /><br />IN THE EVENT OF DISCREPANCIES/ERRORS, PLEASE ASSIST US IN IMPROVING THE QUALITY OF OUR SERVICE BY PROMPTLY REPORTING ANY BUGS, ISSUES OR ERRORS USING THE TOOLS PROVIDED ON THE <span style="display: inline-block; text-align:center; border: 1px solid darkslateblue; color: white; background-color: darkslateblue; width: 80px; height: 20px"><span aria-hidden="true" class="glyphicon glyphicon-envelope" style="color: deepskyblue"></span> Contact</span> PAGE ABOVE.--%>
                     <div style="margin-top: 30px" id="sharebuttons" class="text-center">
                         <p class="outlineblack" style="margin-bottom: 15px; color: black;">Share this page</p>
                         <span class='st_facebook_large' displaytext='Facebook'></span>
@@ -86,13 +64,13 @@
                                 <div class="panel-group" id="accordion2">
                                     <div id="OutcomeNavigator">
                                         <div class="col-lg-5 col-sm-4 col-md-5 col-xs-4">
-                                            <asp:LinkButton ID="btnPreviousOutcome" runat="server" CssClass="btn btn-primary pull-right bkb" OnClick="btnPreviousOutcome_Click"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left" style="color: deepskyblue"></span></asp:LinkButton>
+                                            <asp:LinkButton ID="btnPreviousOutcome" runat="server" CssClass="btn btn-primary pull-right bkb" OnClick="btnPreviousOutcome_Click"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span></asp:LinkButton>
                                         </div>
                                         <div class="col-lg-2 col-sm-4 col-md-2 col-xs-4">
-                                            <asp:Label ID="lblOutcomes" runat="server" CssClass="text-center" Text="<#> of <#>" OnLoad="lblOutcomes_Load"></asp:Label>
+                                            <asp:Label ID="lblOutcomes" runat="server" CssClass="text-center" Text="Solution <#> of <#>" OnLoad="lblOutcomes_Load"></asp:Label>
                                         </div>
                                         <div class="col-lg-5 col-sm-4 col-md-5 col-xs-4">
-                                            <asp:LinkButton ID="btnNextOutcome" runat="server" CssClass="btn btn-primary bkb" OnClick="btnNextOutcome_Click"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right" style="color: deepskyblue"></span></asp:LinkButton>
+                                            <asp:LinkButton ID="btnNextOutcome" runat="server" CssClass="btn btn-primary bkb" OnClick="btnNextOutcome_Click"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span></asp:LinkButton>
                                             <asp:LinkButton ID="btnPreviewImg" runat="server" CssClass="btn btn-primary pull-right" OnClientClick="PrintDiv(divTimeTable)">Download <span aria-hidden="true" class="glyphicon glyphicon-download"></span></asp:LinkButton>
                                         </div>
                                     </div>
@@ -101,7 +79,6 @@
                                         <div id="divTimeTable" style="margin-top: 15px; margin-bottom: auto" class="table-responsive">
                                             <asp:Table ID="tblOutput" CssClass="table table-bordered table-inverse" runat="server">
                                                 <asp:TableHeaderRow runat="server" Height="40px" Font-Bold="true">
-                                                    <%--<asp:TableHeaderCell runat="server" HorizontalAlign="Center"></asp:TableHeaderCell>--%>
                                                     <asp:TableCell runat="server" CssClass="tableHeader" Text="Time"></asp:TableCell>
                                                     <asp:TableCell runat="server" CssClass="tableHeader" Text="Mon"></asp:TableCell>
                                                     <asp:TableCell runat="server" CssClass="tableHeader" Text="Tue"></asp:TableCell>
@@ -261,53 +238,18 @@
                     </div>
                 </div>
             </div>
-            </div>
-                <div class="container container-fluid">
-                    <%--<div class="panel-heading" style="background-color: darkslateblue">--%>
-                    <%--<h1 class="panel-title wHead">--%>
-                    <%--<a data-toggle="collapse" data-parent="#accordion" href="#colpnlImagePreview"><span aria-hidden="true" style="color: tomato; font-size: 80%" class="glyphicon glyphicon-picture"></span> Image Preview</a>--%>
-                    <%--</h1>--%>
-                    <%--</div>--%>
-                    <%--<div id="colpnlImagePreview" class="panel-collapse collapse">--%>
-                    <%--<div class="panel-body" >--%>
-                    <div id="divPreviewImage"></div>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                </div>
-            </div>
+
         </ContentTemplate>
     </asp:UpdatePanel>
-
     <asp:UpdateProgress ID="ResultsProgressPanel" runat="server" AssociatedUpdatePanelID="ResultsUpdatePanel">
         <ProgressTemplate>
             <div class="loading" id="loadmodal" style="display: normal"></div>
             <div class="modal-backdrop" id="modal" style="background-color: rgba(72, 61, 139, 0.70);">
-                <img src="Design Graphics/TTATempLogoWhiteBg.png" alt="LOADING" class="img img-responsive" <%--style="height: 100px; width: 100px; position: fixed; left: 0; right: 0; top: 0; bottom: 0; margin: auto"--%> />
-            </div>
+                <img src="LoadScreen.png" alt="LOADING" style="height: 100px; width: 100px; position: fixed; left: 0; right: 0; top: 0; bottom: 0; margin: auto" />
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
-
-
     <script>
-        function PrintDiv(div) {
-            html2canvas((div), {
-                onrendered: function (canvas) {
-                    var myImage = canvas.toDataURL();
-                    downloadURI(myImage, "My TimeTable.png");
-                }
-            });
-        }
-
-        function downloadURI(uri, name) {
-            var link = document.createElement("a");
-
-            link.download = name;
-            link.href = uri;
-            document.body.appendChild(link);
-            link.click();
-            //after creating link you should delete dynamic link
-            //clearDynamicLink(link); 
-        }
+        function PrintDiv(n) { html2canvas(n, { onrendered: function (n) { downloadURI(n.toDataURL(), "My TimeTable.png") } }) } function downloadURI(n, o) { var d = document.createElement("a"); d.download = o, d.href = n, document.body.appendChild(d), d.click() }
     </script>
 </asp:Content>
