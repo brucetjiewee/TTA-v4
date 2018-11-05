@@ -68,44 +68,29 @@
                 <div id="colpnlSendMessage" class="panel-collapse collapse in">
                     <div class="panel-body">
                         <div class="container">
-                            <div class="col-lg-12 text-center col-md-12 topSpace">
-                                <h3>Fill out the form below and we will try to get back to you as soon as possible!</h3>
-                                <form name="sentMessage" id="contactForm" novalidate>
-                                    <div class="row control-group">
-                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                            <label class="text-left">Name</label>
-                                            <input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name.">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
+                            <div class="col-lg-12  col-md-12 topSpace">
+                                <h3 class="text-center">Fill out the form below and we will try to get back to you as soon as possible!</h3>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"><span class="glyphicon glyphicon-user"></span> Full Name</label>
+                                        <input type="email" class="form-control" id="inputName"  placeholder="Enter full name">
+                                        
                                     </div>
-                                    <div class="row control-group">
-                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                            <label class="text-left">Email Address</label>
-                                            <input type="email" class="form-control" placeholder="Email Address" id="email" required data-validation-required-message="Please enter your email address.">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"><span class="glyphicon glyphicon-envelope"></span> Email address</label>
+                                        <input type="email" class="form-control" id="inputEmail" placeholder="Enter email">
+                                        
                                     </div>
-                                    <div class="row control-group">
-                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                            <label class="text-left">Phone Number</label>
-                                            <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required data-validation-required-message="Please enter your phone number.">
-                                            <p class="help-block text-danger"></p>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"><span class="glyphicon glyphicon-earphone"></span> Cellphone Number</label>
+                                        <input type="number" class="form-control" maxlength="10" id="inputCell" placeholder="012 555 5555" pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im" title="Must be a valid cell number">
+                                        
                                     </div>
-                                    <div class="row control-group">
-                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                            <label class="text-left">Message</label>
-                                            <textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
-                                            <p class="help-block text-danger"></p>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1"><span class="glyphicon glyphicon-comment"></span> Message</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
                                     </div>
-                                    <br>
-                                    <div id="success"></div>
-                                    <div class="row">
-                                        <div class="form-group col-xs-12">
-                                            <button type="submit" class="btn btn-success btn-lg pull-right">Send  <span aria-hidden="true" class="glyphicon glyphicon-send"></span></button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-lg pull-right"><span class="glyphicon glyphicon-send"></span> Send</button>
                                 </form>
                             </div>
                         </div>

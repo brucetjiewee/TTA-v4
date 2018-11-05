@@ -66,11 +66,11 @@
                                     </p>
                                     <div class="list-group">
                                         <p>
-                                            <asp:CheckBox class="list-group-item form-control" ID="cbxHatfield" runat="server" Text="Hatfield Campus" />
-                                            <asp:CheckBox class="list-group-item form-control" ID="cbxMamelodi" runat="server" Text="Mamelodi Campus" />
-                                            <asp:CheckBox class="list-group-item form-control" ID="cbxGroenkloof" runat="server" Text="Groenkloof Campus" />
-                                            <asp:CheckBox class="list-group-item form-control" ID="cbxTheology" runat="server" Text="Theology Faculty" />
-                                            <asp:CheckBox class="list-group-item form-control" ID="cbxEngineering" runat="server" Text="Engineering Faculty" />
+                                            <asp:CheckBox class="list-group-item " ID="cbxHatfield" runat="server" Text=" Hatfield campus" />
+                                            <asp:CheckBox class="list-group-item" ID="cbxMamelodi" runat="server" Text=" Mamelodi Campus" />
+                                            <asp:CheckBox class="list-group-item" ID="cbxGroenkloof" runat="server" Text=" Groenkloof Campus" />
+                                            <asp:CheckBox class="list-group-item" ID="cbxTheology" runat="server" Text=" Theology Faculty" />
+                                            <asp:CheckBox class="list-group-item" ID="cbxEngineering" runat="server" Text=" Engineering Faculty" />
                                         </p>
                                     </div>
                                     <asp:LinkButton ID="btnCampusNext" runat="server" CssClass="btn btn-primary btn-lg pull-right" OnClientClick="loadscreen()" OnClick="btnCampusNext_Click">Next <span class="glyphicon glyphicon-chevron-down"></span></asp:LinkButton>
