@@ -1,8 +1,10 @@
 ﻿/* Move down content because we have a fixed navbar that is 50px tall */
+/* #region INIT */
 body {
     /*padding-top: 50px;*/
     padding-bottom: 20px;
-    height:100%
+    height:100vh;
+    width: 100vw;
 }
 
 /* Wrapping element */
@@ -11,8 +13,6 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
-
-
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
@@ -23,15 +23,141 @@ body {
         padding: 0;
     }
 }
+/* #endregion */
 
-.header{
-    max-height:100vh;
-    min-height:100vh;
-    height:100vh;
+/* #region NAV*/
+
+#tta-nav{
+    padding: 14px 14px;
+    border-bottom-color: #337ab7;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+}
+#tta-nav .navbar-brand:hover {
+    color: #337ab7;
+}
+#nav-logo {
+    width: 45px;
+    height: 50px;
+    border: 0;
+}
+#nav-text {
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
 }
 
-.btnSharp{
-    border-radius:0;
+#tta-nav .nav-link {
+    color: #337ab7;
+    font-size: large;
+    text-align: left;
+    border: 2px solid transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#tta-nav .nav-link:hover {
+    border: 2px solid transparent;
+    color: #0D47A1;
+    border-bottom-color: #0D47A1;
+}
+
+
+.navbar-fixed-top .navbar-brand {
+    padding: 0 15px;
+}
+
+.navbar-static-top .navbar-brand {
+    padding: 0 15px;
+}
+
+@media(min-width:768px) {
+    body {
+        /*padding-top: 100px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+    }
+
+    .navbar-fixed-top .navbar-brand {
+        padding: 0;
+        margin-top: 0px;
+    }
+
+    .navbar-static-top .navbar-brand {
+        padding: 0;
+        margin-top: 0px;
+    }
+}
+
+@media(max-width:768px) {
+    .navbar-brand > img {
+        width: 60px;
+        height: 50px;
+    }
+
+    .navbar-fixed-top {
+        background-color: white;
+        border-bottom-color: transparent;
+    }
+
+    .navbar-static-top {
+        background-color: white;
+        border-bottom-color: transparent;
+    }
+}
+
+.navbar-static-top {
+    background-color: white;
+}
+
+.icon-bar {
+    background-color: #337ab7 !important;
+}
+
+/*navbar drop down menu*/
+.dropdown-menu > li > a > span, .dropdown-menu > li > a > b, .dropdown-menu > li > a {
+    color: #337ab7;
+    border: 1px solid transparent;
+}
+
+
+    .dropdown-menu > li > a > b:hover, .dropdown-menu > li > span:hover {
+        color: red;
+        border: 1px solid transparent;
+        border-bottom-color: red;
+    }
+
+.navbar-inverse .navbar-toggle:not(:active), .navbar-inverse .navbar-toggle:not(:focus) {
+    background-color: white;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+    background-color: #333;
+}
+/* #endregion */
+
+/* #region HEADER */
+#top {
+    height: 100vh;
+}
+/* #endregion */
+
+#main-container{
+    /*padding-top: 84px;*/
+}
+
+/* #region INDEX */
+.btn-dark{
+    transition: all 0.3s ease-in-out;
+}
+/* #endregion */
+
+/* #region WIZARD*/
+label{
+    margin-left: 7px;
+}
+.list-group-item{
+    border: none;
+}
+/* #endregion */
+.btnSharp {
+    border-radius: 0;
 }
 
 .bodyBackground {
@@ -81,3 +207,15 @@ th {
     border: 3px solid darkblue;
     float:left;
 }
+
+/* #region FOOTER */
+    footer{
+        padding-bottom: 21px;
+    }
+
+    .email-button {
+        margin-top: 14px;
+        margin-bottom: 14px;
+    }
+
+/* #endregion */
