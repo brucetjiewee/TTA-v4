@@ -11,13 +11,13 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <%--<link href="Content/stylish-portfolio.min.css" rel="stylesheet" />--%>
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="Content/LoadScreen.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel='stylesheet'/>
+    <link href="Content/stylish-portfolio.min.css" rel='stylesheet'/>
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <script src="Scripts/LoadScreen.js"></script>
     <asp:ContentPlaceHolder ID="HeaderContent" runat="server">
     </asp:ContentPlaceHolder>

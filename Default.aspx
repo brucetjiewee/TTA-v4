@@ -6,8 +6,7 @@
             <h1>Chylls TimeTable Assistant</h1>
             <p class="subtitle">A minimalistic, free TimeTable generator tool for the University of Pretoria.</p>
             <br />
-            <a href="/../Wizard.aspx" class="btn btn-dark btn-lg">Get Started!<br />
-                <span class="glyphicon glyphicon-chevron-right"></span></a>
+            <a href="/../Wizard.aspx" class="btn btn-dark btn-lg">Get Started! <span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </header>
 </asp:Content>
