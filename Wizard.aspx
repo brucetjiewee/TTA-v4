@@ -58,11 +58,9 @@
                                 <div class="container">
                                     <h2><span></span>Campus</h2>
                                     <p>
-                                        Select your <strong>
-                                            <abbr title="Campus refers to a complete TimeTable followed by a specific geographical campus.">campus</abbr></strong> or
-                                <strong>
-                                    <abbr title="Faculty refers to certain faculties that follow specialised TimeTables.">faculty:</abbr><br />
-                                </strong>
+                                        Select your <strong><abbr title="Campus refers to a complete TimeTable followed by a specific geographical campus.">campus</abbr></strong> or
+                                        <strong><abbr title="Faculty refers to certain faculties that follow specialised TimeTables."> faculty:</abbr></strong>
+                                        <br />
                                     </p>
                                     <div class="list-group">
                                         <p>
