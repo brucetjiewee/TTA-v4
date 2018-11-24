@@ -91,7 +91,7 @@
                                     <h2 class="fcb">
                                         <span></span>Module</h2>
                                     <p>
-                                        Select your <strong>
+                                        Select your <strong id="modulesPnl">
                                             <abbr title="A module is represented by a 6-digit code in the format 'AAA 999', e.g. 'ODT 200'.">modules:</abbr><br />
                                         </strong>
                                     </p>
