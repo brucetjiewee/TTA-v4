@@ -419,14 +419,17 @@ public class Globals
         //filter period and language criteria
 
         #region loop all items
-
+        Modules currentModule;
+        Modules.LectureSet currentGroup;
+        LectureSin currentSet;
         for (int iModLoop = 0; iModLoop < ModList.Length; iModLoop++)
         {
+            currentModule = ModList[iModLoop];
             //checking if current module exists in the fixed modules
             bool FixedFlag = false;
             foreach (Modules value in FixedModList)
             {
-                if (value.Name == ModList[iModLoop].Name)
+                if (value.Name == currentModule.Name)
                 {
                     FixedFlag = true;
                     break;
@@ -436,25 +439,26 @@ public class Globals
             if (!FixedFlag)
             {
                 //int CurrentTypeCounter = TypeCntrPerMod[iModLoop];  //collecting the counter for the current type //**
-                string[] ListOfTypes = GetTypeList(ModList[iModLoop]); //collecting the various types within THIS module
+                string[] ListOfTypes = GetTypeList(currentModule); //collecting the various types within THIS module
                 bool ReadAddflag = false;
 
                 for (int itypeLoop = 0; itypeLoop < ListOfTypes.Length; itypeLoop++)
                 {
                     bool modAddedFlag = false;
-                    for (int iGroupLoop = 0; iGroupLoop < ModList[iModLoop].Group.Length; iGroupLoop++)
+                    for (int iGroupLoop = 0; iGroupLoop < currentModule.Group.Length; iGroupLoop++)
                     {
                         string CType = ListOfTypes[itypeLoop];
-
+                        currentGroup = currentModule.Group[iGroupLoop];
                         #region Test to see if there is any to be added and flag true
                         //testing to see if there is any to be added and flag true
-                        if (ModList[iModLoop].Group[iGroupLoop].Sets != null)//if the set is null then there is nothing to collect and will cause a bomb out on the looping
+                        if (currentGroup.Sets != null)//if the set is null then there is nothing to collect and will cause a bomb out on the looping
                         {
-                            for (int iSetLoop = 0; iSetLoop < ModList[iModLoop].Group[iGroupLoop].Sets.Length; iSetLoop++)
+                            for (int iSetLoop = 0; iSetLoop < currentGroup.Sets.Length; iSetLoop++)
                             {
-                                string slang = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop].Language;
-                                string stype = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop].type.Substring(0, 1);
-                                string sPeriod = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop].PeriodOfPres;
+                                currentSet = currentGroup.Sets[iSetLoop];
+                                string slang = currentSet.Language;
+                                string stype = currentSet.type.Substring(0, 1);
+                                string sPeriod = currentSet.PeriodOfPres;
                                 if ((testPeriod(sPeriod, PeriodCriteria) == true) &&
                                     (slang == LangCriteria || slang == BOTH || LangCriteria == LANG_EITHER) &&
                                     (stype == CType))
@@ -472,7 +476,7 @@ public class Globals
                                         catch { }
                                         #endregion
 
-                                        if ((temp[temp.Length - 1].Name != ModList[iModLoop].Name) ||
+                                        if ((temp[temp.Length - 1].Name != currentModule.Name) ||
                                             (qtype.Substring(0, 1) != CType))//if the module already exist in the temp list then don't increase it
                                         {//as well as the previous type
 
@@ -490,7 +494,7 @@ public class Globals
                                     if (modAddedFlag == false)
                                     {
                                         //i need to perform a deep copy or it will not work out
-                                        temp[temp.Length - 1] = DeepCopyModule(ModList[iModLoop]);//copy the whole module through so that I don't need to code so much
+                                        temp[temp.Length - 1] = DeepCopyModule(currentModule);//copy the whole module through so that I don't need to code so much
 
                                         Array.Resize(ref temp[temp.Length - 1].Group, 0);//add group
                                                                                          //Array.Resize(ref ReferenceGroupIndex[ReferenceGroupIndex.Length - 1], 0);
@@ -515,19 +519,22 @@ public class Globals
                         //once the new empty module has been created, we loop through everything to get all the relevant sets into that empty module
                         if (ReadAddflag == true)
                         {
-                            for (int iSetLoop = 0; iSetLoop < ModList[iModLoop].Group[iGroupLoop].Sets.Length; iSetLoop++)
+                            for (int iSetLoop = 0; iSetLoop < currentGroup.Sets.Length; iSetLoop++)
                             {
-                                string slang = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop].Language;
-                                string stype = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop].type.Substring(0, 1);
-                                string sPeriod = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop].PeriodOfPres;
-                                if ((testPeriod(sPeriod, PeriodCriteria) == true) && (slang == LangCriteria || slang == BOTH || LangCriteria == LANG_EITHER) && (stype == CType))
+                                currentSet = currentGroup.Sets[iSetLoop];
+                                string slang = currentSet.Language;
+                                string stype = currentSet.type.Substring(0, 1);
+                                string sPeriod = currentSet.PeriodOfPres;
+                                if ((testPeriod(sPeriod, PeriodCriteria) == true) &&
+                                    (slang == LangCriteria || slang == BOTH || LangCriteria == LANG_EITHER) &&
+                                    (stype == CType))
                                 {
                                     int modUsed = temp.Length - 1;
                                     int groupUsed = temp[temp.Length - 1].Group.Length - 1;
                                     temp[modUsed].Group[groupUsed].AddItem();
                                     int setUsed = temp[modUsed].Group[groupUsed].Sets.Length - 1;
 
-                                    temp[modUsed].Group[groupUsed].Sets[setUsed] = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop];
+                                    temp[modUsed].Group[groupUsed].Sets[setUsed] = currentSet;
 
                                     #region reference set index
                                     Array.Resize(ref RefUseModIndex[temp.Length - 1].GroupList[temp[temp.Length - 1].Group.Length - 1].SetIndex, temp[temp.Length - 1].Group[temp[temp.Length - 1].Group.Length - 1].Sets.Length);
