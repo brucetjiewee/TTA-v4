@@ -10,6 +10,7 @@ using System.Data.OleDb;//used for the database connection
 using System.IO;
 using System.Xml;//used for deep copying as well
 using System.Drawing;
+using static Modules.LectureSet;
 
 /// <summary>
 /// Summary description for Globals
@@ -47,10 +48,7 @@ public class Globals
     private const string YEAR_SHORT_TYPE4 = "Y1";
     private const string YEAR_SHORT_TYPE5 = "J/Y";
     private const string YEAR_SHORT_TYPE6 = "Y/J";
-
-
-
-
+    
     #region database
     /// <summary>
     /// the global path that will be used for the database.
@@ -64,45 +62,7 @@ public class Globals
                               /// the database connection that will be used globally in different forms
                               /// </summary>
     public OleDbConnection con = new OleDbConnection();
-
-    /* public string GetSQL(bool Dinstinct, string searchstring)
-     {
-         string tablenames = Constants.EMPTY_STRING;
-         string temp = Constants.EMPTY_STRING;
-         if (Dinstinct == true)
-         {
-             tablenames = "SELECT DISTINCT * FROM [" + TableName[0] + "]";
-             if (searchstring != null)
-                 tablenames += " WHERE [Year / Module / Group / Lang / A No] LIKE '%" + searchstring + "%'";
-
-             for (int iloop = 1; iloop < TableName.Length; iloop++)
-             {
-                 tablenames += " UNION SELECT DISTINCT * FROM [" + TableName[iloop] + "]";
-                 if (searchstring != null)
-                     tablenames += " WHERE [Year / Module / Group / Lang / A No] LIKE '%" + searchstring + "%'";
-             }
-         }
-         else
-         {
-             tablenames = "SELECT * FROM [" + TableName[0] + "]";
-             if (searchstring != null)
-                 tablenames += " WHERE [Year / Module / Group / Lang / A No] LIKE '%" + searchstring + "%'";
-
-             for (int iloop = 1; iloop < TableName.Length; iloop++)
-             {
-                 tablenames += " UNION SELECT * FROM [" + TableName[iloop] + "]";
-                 if (searchstring != null)
-                     tablenames += " WHERE [Year / Module / Group / Lang / A No] LIKE '%" + searchstring + "%'";
-             }
-         }
-         temp = tablenames;
-
-
-         temp += "  ORDER BY [Year / Module / Group / Lang / A No] ASC";
-         return temp;
-     }
-     */
-
+    
     public DateTime UpdateDate;
     #endregion
 
@@ -116,69 +76,7 @@ public class Globals
     /// the modules that the user has pinned to the TimeTable. Don't want them to be moved by the generator
     /// </summary>
     public Modules[] FixedModList = new Modules[0];
-
-    //public void AddFixedMod(Modules mItem)
-    //{
-    //    bool flagExist = false;
-    //    for (int i = 0; i < FixedModList.Length; i++)
-    //    {
-    //        if (FixedModList[i].Name == mItem.Name)
-    //        {
-    //            FixedModList[i] = DeepCopyModule(mItem);
-    //            flagExist = true;
-    //        }
-
-    //    }
-
-    //    if (!flagExist)
-    //    {
-    //        Array.Resize(ref FixedModList, FixedModList.Length + 1);
-    //        FixedModList[FixedModList.Length - 1] = DeepCopyModule(mItem);
-    //    }
-    //}
-
-    //public bool FixModExists(string sCode)
-    //{
-    //    bool temp = false;
-    //    foreach (Modules value in FixedModList)
-    //    {
-    //        if (value.Name == sCode)
-    //        {
-    //            temp = true;
-    //            break;
-    //        }
-
-
-    //    }
-    //    return temp;
-    //}
-
-    //public void DelFixedMod(string sCode)
-    //{
-    //    int IndexOf = -1;
-    //    int j = 0;
-    //    foreach (Modules value in FixedModList)
-    //    {
-    //        if (value.Name == sCode)
-    //        {
-    //            IndexOf = j;
-    //            break;
-    //        }
-    //        j++;
-    //    }
-
-    //    if (IndexOf != -1)
-    //    {
-    //        //shifting everything up
-    //        for (int i = IndexOf; i < FixedModList.Length - 1; i++)
-    //        {
-    //            FixedModList[i] = FixedModList[i + 1];
-    //        }
-    //        //deleting the last one
-    //        Array.Resize(ref FixedModList, FixedModList.Length - 1);
-    //    }
-    //}
-
+    
     /// <summary>
     /// adds a new empty module onto the users list of modules
     /// </summary>
@@ -189,154 +87,10 @@ public class Globals
     }
 
     /// <summary>
-    /// Deletes a certain module from the list and readjust the list to fill up the space
+    /// returns the full string of the language based upon the shortened version/abbreviation of the language
     /// </summary>
-    /// <param name="IndexOf">Index of the module from the list that needs to be removed</param>
-    //public void DelUserModule(int IndexOf)
-    //{
-    //    //shifting everything up
-    //    for (int i = IndexOf; i < UserModules.Length - 1; i++)
-    //    {
-    //        UserModules[i] = UserModules[i + 1];
-    //    }
-    //    //deleting the last one
-    //    Array.Resize(ref UserModules, UserModules.Length - 1);
-    //}
-
-    /// <summary>
-    /// The normal sort funtion doesnt seem to work with array of classes
-    /// 
-    /// my own method for sorting
-    /// </summary>
-    /// <param name="List"></param>Mainly "UserModules"
-    //public void SortModules()
-    //{
-    //    for (int i = 0; i < UserModules.Length - 1; i++)
-    //    {
-    //        for (int j = i + 1; j < UserModules.Length; j++)
-    //        {
-    //            int iCom = string.Compare(UserModules[i].Name, UserModules[j].Name);
-    //            if (iCom > 0)
-    //            {
-    //                Modules Temp = UserModules[j];
-    //                UserModules[j] = UserModules[i];
-    //                UserModules[i] = Temp;
-    //            }
-    //        }
-    //    }
-    //}
-
-    /// <summary>
-    /// Collects all data from the database and adds those data to the usermodule list
-    /// </summary>
-    /// <param name="MCode">Code Names of the module</param>
-    //public void AddModule(string MCode)
-    //{
-    //    //adding the item to the module class
-    //    //this will take a couple of loops
-    //    IncUserModules();//adding module
-    //    int iIndex = UserModules.Length - 1;//getting lastest module length
-    //    UserModules[iIndex].Name = MCode;//inserting module name
-    //                                     //UserModules[iIndex].SelectedGroupIndex = -1;//determining selected group
-    //                                     //making commnad for calculations
-    //    OleDbCommand com4cal = new OleDbCommand();
-    //    try
-    //    {
-    //        con.Close();
-    //    }
-    //    catch { }
-
-    //    try
-    //    {
-    //        //adding conenction
-    //        con.ConnectionString = ConString;
-    //        con.Open();
-    //    }
-    //    catch { }
-
-    //    //get all table names
-
-    //    com4cal.Connection = con;
-    //    //com.CommandText = "" + tablenames + "  ORDER BY [Year / Module / Group / Lang / A No] ASC";
-    //  //  com4cal.CommandText = GetSQL(true, MCode);
-
-    //    OleDbDataReader reader4Cal = com4cal.ExecuteReader();
-    //    int currentGIndex = -1;
-    //    while (reader4Cal.Read())
-    //    {
-    //        bool emptyFlag = false;
-    //        for (int i = 0; i < 6; i++)
-    //        {//checking if there is an items that is empty
-    //            if (reader4Cal[i] == null || reader4Cal[i].ToString() == "")
-    //            {
-    //                emptyFlag = true;
-    //                break;
-    //            }
-    //        }
-    //        //if there isn't any data missing then continue. or it will give errors
-    //        if (emptyFlag != true)
-    //        {
-    //            //deleting the spaces in front of every record if there is any
-    //            string[] reader4CalArr = new string[7];
-    //            for (int i = 0; i < 7; i++)
-    //            {
-    //                string sline = reader4Cal[i].ToString();
-    //                if (sline != "" && sline[0] == ' ')//if the line is empty then we can somma just skip it
-    //                    reader4CalArr[i] = sline.Substring(1);
-    //                else reader4CalArr[i] = sline;
-    //            }
-
-    //            //adding the groups into the class
-    //            string[] Col1 = reader4CalArr[0].ToString().Split('/');
-
-    //            string sgroupindex = Constants.EMPTY_STRING;
-    //            foreach (char value in Col1[2])
-    //            {//collect all possible integer values from the group
-    //                if (char.IsNumber(value))
-    //                    sgroupindex += value;
-    //            }
-    //            int GroupIndex = Convert.ToInt32(sgroupindex) - 1;//convert that string into int
-
-    //            if (GroupIndex > currentGIndex)
-    //            {
-    //                UserModules[iIndex].AddItem();//adding group
-    //                                              /*because some groups start from a number that isn't 1 
-    //                                               * so we have to make provision that it doesnt bomb out
-    //                                               */
-    //                while (UserModules[iIndex].Group.Length <= GroupIndex)
-    //                { UserModules[iIndex].AddItem(); }
-
-    //                currentGIndex = GroupIndex;
-    //            }
-
-    //            //int GroupIndex = UserModules[iIndex].Group.Length - 1 - 1;//getting group lastest index
-    //            UserModules[iIndex].Group[GroupIndex].AddItem();
-    //            int SetsIndex = UserModules[iIndex].Group[GroupIndex].Sets.Length - 1;
-    //            UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Year = Col1[0];//set year
-    //            string sLang = Col1[3];
-    //            sLang = GetFullLanguageString(sLang);
-    //            UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Language = sLang;//set language
-    //            UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].type = Col1[4];//set type
-    //            UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].PeriodOfPres = reader4CalArr[1].ToString();//set period of presentation
-    //                                                                                                             //string day = ;
-    //            UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Day = reader4CalArr[2].ToString();//set day             
-    //            DateTime StartTime = Convert.ToDateTime(reader4CalArr[3].ToString());
-    //            UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].StartTime = StartTime;//set start time
-    //            DateTime EndTime = Convert.ToDateTime(reader4CalArr[4].ToString());
-    //            UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].EndTime = EndTime;//set end time
-    //            UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].venue = reader4CalArr[5].ToString().Insert(reader4CalArr[5].ToString().IndexOf('/'), " ");//set venue
-    //            UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Others = reader4CalArr[6].ToString();//set others
-    //            UserModules[iIndex].Group[GroupIndex].GroupFlag = false;
-    //            UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].ItemFlag = false;
-    //        }
-    //    }
-
-
-    //    reader4Cal.Close();//closing everything for next time use
-    //    com4cal.Cancel();
-    //    con.Close();
-    //}
-
+    /// <param name="sLang">Language abbreviation</param>
+    /// <returns></returns>
     private static string GetFullLanguageString(string sLang)
     {
         switch (sLang)
@@ -351,26 +105,24 @@ public class Globals
                 sLang = LANG_ENGLISH;
                 break;
         }
-
         return sLang;
     }
 
     public void AddNewModule(string MCode, Module inMod)
     {
-        //adding the item to the module classtime
+        //adding the item to the module class time
         //this will take a couple of loops
         IncUserModules();//adding module
-        int iIndex = UserModules.Length - 1;//getting lastest module length
-        UserModules[iIndex].Name = inMod.Lectures[0].ModCode;//inserting module name
+        int iIndex = UserModules.Length - 1;//getting latest module length
+        Modules newMod = UserModules[iIndex];
+        newMod.Name = inMod.Lectures[0].ModCode;//inserting module name
                                                              //UserModules[iIndex].SelectedGroupIndex = -1;//determining selected group
-                                                             //making commnad for calculations
-
-
-
+                                                             //making command for calculations
+        bool emptyFlag;
         int currentGIndex = -1;
         foreach (Lecture inLecture in inMod.Lectures)
         {
-            bool emptyFlag = false;
+            emptyFlag = false;
             //checking if there is a column that is empty
             if (inLecture.Campus == null) //WIP 
             {
@@ -379,111 +131,63 @@ public class Globals
             }
 
             //if there isn't any data missing then continue. or it will give errors
+            //#TuksAdmin
             if (emptyFlag != true)
             {
-                //deleting the spaces in front of every record if there is any
-                //string[] reader4CalArr = new string[7];
-                //for (int i = 0; i < 7; i++)
-                //{
-                //    string sline = Constants.EMPTY_STRING;//reader4Cal[i].ToString();
-                //    if (sline != "" && sline[0] == ' ')//if the line is empty then we can somma just skip it
-                //        reader4CalArr[i] = sline.Substring(1);
-                //    else reader4CalArr[i] = sline;
-                //}
-
-                //adding the groups into the class
-                // string[] Col1 = reader4CalArr[0].ToString().Split('/');
-
-                string sgroupindex = Constants.EMPTY_STRING;
-                foreach (char value in inLecture.Group)
-                {//collect all possible integer values from the group
-                    if (char.IsNumber(value))
-                        sgroupindex += value;
-                }
-                int GroupIndex = Convert.ToInt32(sgroupindex) - 1;//convert that string into int
+                int GroupIndex = getGroupIndexFromModuleLecture(inLecture);
 
                 if (GroupIndex > currentGIndex)
                 {
-                    UserModules[iIndex].AddItem();//adding group
+                    newMod.AddItem();//adding group
                                                   /*because some groups start from a number that isn't 1 
                                                    * so we have to make provision that it doesnt bomb out
+                                                   * #TuksAdmin
                                                    */
-                    while (UserModules[iIndex].Group.Length <= GroupIndex)
-                    { UserModules[iIndex].AddItem(); }
+                    while (newMod.Group.Length <= GroupIndex)
+                    { newMod.AddItem(); }
 
                     currentGIndex = GroupIndex;
                 }
 
-                //int GroupIndex = UserModules[iIndex].Group.Length - 1 - 1;//getting group lastest index
-                UserModules[iIndex].Group[GroupIndex].AddItem();
-                int SetsIndex = UserModules[iIndex].Group[GroupIndex].Sets.Length - 1;
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Year = inLecture.Year.ToString();//set year
+                newMod.Group[GroupIndex].AddItem();
+                //referencing the group
+                Modules.LectureSet group = newMod.Group[GroupIndex];
+                int SetsIndex = group.Sets.Length - 1;
+                LectureSin set = group.Sets[SetsIndex];//referencing the selected set in the group
+                set.Year = inLecture.Year.ToString();//set year
                 string sLang = inLecture.Lang;
 
                 sLang = GetFullLanguageString(sLang);
 
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Language = sLang.Trim();//set language
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].type = inLecture.Type.Trim();//set type
+                set.Language = sLang.Trim();//set language
+                set.type = inLecture.Type.Trim();//set type
 
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].PeriodOfPres = inLecture.TimePeriod.ToString().Trim();//set period of presentation
-                                                                                                                            //string day = ;
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Day = inLecture.Day.Trim();//set day             
+                set.PeriodOfPres = inLecture.TimePeriod.ToString().Trim();//set period of presentation
+                                                                          //string day = ;
+                set.Day = inLecture.Day.Trim();//set day             
                 DateTime StartTime = Convert.ToDateTime(inLecture.StartTime.Trim());
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].StartTime = StartTime;//set start time
+                set.StartTime = StartTime;//set start time
                 DateTime EndTime = Convert.ToDateTime(inLecture.EndTime.Trim());
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].EndTime = EndTime;//set end time
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].venue = inLecture.Venue.ToString().Trim();//set venue
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].Others = "'";//set others
-                UserModules[iIndex].Group[GroupIndex].GroupFlag = false;
-                UserModules[iIndex].Group[GroupIndex].Sets[SetsIndex].ItemFlag = false;
+                set.EndTime = EndTime;//set end time
+                set.venue = inLecture.Venue.ToString().Trim();//set venue
+                set.Others = "'";//set others
+                group.GroupFlag = false;
+                set.ItemFlag = false;
             }
         }
-
-
-
     }
 
-
-
-    /// <summary>
-    /// this method checks through the array to see if this module already exists or not. 
-    /// A simple linear search function will be used because it is not expected for the user to have more than 20 modules
-    /// </summary>
-    /// <param name="Mcode"></param>module code
-    /// <returns></returns>true for existing, false for non-existence
-    //public bool ExistInArray(string Mcode)
-    //{
-    //    bool flag = false;//true until proven guilty
-    //    foreach (Modules value in UserModules)
-    //    {
-    //        if (value.Name == Mcode)
-    //        {
-    //            flag = true;
-    //            break;
-    //        }
-    //    }
-    //    return flag;
-    //}
-
-    /// <summary>
-    /// gets the index of the module in the array
-    /// </summary>
-    /// <param name="Mcode"></param>module code
-    /// <returns></returns>integer
-    //public int GetIndexofMod(string Mcode)
-    //{
-    //    int index = -1;//true until proven guilty
-    //    foreach (Modules value in UserModules)
-    //    {
-    //        index++;
-    //        if (value.Name == Mcode)
-    //        {
-    //            break;
-    //        }
-
-    //    }
-    //    return index;
-    //}
+    private static int getGroupIndexFromModuleLecture(Lecture inLecture)
+    {
+        string sgroupindex = Constants.EMPTY_STRING;
+        foreach (char value in inLecture.Group)
+        {//collect all possible integer values from the group
+            if (char.IsNumber(value))
+                sgroupindex += value;
+        }
+        int GroupIndex = Convert.ToInt32(sgroupindex) - 1;//convert that string into int
+        return GroupIndex;
+    }
 
     #endregion
 
@@ -493,178 +197,9 @@ public class Globals
     /// the globally used TimeTable. this is the one that is shown to the user.
     /// </summary>
     public Table TimeTable = new Table();
-
-
-
-
+    
     #endregion
-
-    #region undo and redo
-    public int StateListIndex = -1;
-    //public IList<Memento> undos = new List<Memento>();
-    //public StateHolder SHBox = new StateHolder();
-    //public Memento Undo;
-    public struct StateCapsual
-    {
-        public Table PartTable { get; set; }
-        public Modules[] PartMod { get; set; }
-
-    }
-
-    #region State Holder Class
-    /// <summary>
-    /// this is the originator
-    /// </summary>
-    public class StateHolder
-    {
-        //declaring the state
-        private StateCapsual sState;
-
-        public Memento SetState(StateCapsual SetableState)
-        {
-            Memento temp = new Memento(SetableState.PartTable, SetableState.PartMod);
-            sState = SetableState;
-            return temp;
-        }
-
-        public Table GetStateTable()
-        {
-            return sState.PartTable;
-        }
-
-        public Modules[] GetStateMod()
-        {
-            return sState.PartMod;
-        }
-
-        /// <summary>
-        /// the actually setting of the state
-        /// 
-        /// setting memento
-        /// </summary>
-        /// <param name="PrevState"></param>
-        /// <returns></returns>
-        public void Undo(Memento PrevState)
-        {
-            sState.PartTable = PrevState.GetStateTable();
-            sState.PartMod = PrevState.GetStateMod();
-        }
-    }
-
-    #endregion
-
-    #region Memento Class
-    /// <summary>
-    /// This is the memento class
-    /// </summary>
-    public class Memento
-    {
-        //declaring the state
-        private StateCapsual sState;
-
-        public Memento(Table StateTable, Modules[] StateMod)
-        {
-            sState.PartTable = StateTable;
-            sState.PartMod = StateMod;
-        }
-
-        public Table GetStateTable()
-        {
-            return sState.PartTable;
-        }
-
-        public Modules[] GetStateMod()
-        {
-            return sState.PartMod;
-        }
-    }
-
-    #endregion
-
-    /// <summary>
-    /// recursive function deleting all the items above current state index
-    /// </summary>
-    //public void RemoveAllAbove()
-    //{
-
-    //    if (StateListIndex < undos.Count - 1)//checking to find order of state
-    //    {
-    //        //delete all the later states
-    //        undos.RemoveAt(StateListIndex + 1);
-    //        RemoveAllAbove();
-    //    }
-    //}
-
-    /// <summary>
-    /// this region contains the deep copy methods that allow the computer to make a full copy of the classes.
-    /// Big issue is that creating states for each state only creates new pointers to the memory space.
-    /// So in order to create an existing and working undo and redo, a deep copyh will be needed for each undo and each redo
-    /// </summary>
-    /// <param name="TimeTable"></param>
-    /// <returns></returns>
-    #region deep copy
-
-    public Table DeepCopyTable(Table TimeTable)
-    {
-        Table TableCopy = new Table();
-        using (MemoryStream stream = new MemoryStream())
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, TimeTable);
-            stream.Position = 0;
-            TableCopy = (Table)formatter.Deserialize(stream);
-        }
-        return TableCopy;
-    }
-
-    public Modules[] DeepCopyModules(Modules[] ModList)
-    {
-        Modules[] ModCopy = new Modules[0];
-        using (MemoryStream stream = new MemoryStream())
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, ModList);
-            stream.Position = 0;
-            ModCopy = (Modules[])formatter.Deserialize(stream);
-        }
-        return ModCopy;
-    }
-
-    /// <summary>
-    /// c# only creates shallow copies ot items to save space. but there are places that i need to work with two totally different items. and thats where i would use this method.
-    /// this method only makes a deep copy of one single module
-    /// </summary>
-    /// <param name="ModList"></param>
-    /// <returns></returns>
-    public static Modules DeepCopyModule(Modules ModList)
-    {
-        Modules ModCopy = new Modules();
-        using (MemoryStream stream = new MemoryStream())
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, ModList);
-            stream.Position = 0;
-            ModCopy = (Modules)formatter.Deserialize(stream);
-        }
-        return ModCopy;
-    }
-    #endregion
-
-    //public void NewState()
-    //{
-
-    //    RemoveAllAbove();//the if statement is declared in there
-    //    StateListIndex++;
-    //    StateCapsual NewCapsual = new StateCapsual();
-    //    NewCapsual.PartTable = DeepCopyTable(TimeTable);
-    //    NewCapsual.PartMod = DeepCopyModules(UserModules);
-    //    Undo = SHBox.SetState(NewCapsual);
-    //    undos.Add(Undo);
-
-    //}
-
-    #endregion
-
+    
     #region generator
 
     public void DisplayOutcome(int IndexCounter)
@@ -732,7 +267,6 @@ public class Globals
                 }
                 UserModules[UserModCounter].UpdateGroupCheck();
             }
-            //UpdateTable();
         }
 
     }
@@ -926,7 +460,7 @@ public class Globals
                                     (stype == CType))
                                 {
 
-                                    //create the module if it isnt already there, since we working with the last item everytime, there will be no need to loop through every item
+                                    //create the module if it isn't already there, since we working with the last item every time, there will be no need to loop through every item
                                     if (temp.Length > 0)
                                     {
                                         #region get already stored type
@@ -939,7 +473,7 @@ public class Globals
                                         #endregion
 
                                         if ((temp[temp.Length - 1].Name != ModList[iModLoop].Name) ||
-                                            (qtype.Substring(0, 1) != CType))//if the module already exist in the temp list then dont increase it
+                                            (qtype.Substring(0, 1) != CType))//if the module already exist in the temp list then don't increase it
                                         {//as well as the previous type
 
                                             Array.Resize(ref temp, temp.Length + 1);//add module
@@ -955,8 +489,8 @@ public class Globals
                                     #region lazy copying of modules
                                     if (modAddedFlag == false)
                                     {
-                                        //i need to perform a deep copy of it will not work out
-                                        temp[temp.Length - 1] = DeepCopyModule(ModList[iModLoop]);//copy the whole module through so that i dont need to code so much
+                                        //i need to perform a deep copy or it will not work out
+                                        temp[temp.Length - 1] = DeepCopyModule(ModList[iModLoop]);//copy the whole module through so that I don't need to code so much
 
                                         Array.Resize(ref temp[temp.Length - 1].Group, 0);//add group
                                                                                          //Array.Resize(ref ReferenceGroupIndex[ReferenceGroupIndex.Length - 1], 0);
@@ -969,8 +503,6 @@ public class Globals
 
                                     RefUseModIndex[temp.Length - 1].GroupList[temp[temp.Length - 1].Group.Length - 1].GroupIndex = iGroupLoop;//storing original group index
                                                                                                                                               //#endregion
-
-
 
                                     ReadAddflag = true;
                                     break;
@@ -990,7 +522,6 @@ public class Globals
                                 string sPeriod = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop].PeriodOfPres;
                                 if ((testPeriod(sPeriod, PeriodCriteria) == true) && (slang == LangCriteria || slang == BOTH || LangCriteria == LANG_EITHER) && (stype == CType))
                                 {
-                                    //Array.Resize(ref ModulesToBeUsed, ModulesToBeUsed.Length + 1);
                                     int modUsed = temp.Length - 1;
                                     int groupUsed = temp[temp.Length - 1].Group.Length - 1;
                                     temp[modUsed].Group[groupUsed].AddItem();
@@ -999,29 +530,17 @@ public class Globals
                                     temp[modUsed].Group[groupUsed].Sets[setUsed] = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop];
 
                                     #region reference set index
-                                    //add set index
-                                    //int[] RefSetArray = RefUseModIndex[RefUseModIndex.Length - 1].GroupList[RefUseModIndex[RefUseModIndex.Length - 1].GroupList.Length - 1].SetIndex;
                                     Array.Resize(ref RefUseModIndex[temp.Length - 1].GroupList[temp[temp.Length - 1].Group.Length - 1].SetIndex, temp[temp.Length - 1].Group[temp[temp.Length - 1].Group.Length - 1].Sets.Length);
-                                    //try
-                                    //{
-                                    //    Array.Resize(ref RefUseModIndex[temp.Length - 1].GroupList[RefUseModIndex[temp.Length - 1].GroupList.Length - 1].SetIndex, RefUseModIndex[RefUseModIndex.Length - 1].GroupList[RefUseModIndex[RefUseModIndex.Length - 1].GroupList.Length - 1].SetIndex.Length + 1);
-                                    //}
-                                    //catch
-                                    //{
-                                    //    RefUseModIndex[temp.Length - 1].GroupList[RefUseModIndex[temp.Length - 1].GroupList.Length - 1].SetIndex = new int[1];
-                                    //}
-                                    //storing the set ref
+
                                     RefUseModIndex[temp.Length - 1].GroupList[temp[temp.Length - 1].Group.Length - 1].SetIndex[temp[temp.Length - 1].Group[temp[temp.Length - 1].Group.Length - 1].Sets.Length - 1] = iSetLoop;
                                     #endregion
                                 }
                             }
-                            ReadAddflag = false;//after implementing, set the flagto false again
+                            ReadAddflag = false;//after implementing, set the flag to false again
                         }
                         #endregion
                     }
-
-                    //if ((TypeCntrPerMod[ModuleCounter] < ListOfTypes.Length - 1))
-                    //    TypeCntrPerMod[ModuleCounter]++;
+                    
                 }
             }
 
@@ -1135,20 +654,18 @@ public class Globals
         public int TotLW()
         {
             int itemtot = 0;
-            for (int i = 3; i < 6; i++)//wednesday to friday
+            for (int i = 3; i < 6; i++)//Wednesday to Friday
             {
                 itemtot += SortClassPoints[i];
-
             }
             return itemtot;
         }
         public int TotEW()
         {
             int itemtot = 0;
-            for (int i = 1; i < 4; i++)//monday to wednesday
+            for (int i = 1; i < 4; i++)//Monday to Wednesday
             {
                 itemtot += SortClassPoints[i];
-
             }
             return itemtot;
         }
@@ -1156,7 +673,6 @@ public class Globals
         {
             int itemtot = 0;
             itemtot += SortClassPoints[1];
-
             itemtot += SortClassPoints[5];
             return itemtot;
         }
@@ -1252,7 +768,7 @@ public class Globals
     public bool[,] bTable = new bool[8, 16];
 
     /// <summary>
-    /// Takes the group items and test though all criterias and sees if it will be possible to be imlemented onto the bool table
+    /// Takes the group items and test though all criterias and sees if it will be possible to be implemented onto the bool table
     /// </summary>
     /// <param name="CurrentModule">Current Module being tested</param>
     /// <param name="groupindex">The group Index (integer)</param>
@@ -1291,10 +807,10 @@ public class Globals
                 }
             }
             #endregion
-            //if it successfully runs through the proceedure without breaking then show that there is an extra item added
+            //if it successfully runs through the procedure without breaking then show that there is an extra item added
             counter++;
 
-            if (flag == false)//if there is one set that doesnt fit on the TimeTable then not the whole group will fit. so end it
+            if (flag == false)//if there is one set that doesn't fit on the TimeTable then not the whole group will fit. so end it
                 break;
         }
         #endregion
@@ -1307,7 +823,7 @@ public class Globals
     }
 
     /// <summary>
-    /// after we establish that it can be implemented on the table, we are ready to implemente it to the table for other modules to be tested
+    /// after we establish that it can be implemented on the table, we are ready to implement it to the table for other modules to be tested
     /// </summary>
     /// <param name="thistable">2D array of booleans</param>
     /// <param name="CurrentModule">The current module being tested</param>
@@ -1362,8 +878,6 @@ public class Globals
             iy = temptable.GetY(CurrentModule.Group[groupindex].Sets[setindex].StartTime) + j;
             thistable[ix, iy] = false;
         }
-
-
     }
 
     /// <summary>
@@ -1387,10 +901,43 @@ public class Globals
             ModToBeSwopped = DeepCopyModule(temp);
             RefToBeSwopped = tempref;
         }
-
         public int ModIndex;
     }
 
+    #endregion
+    #region deep copy
+
+    public Modules[] DeepCopyModules(Modules[] ModList)
+    {
+        Modules[] ModCopy = new Modules[0];
+        using (MemoryStream stream = new MemoryStream())
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, ModList);
+            stream.Position = 0;
+            ModCopy = (Modules[])formatter.Deserialize(stream);
+        }
+        return ModCopy;
+    }
+
+    /// <summary>
+    /// c# only creates shallow copies two items to save space. but there are places that i need to work with two totally different items. and thats where i would use this method.
+    /// this method only makes a deep copy of one single module
+    /// </summary>
+    /// <param name="ModList"></param>
+    /// <returns></returns>
+    public static Modules DeepCopyModule(Modules ModList)
+    {
+        Modules ModCopy = new Modules();
+        using (MemoryStream stream = new MemoryStream())
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream, ModList);
+            stream.Position = 0;
+            ModCopy = (Modules)formatter.Deserialize(stream);
+        }
+        return ModCopy;
+    }
     #endregion
 
     public void FixedBoolTable(ref bool[,] BoolTable, Modules[] FList)

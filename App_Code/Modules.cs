@@ -42,13 +42,9 @@ using System.Text.RegularExpressions;//used for regex
             public void AddItem()//somehow the methods that are made within the structs have no interference with the ones out side
             {
                 try
-                {
-                    Array.Resize(ref Sets, Sets.Length + 1);
-                }
+                { Array.Resize(ref Sets, Sets.Length + 1); }
                 catch
-                {
-                    Sets = new LectureSin[1];
-                };
+                { Sets = new LectureSin[1]; };
             }
 
             public void DelItem(int Index)
