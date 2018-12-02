@@ -68,10 +68,7 @@ public partial class Wizard : System.Web.UI.Page
             {
                 temp = sline.Split(',')[1].Split(' ')[1] + " " + sline.Split(',')[1].Split(' ')[2];
             }
-            catch
-            {
-
-            }
+            catch { }
         }
 
         return temp;
@@ -294,8 +291,6 @@ public partial class Wizard : System.Web.UI.Page
         SetActivePanel(2);
         try
         {
-
-
             if (lbxSource.Items.Count > 1 && lbxSource.SelectedIndex < 0)
             {
                 NotificationCenter.ShowNotification(this, "Please select at least one module!");
@@ -303,14 +298,7 @@ public partial class Wizard : System.Web.UI.Page
             }
             if (lbxSource.Items.Count == 1 && lbxSource.SelectedIndex != 0)
             {
-                List<string> sourceItems = (List<string>)Session[MODULES_SESSION];
-                lbxDestination.Items.Add(sourceItems[0]);
-                lbxDestination.SelectedIndex = 0;
-                lbxDestination.Text = lbxSource.SelectedValue;
-                //sourceItems.Clear();
-                //lbxSource.Items.Clear();
-                txtInput.Text = Constants.EMPTY_STRING;
-                txtInput.Focus();
+                TransferModuleToMyList(0);
             }
             else
             {
@@ -318,36 +306,30 @@ public partial class Wizard : System.Web.UI.Page
                 {
                     foreach (int index in lbxSource.GetSelectedIndices())
                     {
-
-                        List<string> sourceItems = (List<string>)Session[MODULES_SESSION];
-                        lbxDestination.Items.Add(sourceItems[index]);
-                        lbxDestination.SelectedIndex = index;
-                        lbxDestination.Text = lbxSource.SelectedValue;
-                        //sourceItems.Clear();
-                        //lbxSource.Items.Clear();
-                        txtInput.Text = Constants.EMPTY_STRING;
-                        txtInput.Focus();
+                        TransferModuleToMyList(index);
                     }
                 }
                 else
                 {
-                    List<string> sourceItems = (List<string>)Session[MODULES_SESSION];
-                    lbxDestination.Items.Add(sourceItems[lbxSource.SelectedIndex]);
-                    //sourceItems.Clear();
-                    //lbxSource.Items.Clear();
-                    txtInput.Text = Constants.EMPTY_STRING;
-                    txtInput.Focus();
+                    TransferModuleToMyList(lbxSource.SelectedIndex);
                 }
-
             }
         }
         catch (Exception)
         {
 
         }
-
         RefreshLbx();
+    }
 
+    private void TransferModuleToMyList(int index)
+    {
+        List<string> sourceItems = (List<string>)Session[MODULES_SESSION];
+        lbxDestination.Items.Add(sourceItems[index]);
+        lbxDestination.SelectedIndex = index;
+        lbxDestination.Text = lbxSource.SelectedValue;
+        txtInput.Text = Constants.EMPTY_STRING;
+        txtInput.Focus();
     }
 
     protected void btnTime_Click(object sender, EventArgs e)
@@ -362,7 +344,7 @@ public partial class Wizard : System.Web.UI.Page
                 SetActivePanel(1);
                 return;
             }
-            
+
             List<string> UserModules = new List<string>();
             foreach (var module in lbxDestination.Items)
             {
@@ -370,26 +352,7 @@ public partial class Wizard : System.Web.UI.Page
             }
 
             List<string> UserCampuses = new List<string>();
-            if (cbxEngineering.Checked == true)
-            {
-                UserCampuses.Add("Engineering");
-            }
-            if (cbxGroenkloof.Checked == true)
-            {
-                UserCampuses.Add("Groenkloof");
-            }
-            if (cbxHatfield.Checked == true)
-            {
-                UserCampuses.Add("Hatfield");
-            }
-            if (cbxMamelodi.Checked == true)
-            {
-                UserCampuses.Add("Mamelodi");
-            }
-            if (cbxTheology.Checked == true)
-            {
-                UserCampuses.Add("Theology");
-            }
+            addToUserCampuses(UserCampuses);
 
             UserInputs inputs = new UserInputs(UserModules, UserCampuses, ddlPeriod.SelectedValue.ToString(), ddlLanguage.SelectedValue.ToString());
             Session[INPUTS_SESSION] = inputs;
@@ -431,9 +394,7 @@ public partial class Wizard : System.Web.UI.Page
 
             foreach (Module mod in mods)
             {
-
                 gb.AddNewModule(Constants.EMPTY_STRING, mod); // add module method (adapted) adding each module's lectures
-
             }
             //gb.TimeTable.Clear();
             //gb.FixedBoolTable(ref gb.bTable, gb.FixedModList);
@@ -445,12 +406,10 @@ public partial class Wizard : System.Web.UI.Page
 
             // gb.Generator(gb.ModulesToBeUsed); // generate from added modules? 
 
-
             Session[Constants.GLOBALS_SESSION] = gb; //store GB as is
 
             if (gb.PossibleOutComes.Count > 0)
             {
-
                 Response.Redirect("~/Results.aspx", false);
                 Context.ApplicationInstance.CompleteRequest();
             }
@@ -467,6 +426,30 @@ public partial class Wizard : System.Web.UI.Page
 
 
 
+    }
+
+    private void addToUserCampuses(List<string> UserCampuses)
+    {
+        if (cbxEngineering.Checked == true)
+        {
+            UserCampuses.Add("Engineering");
+        }
+        if (cbxGroenkloof.Checked == true)
+        {
+            UserCampuses.Add("Groenkloof");
+        }
+        if (cbxHatfield.Checked == true)
+        {
+            UserCampuses.Add("Hatfield");
+        }
+        if (cbxMamelodi.Checked == true)
+        {
+            UserCampuses.Add("Mamelodi");
+        }
+        if (cbxTheology.Checked == true)
+        {
+            UserCampuses.Add("Theology");
+        }
     }
 
     public void generate(ref Globals gb)

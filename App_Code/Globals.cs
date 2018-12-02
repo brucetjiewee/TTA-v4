@@ -17,6 +17,7 @@ using static Modules.LectureSet;
 /// </summary>
 public class Globals
 {
+    #region constants
     private const string YEAR = "Year";
     private const string SEMESTER1 = "Semester 1";
     private const string SEMESTER2 = "Semester 2";
@@ -48,7 +49,8 @@ public class Globals
     private const string YEAR_SHORT_TYPE4 = "Y1";
     private const string YEAR_SHORT_TYPE5 = "J/Y";
     private const string YEAR_SHORT_TYPE6 = "Y/J";
-    
+    #endregion
+
     #region database
     /// <summary>
     /// the global path that will be used for the database.
@@ -135,46 +137,71 @@ public class Globals
             if (emptyFlag != true)
             {
                 int GroupIndex = getGroupIndexFromModuleLecture(inLecture);
+                currentGIndex = VerifyGroupIndex(newMod, currentGIndex, GroupIndex);//this is used to fix up the problems associated with the data given from TUKS
 
-                if (GroupIndex > currentGIndex)
-                {
-                    newMod.AddItem();//adding group
-                                                  /*because some groups start from a number that isn't 1 
-                                                   * so we have to make provision that it doesnt bomb out
-                                                   * #TuksAdmin
-                                                   */
-                    while (newMod.Group.Length <= GroupIndex)
-                    { newMod.AddItem(); }
-
-                    currentGIndex = GroupIndex;
-                }
-
-                newMod.Group[GroupIndex].AddItem();
-                //referencing the group
-                Modules.LectureSet group = newMod.Group[GroupIndex];
-                int SetsIndex = group.Sets.Length - 1;
-                LectureSin set = group.Sets[SetsIndex];//referencing the selected set in the group
-                set.Year = inLecture.Year.ToString();//set year
-                string sLang = inLecture.Lang;
-
-                sLang = GetFullLanguageString(sLang);
-
-                set.Language = sLang.Trim();//set language
-                set.type = inLecture.Type.Trim();//set type
-
-                set.PeriodOfPres = inLecture.TimePeriod.ToString().Trim();//set period of presentation
-                                                                          //string day = ;
-                set.Day = inLecture.Day.Trim();//set day             
-                DateTime StartTime = Convert.ToDateTime(inLecture.StartTime.Trim());
-                set.StartTime = StartTime;//set start time
-                DateTime EndTime = Convert.ToDateTime(inLecture.EndTime.Trim());
-                set.EndTime = EndTime;//set end time
-                set.venue = inLecture.Venue.ToString().Trim();//set venue
-                set.Others = "'";//set others
-                group.GroupFlag = false;
-                set.ItemFlag = false;
+                ExtractLectureSetDetails(newMod, inLecture, GroupIndex);
             }
         }
+    }
+
+    /// <summary>
+    /// breaks down the items from the string and saves them into their individual components in the array
+    /// </summary>
+    /// <param name="newMod">the new module referenced</param>
+    /// <param name="inLecture">the lecture set within the group that is being worked on</param>
+    /// <param name="GroupIndex">the current group that it is being worked on</param>
+    private static void ExtractLectureSetDetails(Modules newMod, Lecture inLecture, int GroupIndex)
+    {
+        newMod.Group[GroupIndex].AddItem();
+        //referencing the group
+        Modules.LectureSet group = newMod.Group[GroupIndex];
+        int SetsIndex = group.Sets.Length - 1;
+        LectureSin set = group.Sets[SetsIndex];//referencing the selected set in the group
+        set.Year = inLecture.Year.ToString();//set year
+        string sLang = inLecture.Lang;
+
+        sLang = GetFullLanguageString(sLang);
+
+        set.Language = sLang.Trim();//set language
+        set.type = inLecture.Type.Trim();//set type
+
+        set.PeriodOfPres = inLecture.TimePeriod.ToString().Trim();//set period of presentation
+                                                                  //string day = ;
+        set.Day = inLecture.Day.Trim();//set day             
+        DateTime StartTime = Convert.ToDateTime(inLecture.StartTime.Trim());
+        set.StartTime = StartTime;//set start time
+        DateTime EndTime = Convert.ToDateTime(inLecture.EndTime.Trim());
+        set.EndTime = EndTime;//set end time
+        set.venue = inLecture.Venue.ToString().Trim();//set venue
+        set.Others = "'";//set others
+        group.GroupFlag = false;
+        set.ItemFlag = false;
+        group.Sets[SetsIndex] = set;
+    }
+
+    /// <summary>
+    /// this is used to fix up the problems associated with the data given from TUKS
+    /// </summary>
+    /// <param name="newMod"></param>
+    /// <param name="currentGIndex"></param>
+    /// <param name="GroupIndex"></param>
+    /// <returns></returns>
+    private static int VerifyGroupIndex(Modules newMod, int currentGIndex, int GroupIndex)
+    {
+        if (GroupIndex > currentGIndex)
+        {
+            newMod.AddItem();//adding group
+                             /*because some groups start from a number that isn't 1 
+                              * so we have to make provision that it doesnt bomb out
+                              * #TuksAdmin
+                              */
+            while (newMod.Group.Length <= GroupIndex)
+            { newMod.AddItem(); }
+
+            currentGIndex = GroupIndex;
+        }
+
+        return currentGIndex;
     }
 
     private static int getGroupIndexFromModuleLecture(Lecture inLecture)
@@ -241,27 +268,17 @@ public class Globals
             int ToUseGroupIndex;
             int groupindex;
             int setindex;
-            int i;
             int iset;
             for (int imodloop = 0; imodloop < PossibleOutComes[IndexCounter].PossibleOutcomes.Count; imodloop++)
             {
                 //referencing the module
                 ModCode = ModulesToBeUsed[imodloop].Name;
-                UserModCounter = -1;
-                for (i = 0; i < UserModules.Length; i++)
-                {
-                    if (UserModules[i].Name == ModCode)
-                    {
-                        UserModCounter = i;
-                        break;
-                    }
-                }
+                UserModCounter = GetModuleIndex(ModCode, out UserModCounter);
 
                 ToUseGroupIndex = PossibleOutComes[IndexCounter].PossibleOutcomes[imodloop];
                 groupindex = RefUseModIndex[imodloop].GroupList[ToUseGroupIndex].GroupIndex;
                 for (iset = 0; iset < RefUseModIndex[imodloop].GroupList[ToUseGroupIndex].SetIndex.Length; iset++)
                 {
-
                     setindex = RefUseModIndex[imodloop].GroupList[ToUseGroupIndex].SetIndex[iset];
                     TimeTable.AddItem(UserModules[UserModCounter], groupindex, setindex, ref this.TimeTable);//**1
                 }
@@ -269,6 +286,26 @@ public class Globals
             }
         }
 
+    }
+
+    /// <summary>
+    /// gets the index within the array of the module that has the module code specified
+    /// </summary>
+    /// <param name="ModCode"></param>
+    /// <param name="UserModCounter"></param>
+    /// <returns></returns>
+    private int GetModuleIndex(string ModCode, out int UserModCounter)
+    {
+        UserModCounter = -1;
+        for (int i = 0; i < UserModules.Length; i++)
+        {
+            if (UserModules[i].Name == ModCode)
+            {
+                UserModCounter = i;
+                break;
+            }
+        }
+        return UserModCounter;
     }
 
     #region COllect Modules and sets
@@ -426,15 +463,7 @@ public class Globals
         {
             currentModule = ModList[iModLoop];
             //checking if current module exists in the fixed modules
-            bool FixedFlag = false;
-            foreach (Modules value in FixedModList)
-            {
-                if (value.Name == currentModule.Name)
-                {
-                    FixedFlag = true;
-                    break;
-                }
-            }
+            bool FixedFlag = checkCurrentFixedModExists(currentModule);
 
             if (!FixedFlag)
             {
@@ -479,15 +508,12 @@ public class Globals
                                         if ((temp[temp.Length - 1].Name != currentModule.Name) ||
                                             (qtype.Substring(0, 1) != CType))//if the module already exist in the temp list then don't increase it
                                         {//as well as the previous type
-
-                                            Array.Resize(ref temp, temp.Length + 1);//add module
-                                            Array.Resize(ref RefUseModIndex, temp.Length);//add module reference
+                                            temp = addModPlusRef(temp);
                                         }
                                     }
                                     else
                                     {
-                                        Array.Resize(ref temp, temp.Length + 1);//add module
-                                        Array.Resize(ref RefUseModIndex, temp.Length);//add module reference
+                                        temp = addModPlusRef(temp);
                                     }
 
                                     #region lazy copying of modules
@@ -547,7 +573,7 @@ public class Globals
                         }
                         #endregion
                     }
-                    
+
                 }
             }
 
@@ -571,6 +597,34 @@ public class Globals
         #endregion
 
         return temp;
+    }
+
+    private Modules[] addModPlusRef(Modules[] temp)
+    {
+        Array.Resize(ref temp, temp.Length + 1);//add module
+        Array.Resize(ref RefUseModIndex, temp.Length);//add module reference
+        return temp;
+    }
+
+    /// <summary>
+    /// loops through all the modules in the fixed modules and checks if the current one exists.
+    /// this is used to find out how we should treat the current module on hand.
+    /// </summary>
+    /// <param name="currentModule"></param>
+    /// <returns></returns>
+    private bool checkCurrentFixedModExists(Modules currentModule)
+    {
+        bool FixedFlag = false;
+        foreach (Modules value in FixedModList)
+        {
+            if (value.Name == currentModule.Name)
+            {
+                FixedFlag = true;
+                break;
+            }
+        }
+        //FixedFlag = FixedModList.Any(o => o.Name == currentModule.Name);
+        return FixedFlag;
     }
 
     /// <summary>
@@ -809,7 +863,6 @@ public class Globals
                 if (bTable[ix, iy] == true)//if it is taken
                 {
                     flag = false;
-
                     break;
                 }
             }
@@ -822,7 +875,7 @@ public class Globals
         }
         #endregion
 
-        //if nothing has been added then we should change the flag to false because its obvious that this group can't not work
+        //if nothing has been added then we should change the flag to false because its obvious that this group can't work
         if (counter == 0)
             flag = false;
 
@@ -881,7 +934,7 @@ public class Globals
         int ix = temptable.GetX(CurrentModule.Group[groupindex].Sets[setindex].Day);
         int iy;
         for (int j = 0; j < NumPer; j++)
-        {
+        {//since one group can span over more than one y-length
             iy = temptable.GetY(CurrentModule.Group[groupindex].Sets[setindex].StartTime) + j;
             thistable[ix, iy] = false;
         }
@@ -947,6 +1000,11 @@ public class Globals
     }
     #endregion
 
+    /// <summary>
+    /// this method runs through all the modules in the fixed module list and adds them to the bool table
+    /// </summary>
+    /// <param name="BoolTable"></param> 
+    /// <param name="FList"></param>
     public void FixedBoolTable(ref bool[,] BoolTable, Modules[] FList)
     {
         DateTime Start;
@@ -1017,7 +1075,6 @@ public class Globals
         else
             if (ModuleCounter < ListModules.Length)//if it hasn't reached the last empty loop
         {
-            int i;
             #region Not at last empty loop
             //int CurrentTypeCounter = TypeCntrPerMod[ModuleCounter];
             if ((FillFlag == true) && (FilledIndex[ModuleCounter] == true))
@@ -1026,26 +1083,11 @@ public class Globals
                 ModuleCounter++;
                 if (ModuleCounter < ListModules.Length)
                 {//testing to see if its the last item again, just to make sure
-                    //wait.current = ListModules[ModuleCounter - 1].Name + " Skipped";
                     AppArray(ref OneOutcome, CurrentGroCounter);//**
-                    //OneOutcome.Group - CurrentGroCounter;
-                    //SinglePossibility[ModuleCounter] = CurrentGroCounter;
-                    #region Test if end of tree
                     if (possibleFlag != true)
                     {
-                        //test to see if all groups up till this module has reached the end
-                        //this is possible because all group indices's have been stored in the possible array of integers
-                        EndFlag = true;
-                        for (i = 0; i < OneOutcome.Length; i++)//true until proven guilt principle used here
-                        {
-                            if ((OneOutcome[i] < ListModules[i].Group.Length - 1))
-                            {
-                                EndFlag = false;
-                                break;
-                            }
-                        }
+                        EndFlag = TestIfEndOfTree(ListModules);
                     }
-                    #endregion
                     Generator(ListModules);//loop on                    
                 }
                 #endregion
@@ -1089,38 +1131,21 @@ public class Globals
                             {
                                 //test to see if all groups up till this module has reached the end
                                 //this is possible because all group indices's have been stored in the possible array of integers
-                                EndFlag = true;
-                                for (i = 0; i < OneOutcome.Length; i++)//true until proven guilt principle used here
-                                {
-                                    if ((OneOutcome[i] < ListModules[i].Group.Length - 1))
-                                    {
-                                        EndFlag = false;
-                                        break;
-                                    }
-                                }
+                                EndFlag = TestIfEndOfTree(ListModules);
 
                                 if (EndFlag == true)//if the one that it broke out of before hasn't reached the end then it should continue
                                     if (ModuleCounter < ListModules.Length - 1)
                                         if (LowerOutcomeGroupIndex < ListModules[ModuleCounter + 1].Group.Length)
                                             EndFlag = false;
                             }
-
-
-
                             #endregion
 
                             if (EndFlag == true)
                                 break;
                             else
                             {
-                                //TypeCntrPerMod[ModuleCounter] = CurrentTypeCounter;
-                                //if (possibleFlag == false)//if it originally is not implemented then tell the user that the branch did fail
-                                                          //wait.current = waitline + " Tree Failed";
-
                                     //cleaning up previous items from bool table
-                                    //ListModules[ModuleCounter].UpdateGroupCheck();
-                                    //ImplementedGroupFlag = false;
-                                    for (i = 0; i < ListModules[ModuleCounter].Group[CurrentGroCounter].Sets.Length; i++)
+                                    for (int i = 0; i < ListModules[ModuleCounter].Group[CurrentGroCounter].Sets.Length; i++)
                                     {
                                         DelFromBoolTable(ref bTable, ListModules[ModuleCounter], j, i);//clear it from the table so it can continue with the test
                                     }
@@ -1128,11 +1153,6 @@ public class Globals
                                 Array.Resize(ref OneOutcome, OneOutcome.Length - 1);//removing that index from the possible index
 
                             }
-                        }
-                        else
-                        {
-                            //int waitGroup = ReferenceGroupIndex[ModuleCounter][j];
-                            //wait.current = ListModules[ModuleCounter].Name + " Group " + (waitGroup + 1) + " Failed";
                         }
 
                         if (possibleFlag == true)//this has to be done after the removal of the implementations as "j" is used there
@@ -1244,16 +1264,30 @@ public class Globals
                 possibleFlag = true;
                 #endregion
             }
-
-            //EndFlag = false;
-
-
         }
-
         #endregion
-
-
     }
+
+    private bool TestIfEndOfTree(Modules[] ListModules)
+    {
+        #region Test if end of tree
+        
+            //test to see if all groups up till this module has reached the end
+            //this is possible because all group indices's have been stored in the possible array of integers
+            EndFlag = true;
+            for (int i = 0; i < OneOutcome.Length; i++)//true until proven guilt principle used here
+            {
+                if ((OneOutcome[i] < ListModules[i].Group.Length - 1))
+                {
+                    EndFlag = false;
+                    break;
+                }
+            }
+        
+        #endregion
+        return EndFlag;
+    }
+
     public int outcomecounter = 0;
     //public GenWait wait = new GenWait();
 
