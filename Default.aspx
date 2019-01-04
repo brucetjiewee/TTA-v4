@@ -9,4 +9,5 @@
             <a href="/../Wizard.aspx" class="btn btn-dark btn-lg">Get Started! <span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </header>
+    <script>alert('Please take note that this website is owned and operated independently from the University of Pretoria. It is a tool intended to aid in the creation of your timetable and as such it is YOUR OWN responsibility to ensure the accuracy of the timetable provided. For more information please feel free to contact us.');</script>
 </asp:Content>
