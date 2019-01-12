@@ -5,7 +5,7 @@ body {
     padding-bottom: 20px;
     height:100vh;
     width: 100vw;
-    background-color: #eee;
+    background-color: #fff;
     overflow-x: hidden;
 }
 
@@ -25,6 +25,29 @@ body {
         padding: 0;
     }
 }
+/* #endregion */
+
+/* #region NOTIFICATION */
+    #notification-overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: 2001;
+    }
+
+    #notification-area {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 490px;
+        min-height: 350px;
+        z-index: 2002;
+    }
+    
 /* #endregion */
 
 /* #region NAV*/
@@ -142,9 +165,6 @@ body {
     background-size: cover;*/
 }
 /* #endregion */
-#main-container {
-    /*padding-top: 84px;*/
-}
 
 /* #region INDEX */
 .btn-dark{
@@ -153,6 +173,9 @@ body {
 /* #endregion */
 
 /* #region WIZARD*/
+#wizard-content {
+    padding-top: 80px;
+}
 label{
     margin-left: 7px;
 }
@@ -161,6 +184,7 @@ label{
 }
 /* #endregion */
 
+/* #region NOT_SURE_YET */
 
 .btnSharp {
     border-radius: 0;
@@ -213,6 +237,7 @@ th {
     border: 3px solid darkblue;
     float:left;
 }
+/* #endregion */
 
 /* #region FOOTER */
     footer{
