@@ -32,15 +32,14 @@ body {
 #tta-nav{
     padding: 14px 14px;
     border-bottom-color: #337ab7;
-    background-color: white !important;
+    background-color: transparent;
     transition: all 0.3s ease-in-out;
 }
 #tta-nav .navbar-brand:hover {
     color: #337ab7;
 }
 #nav-logo {
-    width: 45px;
-    height: 50px;
+    height: 60px;
     border: 0;
 }
 #nav-text {
