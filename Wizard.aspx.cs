@@ -150,10 +150,7 @@ public partial class Wizard : System.Web.UI.Page
             }
             #endregion
         }
-        else
-        {
-            returnList = ((List<string>)Session[campusName]).Where(o => o.ToLower().Contains(keyword)).ToList();
-        }
+
         return returnList;
     }
 
@@ -219,10 +216,12 @@ public partial class Wizard : System.Web.UI.Page
         }
 
     }
-    
+
     List<string> paths = new List<string>();
     protected void btnSearch_Click(object sender, EventArgs e)
     {
+        paths = new List<string>();
+
         SetActivePanel(2);
         try
         {
@@ -430,8 +429,14 @@ public partial class Wizard : System.Web.UI.Page
                 addMod = new Module();
                 foreach (string fullstring in GetStrings(paths, modName))
                 {
-                    inLect = new Lecture(fullstring);
-                    addMod.Lectures.Add(inLect);
+                    string[] tempString = fullstring.Split(',');
+                    string[] group = tempString[1].Split('/');
+
+                    if (group.Count() > 1)
+                    {
+                        inLect = new Lecture(fullstring);
+                        addMod.Lectures.Add(inLect);
+                    }
                 }
 
                 temp = new Module();

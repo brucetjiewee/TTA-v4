@@ -47,7 +47,7 @@ public class Globals
     private const string YEAR_SHORT_TYPE4 = "Y1";
     private const string YEAR_SHORT_TYPE5 = "J/Y";
     private const string YEAR_SHORT_TYPE6 = "Y/J";
-    
+
 
 
 
@@ -667,7 +667,6 @@ public class Globals
 
     #region generator
 
-
     public void DisplayOutcome(int IndexCounter)
     {
         if (PossibleOutComes.Count > 0)//if there is actually something left in the outcome then show
@@ -757,7 +756,7 @@ public class Globals
     /// used to verify period of presentation criteria from user with items in the list
     /// </summary>
     /// <param name="stype">item in list of modules</param>
-    /// <param name="typeCriteria">userdefined specification</param>
+    /// <param name="typeCriteria">user defined specification</param>
     /// <returns></returns>
     bool testPeriod(string speriod, string periodCriteria)
     {
@@ -922,7 +921,7 @@ public class Globals
                                 string slang = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop].Language;
                                 string stype = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop].type.Substring(0, 1);
                                 string sPeriod = ModList[iModLoop].Group[iGroupLoop].Sets[iSetLoop].PeriodOfPres;
-                                if ((testPeriod(sPeriod, PeriodCriteria) == true) && 
+                                if ((testPeriod(sPeriod, PeriodCriteria) == true) &&
                                     (slang == LangCriteria || slang == BOTH || LangCriteria == LANG_EITHER) &&
                                     (stype == CType))
                                 {
@@ -939,7 +938,7 @@ public class Globals
                                         catch { }
                                         #endregion
 
-                                        if ((temp[temp.Length - 1].Name != ModList[iModLoop].Name) || 
+                                        if ((temp[temp.Length - 1].Name != ModList[iModLoop].Name) ||
                                             (qtype.Substring(0, 1) != CType))//if the module already exist in the temp list then dont increase it
                                         {//as well as the previous type
 
@@ -1064,7 +1063,7 @@ public class Globals
         {
             if (currentmodule.Group[i].Sets != null)
             {
-                previous = "~";//placing a random letter there so that the first test will not bomb out. and knowing that it doesnt exist in any of them
+                previous = "~";//placing a random letter there so that the first test will not bomb out. and knowing that it doesn't exist in any of them
                 for (j = 0; j < currentmodule.Group[i].Sets.Length; j++)
                 {
                     if (currentmodule.Group[i].Sets[j].type[0] != previous[0])
@@ -1248,7 +1247,7 @@ public class Globals
     static Table temptable = new Table();
 
     /// <summary>
-    /// a 2D array of booleans used to test though the recursive formula to see if items can fit on or not
+    /// a 2D array of booleans used to test through the recursive formula to see if items can fit on or not
     /// </summary>
     public bool[,] bTable = new bool[8, 16];
 
@@ -1260,10 +1259,10 @@ public class Globals
     /// <returns>true = can be implemented, false = cannot be implemented</returns>
     public bool isPossible(Modules CurrentModule, int groupindex)
     {
-        int counter = 0; //this keeps track of the amount of itms possible
+        int counter = 0; //this keeps track of the amount of items possible
         bool flag = true;
         //Table temptable = new Table();//this is a temporary table made just for some methods that are stored within it
-        //created golbal
+        //created global
         DateTime Start;
         DateTime End;
         int ix;
@@ -1461,7 +1460,7 @@ public class Globals
         {
             EndFlag = true;
         }
-        else 
+        else
             if (ModuleCounter < ListModules.Length)//if it hasn't reached the last empty loop
         {
             int i;
@@ -1506,23 +1505,15 @@ public class Globals
                 {
 
                     #region Collecting CType from modules in list
-                    //string CType = ListOfTypes[TypeCntrPerMod[ModuleCounter]];
                     string CType = ListModules[ModuleCounter].Group[j].Sets[0].type.Substring(0, 1);
-                    int waitGroup = RefUseModIndex[ModuleCounter].GroupList[j].GroupIndex;
-                    string waitline = ListModules[ModuleCounter].Name + " Group " + (waitGroup + 1) + " " + CType;//updating the load line
-
-                    //wait.current = waitline;
-
                     #endregion
 
-                    if (ListModules[ModuleCounter].Group[j].Sets != null)//some groups of some moodules are null
+                    if (ListModules[ModuleCounter].Group[j].Sets != null)//some groups of some modules are null
                     {
                         CurrentGroCounter = j;
                         bool possibleflag = isPossible(ListModules[ModuleCounter], CurrentGroCounter);
                         if (possibleflag == true)
                         {
-                            //wait.current = waitline + " Success";
-                            //ImplementedGroupFlag = true;//set flag = true;
 
                             AddToBoolTable(ref bTable, ListModules[ModuleCounter], j);//add to the boolean table for further testing
 
@@ -1536,14 +1527,14 @@ public class Globals
                             ModuleCounter = CurrentModCounter;//instead of decreasing it, just implement the one stored in the beginning
 
                             if (EndFlag == true)
-                                break;//break out of the last loop if it has reached the end already
+                                break;//break out of the last loop if it has reached the end already. End of branch
 
                             //testing to see if it has reached the end needs to be checked before the last break out of the last recursion
                             #region Test if end of tree
                             if ((possibleFlag != true))
                             {
                                 //test to see if all groups up till this module has reached the end
-                                //this is possible because all group indicies have been stored in the possible array of integers
+                                //this is possible because all group indices's have been stored in the possible array of integers
                                 EndFlag = true;
                                 for (i = 0; i < OneOutcome.Length; i++)//true until proven guilt principle used here
                                 {
@@ -1569,7 +1560,7 @@ public class Globals
                             else
                             {
                                 //TypeCntrPerMod[ModuleCounter] = CurrentTypeCounter;
-                                if (possibleFlag == false)//if it originally is not implemented then tell the user that the branch did fail
+                                //if (possibleFlag == false)//if it originally is not implemented then tell the user that the branch did fail
                                                           //wait.current = waitline + " Tree Failed";
 
                                     //cleaning up previous items from bool table

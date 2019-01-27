@@ -93,10 +93,8 @@ public class Lecture
         string[] temp = new string[7];
         string[] group = new string[5];
 
-
         temp = inputline.Split(',');
         group = temp[1].Split('/');
-
 
         mCampus = temp[0];
         mYear = Convert.ToInt32(group[0]);
