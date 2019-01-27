@@ -21,6 +21,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TTA-v4", ".", "{02438679-AA
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "59619"
+		SlnRelativePath = "..\TTA-v4\"
 	EndProjectSection
 EndProject
 Global
@@ -35,6 +36,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {D9B295D0-3E1D-4328-B552-B567897FE44B}
+		SolutionGuid = {DAAFAD4C-080B-4B5C-9B40-6C6FDF3F2782}
 	EndGlobalSection
 EndGlobal

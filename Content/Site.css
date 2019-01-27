@@ -5,8 +5,17 @@ body {
     padding-bottom: 20px;
     height:100vh;
     width: 100vw;
-    background-color: #eee;
+    background-color: #fff;
     overflow-x: hidden;
+}
+
+#loader {
+    height: 100px;
+    width: 100px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* Wrapping element */
@@ -27,20 +36,70 @@ body {
 }
 /* #endregion */
 
-/* #region NAV*/
+/* #region NOTIFICATION */
+    #notification-overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: 2001;
+    }
 
-#tta-nav{
+    #notification-area {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 490px;
+        min-height: 350px;
+        z-index: 2002;
+    }
+
+#alertModal {
+    z-index: 2001;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+#alertModal .glyphicon{
+    font-size: 49px;
+}
+#alertModal.success .modal-content {
+    box-shadow: 0 0 28px rgba(0, 255, 0, 0.5);
+}
+#alertModal.success .glyphicon {
+    color: forestgreen;
+}
+#alertModal.info .glyphicon {
+    color: dodgerblue;
+}
+    #alertModal.info .modal-content {
+        box-shadow: 0 0 28px rgba(107, 210, 255, 0.5);
+    }
+#alertModal.error .glyphicon {
+    color: darkred;
+}
+#alertModal.error .modal-content {
+    box-shadow: 0 0 28px rgba(140, 0, 0, 0.5);
+}
+#alertModal .modal-header .close {
+    color: black;
+    opacity: 0.7;
+}
+/* #endregion */
+/* #region NAV*/
+#tta-nav {
     padding: 14px 14px;
     border-bottom-color: #337ab7;
-    background-color: white !important;
+    background-color: transparent;
     transition: all 0.3s ease-in-out;
 }
 #tta-nav .navbar-brand:hover {
     color: #337ab7;
 }
 #nav-logo {
-    width: 45px;
-    height: 50px;
+    height: 60px;
     border: 0;
 }
 #nav-text {
@@ -72,9 +131,9 @@ body {
 }
 
 @media(min-width:768px) {
-    body {
+    /*body {*/
         /*padding-top: 100px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
-    }
+    /*}*/
 
     .navbar-fixed-top .navbar-brand {
         padding: 0;
@@ -143,9 +202,6 @@ body {
     background-size: cover;*/
 }
 /* #endregion */
-#main-container {
-    /*padding-top: 84px;*/
-}
 
 /* #region INDEX */
 .btn-dark{
@@ -154,15 +210,21 @@ body {
 /* #endregion */
 
 /* #region WIZARD*/
+#wizard-content {
+    padding-top: 80px;
+}
 label{
     margin-left: 7px;
 }
 .list-group-item{
     border: none;
 }
+
+.panel-buttons{
+    margin-top: 14px;
+}
 /* #endregion */
-
-
+/* #region NOT_SURE_YET */
 .btnSharp {
     border-radius: 0;
 }
@@ -214,6 +276,7 @@ th {
     border: 3px solid darkblue;
     float:left;
 }
+/* #endregion */
 
 /* #region FOOTER */
     footer{
@@ -226,3 +289,7 @@ th {
     }
 
 /* #endregion */
+
+#MainContent_btnRemove {
+    margin-top: 43px;
+}

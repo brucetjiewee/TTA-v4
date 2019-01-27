@@ -39,6 +39,7 @@
                 <%--Framework Scripts--%>
                 <asp:ScriptReference Name="MsAjaxBundle" />
                 <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="notifier"/>
                 <asp:ScriptReference Name="bootstrap" />
                 <asp:ScriptReference Name="respond" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
@@ -111,6 +112,23 @@
             </div>
         </footer>
     </form>
+   
+    <div class="modal fade" id="alertModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> </h4>
+				</div>
+				<div class="modal-body">
+					
+				</div>
+				<%--<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Okay</button>
+				</div>--%>
+			</div>
+		</div>
+	</div>
     <script src="Scripts/Navbar.min.js"></script>
 </body>
 </html>
