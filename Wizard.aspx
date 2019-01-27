@@ -62,7 +62,9 @@
                         <asp:CheckBox class="list-group-item" ID="cbxTheology" runat="server" Text=" Theology Faculty" />
                         <asp:CheckBox class="list-group-item" ID="cbxEngineering" runat="server" Text=" Engineering Faculty" />
                     </div>
-                     <asp:LinkButton ID="btnCampusNext" runat="server" CssClass="btn btn-primary btn-lg pull-right" OnClientClick="loadscreen()" OnClick="btnCampusNext_Click">Next <span class="glyphicon glyphicon-chevron-down"></span></asp:LinkButton>
+                    <div class="row panel-buttons">
+                       <asp:LinkButton ID="btnCampusNext" runat="server" CssClass="btn btn-primary btn-lg pull-right" OnClientClick="loadscreen()" OnClick="btnCampusNext_Click">Next <span class="glyphicon glyphicon-chevron-down"></span></asp:LinkButton>
+                    </div>
                 </div>
                 <div id="ModuleWizard" class="panel-collapse collapse <%= Session["ActiveTwo"]%>" role="tabpanel" aria-labelledby="headingTwo">
                     <h2 class="fcb">Next, let&apos;s select your modules</h2>
@@ -75,15 +77,15 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <h2>Existing modules:</h2>
-                            <asp:LinkButton ID="btnTransfer" runat="server" CssClass="btn btn-default form-control btn-block btnSharp" OnClick="btnTransfer_Click" OnClientClick="loadscreen()">
-                        Add <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
-                            </asp:LinkButton>
                             <div class="input-group">
                                 <asp:TextBox ID="txtInput" type="text" runat="server" OnTextChanged="btnSearch_Click" class="form-control" placeholder="E.g. EKN..."></asp:TextBox>
                                 <span class="input-group-btn">
                                     <asp:Button ID="btnSearch" type="button" runat="server" CssClass="btn btn-default" Text="Search" OnClick="btnSearch_Click" OnClientClick="loadscreen()" />
                                 </span>
                             </div>
+                            <asp:LinkButton ID="btnTransfer" runat="server" CssClass="btn btn-default form-control btn-block btnSharp" OnClick="btnTransfer_Click" OnClientClick="loadscreen()">
+                                Add <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span>
+                            </asp:LinkButton>
                             <asp:ListBox ID="lbxSource" runat="server" CssClass="form-control" SelectionMode="Multiple" Rows="12"></asp:ListBox>
                         </div>
                         <div class="col-sm-6">
@@ -91,9 +93,13 @@
                             <asp:LinkButton ID="btnRemove" runat="server" CssClass="btn btn-default form-control btn-block btnSharp" OnClick="btnRemove_Click" OnClientClick="loadscreen()">
                         <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"> Remove</span>
                             </asp:LinkButton>
-                            <asp:ListBox ID="lbxDestination" runat="server" CssClass="form-control" SelectionMode="Multiple" Rows="14"></asp:ListBox>
+                            <asp:ListBox ID="lbxDestination" runat="server" CssClass="form-control" SelectionMode="Multiple" Rows="12"></asp:ListBox>
                         </div>
+                    </div>
+                    <div class="row panel-buttons">
 
+                        <asp:LinkButton ID="btnModules" runat="server" CssClass="btn btn-primary btn-lg pull-right" OnClientClick="loadscreen()" OnClick="btnModules_Click">Next <span class="glyphicon glyphicon-chevron-down"></span></asp:LinkButton>
+                        <asp:LinkButton ID="backToCampus" runat="server" CssClass="btn btn-danger btn-lg pull-left" OnClientClick="loadscreen()" OnClick="btnBackToCampus_Click">Back <span class="glyphicon glyphicon-chevron-up"></span></asp:LinkButton>
                     </div>
                     
                 </div>
@@ -120,8 +126,10 @@
                         <asp:ListItem>Afrikaans</asp:ListItem>
                         <asp:ListItem>Either</asp:ListItem>
                     </asp:DropDownList>
-                    <asp:LinkButton ID="btnTime" runat="server" CssClass="btn btn-success btn-lg pull-right" type="submit" OnClick="btnTime_Click" OnClientClick="loadscreen()"> Generate  <span aria-hidden="true" class="glyphicon glyphicon-ok"></span></asp:LinkButton>
-                          
+                    <div class="row panel-buttons">
+                        <asp:LinkButton ID="btnTime" runat="server" CssClass="btn btn-success btn-lg pull-right" type="submit" OnClick="btnTime_Click" OnClientClick="loadscreen()"> Generate  <span aria-hidden="true" class="glyphicon glyphicon-ok"></span></asp:LinkButton>
+                        <asp:LinkButton ID="backToModules" runat="server" CssClass="btn btn-danger btn-lg pull-left" OnClientClick="loadscreen()" OnClick="btnBackToModules_Click">Back <span class="glyphicon glyphicon-chevron-up"></span></asp:LinkButton>
+                    </div>
                 </div>
             </div>
         </ContentTemplate>
@@ -129,8 +137,8 @@
     <asp:UpdateProgress ID="WizardProgressPanel" runat="server" AssociatedUpdatePanelID="WizardUpdatePanel">
         <ProgressTemplate>
             <div class="loading" id="loadmodal" style="display: normal"></div>
-            <div class="modal-backdrop" id="modal" style="background-color: rgba(72, 61, 139, 0.70);">
-                <img src="LoadScreen.png" alt="LOADING" style="height: 100px; width: 100px; position: fixed; left: 0; right: 0; top: 0; bottom: 0; margin: auto" />
+            <div class="modal-backdrop" id="modal" style="background-color: rgba(0, 0, 0, 0.70);">
+                <img id="loader" src="LoadScreen.png" alt="LOADING" />
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>

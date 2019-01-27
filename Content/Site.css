@@ -9,6 +9,15 @@ body {
     overflow-x: hidden;
 }
 
+#loader {
+    height: 100px;
+    width: 100px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -47,12 +56,40 @@ body {
         min-height: 350px;
         z-index: 2002;
     }
-    
+
+#alertModal {
+    z-index: 2001;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+#alertModal .glyphicon{
+    font-size: 49px;
+}
+#alertModal.success .modal-content {
+    box-shadow: 0 0 28px rgba(0, 255, 0, 0.5);
+}
+#alertModal.success .glyphicon {
+    color: forestgreen;
+}
+#alertModal.info .glyphicon {
+    color: dodgerblue;
+}
+    #alertModal.info .modal-content {
+        box-shadow: 0 0 28px rgba(107, 210, 255, 0.5);
+    }
+#alertModal.error .glyphicon {
+    color: darkred;
+}
+#alertModal.error .modal-content {
+    box-shadow: 0 0 28px rgba(140, 0, 0, 0.5);
+}
+#alertModal .modal-header .close {
+    color: black;
+    opacity: 0.7;
+}
 /* #endregion */
-
 /* #region NAV*/
-
-#tta-nav{
+#tta-nav {
     padding: 14px 14px;
     border-bottom-color: #337ab7;
     background-color: transparent;
@@ -94,9 +131,9 @@ body {
 }
 
 @media(min-width:768px) {
-    body {
+    /*body {*/
         /*padding-top: 100px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
-    }
+    /*}*/
 
     .navbar-fixed-top .navbar-brand {
         padding: 0;
@@ -182,10 +219,12 @@ label{
 .list-group-item{
     border: none;
 }
+
+.panel-buttons{
+    margin-top: 14px;
+}
 /* #endregion */
-
 /* #region NOT_SURE_YET */
-
 .btnSharp {
     border-radius: 0;
 }
@@ -250,3 +289,7 @@ th {
     }
 
 /* #endregion */
+
+#MainContent_btnRemove {
+    margin-top: 43px;
+}
