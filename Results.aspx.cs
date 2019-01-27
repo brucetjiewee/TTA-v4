@@ -50,11 +50,11 @@ public partial class Results : System.Web.UI.Page
             if (Session["Clash"] != null)
             {
                 //Response.Write("window.alert('" + Session["Clash"].ToString() + "');");
-                string test = "alert('" + Session["Clash"].ToString() + "')";
+                string test = Session["Clash"].ToString();
                 //string input = "alert('I could not find a perfect solution for you so I generated a TimeTable without: INF 315 (P) Please remember to add this module in manually')";//Session["Clash"].ToString();
 
 
-                NotificationCenter.ShowNotification(this, test);
+                NotificationCenter.ShowNotification(this, test, AlertTypes.error);
             }
 
         }

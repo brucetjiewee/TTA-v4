@@ -17,8 +17,15 @@ public class NotificationCenter
         //
     }
 
-    public static void ShowNotification(Page form, string message)
+    public static void ShowNotification(Page form,  string message, string alertType)
     {
-        ScriptManager.RegisterClientScriptBlock(form, form.GetType(), ALERTMESSAGE_HEADER, "alert('"+message+"')", true);
+        ScriptManager.RegisterClientScriptBlock(form, form.GetType(), ALERTMESSAGE_HEADER, "notify('" + alertType + "', '" + message + "')", true);
     }
+}
+
+public struct AlertTypes
+{
+    public static readonly string error = "error";
+    public static readonly string info = "info";
+    public static readonly string success = "success";
 }

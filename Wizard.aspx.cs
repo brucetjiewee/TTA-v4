@@ -214,7 +214,8 @@ public partial class Wizard : System.Web.UI.Page
         }
         catch (Exception)
         {
-            NotificationCenter.ShowNotification(this, "We are experiencing difficulty contacting UP servers. Please bear with us while we attempt to resolve this. Certain funtionality may be limited. If the problem persists please contact us via the contact page.");
+            string errorMessage = "We are experiencing difficulty contacting UP servers. Please bear with us while we attempt to resolve this. Certain funtionality may be limited. If the problem persists please contact us via the contact page.";
+            NotificationCenter.ShowNotification(this, errorMessage, AlertTypes.error);
         }
 
     }
@@ -247,7 +248,8 @@ public partial class Wizard : System.Web.UI.Page
             }
             if (paths.Count < 1)
             {
-                NotificationCenter.ShowNotification(this, "Please be sure to select at least one campus!");
+                string campusMessage = "Please be sure to select at least one campus!";
+                NotificationCenter.ShowNotification(this, campusMessage, AlertTypes.info);
                 SetActivePanel(1);
                 return;
             }
@@ -263,7 +265,7 @@ public partial class Wizard : System.Web.UI.Page
 
             if (lbxSource.Items.Count < 1)
             {
-                NotificationCenter.ShowNotification(this, "We couldn't find a module with that code. Please try again.");
+                NotificationCenter.ShowNotification(this, "We couldn't find a module with that code. Please try again.", AlertTypes.info);
             }
         }
         catch (Exception)
@@ -282,12 +284,21 @@ public partial class Wizard : System.Web.UI.Page
 
         if (iCheckCount == 0) // Catches unchecked checkboxes
         {
-            NotificationCenter.ShowNotification(this, "Please select a campus first.");
+            NotificationCenter.ShowNotification(this, "Please select a campus first.", AlertTypes.info);
         }
         else if (iCheckCount > 2) // Catches checks exceeding 2 checkboxes
         {
-            NotificationCenter.ShowNotification(this, "Cannot select more than 2 campuses. Ensure that a maximum of 2 campuses are selected.");
+            NotificationCenter.ShowNotification(this, "Cannot select more than 2 campuses. Ensure that a maximum of 2 campuses are selected.", AlertTypes.error);
         }
+    }
+
+    protected void btnBackToCampus_Click(object sender, EventArgs e)
+    {
+        SetActivePanel(1);
+    }
+    protected void btnBackToModules_Click(object sender, EventArgs e)
+    {
+        SetActivePanel(2);
     }
 
     protected void btnTransfer_Click(object sender, EventArgs e)
@@ -299,7 +310,7 @@ public partial class Wizard : System.Web.UI.Page
 
             if (lbxSource.Items.Count > 1 && lbxSource.SelectedIndex < 0)
             {
-                NotificationCenter.ShowNotification(this, "Please select at least one module!");
+                NotificationCenter.ShowNotification(this, "Please select at least one module!", AlertTypes.info);
                 return;
             }
             if (lbxSource.Items.Count == 1 && lbxSource.SelectedIndex != 0)
@@ -351,6 +362,11 @@ public partial class Wizard : System.Web.UI.Page
 
     }
 
+    protected void btnModules_Click(object sender, EventArgs e)
+    {
+        SetActivePanel(3);
+    }
+
     protected void btnTime_Click(object sender, EventArgs e)
     {
         try
@@ -359,7 +375,7 @@ public partial class Wizard : System.Web.UI.Page
             if (!cbxEngineering.Checked && !cbxGroenkloof.Checked && !cbxHatfield.Checked && !cbxMamelodi.Checked && !cbxTheology.Checked)
             {
                 //throw error message. Have fun with it later.
-                NotificationCenter.ShowNotification(this, "Please select at least one campus or faculty!");
+                NotificationCenter.ShowNotification(this, "Please select at least one campus or faculty!", AlertTypes.info);
                 SetActivePanel(1);
                 return;
             }
@@ -401,7 +417,7 @@ public partial class Wizard : System.Web.UI.Page
             if (paths.Count < 1)
             {
                 //throw error message. Have fun with it later.
-                NotificationCenter.ShowNotification(this, "Session Timeout. Please reselect at least one campus or faculty!");
+                NotificationCenter.ShowNotification(this, "Session Timeout. Please reselect at least one campus or faculty!", AlertTypes.error);
                 SetActivePanel(1);
                 return;
             }
@@ -452,12 +468,12 @@ public partial class Wizard : System.Web.UI.Page
             else
             {
                 //alert
-                NotificationCenter.ShowNotification(this, "We couldn't find a match for you. Please confirm that all provided information is accurate.");
+                NotificationCenter.ShowNotification(this, "We couldn't find a match for you. Please confirm that all provided information is accurate.", AlertTypes.error);
             }
         }
         catch (Exception x)
         {
-            NotificationCenter.ShowNotification(this, "" + x.Message + "')");
+            NotificationCenter.ShowNotification(this, x.Message, AlertTypes.error);
         }
 
 
@@ -489,7 +505,8 @@ public partial class Wizard : System.Web.UI.Page
         if (gb.ModulesToBeUsed.Length == 0)
         {
             // KryptonMessageBox.Show("I don't think the criterias you selected fits your modules\nWill it be ok if you double check your language and period of presentation?", "Criteria Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            NotificationCenter.ShowNotification(this, "Could not find a result for the criteria selected. Please double check your input.");
+            NotificationCenter.ShowNotification(this, "Could not find a result for the criteria selected. Please double check your input.</br>" +
+                "eg. Make sure that the modules you've selected are all for the same semester.", AlertTypes.info);
         }
         else
         {
@@ -641,7 +658,7 @@ public partial class Wizard : System.Web.UI.Page
         {
             if (lbxDestination.Items.Count > 1 && lbxDestination.SelectedIndex < 0)
             {
-                NotificationCenter.ShowNotification(this, "Please select at least one module to remove!");
+                NotificationCenter.ShowNotification(this, "Please select at least one module to remove!", AlertTypes.error);
                 return;
             }
 
@@ -743,7 +760,7 @@ public partial class Wizard : System.Web.UI.Page
             }
             if (paths.Count < 1)
             {
-                NotificationCenter.ShowNotification(this, "Please be sure to select at least one campus!");
+                NotificationCenter.ShowNotification(this, "Please be sure to select at least one campus!", AlertTypes.info);
                 SetActivePanel(1);
                 return;
             }
@@ -754,7 +771,7 @@ public partial class Wizard : System.Web.UI.Page
 
             if (lbxSource.Items.Count < 1)
             {
-                NotificationCenter.ShowNotification(this, "We couldn't find a module with that code. Please try again.");
+                NotificationCenter.ShowNotification(this, "We couldn't find a module with that code. Please try again.", AlertTypes.info);
             }
         }
         catch (Exception ex)

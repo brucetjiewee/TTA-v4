@@ -33,6 +33,7 @@ namespace TTA
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                             "~/Scripts/modernizr-*"));
+           
             
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "respond",
@@ -40,6 +41,12 @@ namespace TTA
                 {
                     Path = "~/Scripts/respond.min.js",
                     DebugPath = "~/Scripts/respond.js",
+                });
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "notifier",
+                new ScriptResourceDefinition
+                {
+                    Path = "~/Scripts/notifier.js"
                 });
         }
     }
