@@ -36,9 +36,9 @@
                                     Developer<br />
                                     <hr />
                                     <strong>
-                                        <abbr title="Phone">Cell:</abbr></strong> (082) 559 2322<br />
+                                        <abbr title="Phone">Cell:</abbr></strong> -<br />
                                     <strong>
-                                        <abbr title="E-mail">E-mail:</abbr></strong> <a href="mailto:lukevoigt0407@gmail.com" class="fct">lukevoigt0407@gmail.com</a><br />
+                                        <abbr title="E-mail">E-mail:</abbr></strong> <a class="fct">-</a><br />
                                 </address>
                             </div>
                             <div id="thumbRuco" class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
@@ -50,9 +50,9 @@
                                     Developer<br />
                                     <hr />
                                     <strong>
-                                        <abbr title="Phone">Cell:</abbr></strong> (084) 207 1214<br />
+                                        <abbr title="Phone">Cell:</abbr></strong> -<br />
                                     <strong>
-                                        <abbr title="E-mail">E-Mail:</abbr></strong> <a href="mailto:ruco.facebook@gmail.com" class="fct">ruco.facebook@gmail.com</a><br />
+                                        <abbr title="E-mail">E-Mail:</abbr></strong> <a class="fct"></a><br />
                                 </address>
                             </div>
                         </div>

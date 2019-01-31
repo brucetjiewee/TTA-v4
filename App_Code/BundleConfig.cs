@@ -48,6 +48,8 @@ namespace TTA
                 {
                     Path = "~/Scripts/notifier.js"
                 });
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
